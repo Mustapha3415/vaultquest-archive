@@ -117,7 +117,7 @@ export const RELEASE_READINESS_CHECKLIST: readonly ReleaseChecklistItem[] = [
 export interface ReleaseChecklistStatus {
   id: ReleaseChecklistItemId;
   title: string;
-  automated: boolead;
+  automated: boolean;
   /** Whether the item has been attested by the PR author/maintainer. */
   attested: boolean;
 }

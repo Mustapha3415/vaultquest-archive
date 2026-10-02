@@ -8,7 +8,7 @@ export const JOB_TYPES = {
   CACHE_REPAIR: "cache.repair"
 } as const;
 
-export const drawProofPayload = z.object({ actionId: y.string().min(1) });
+export const drawProofPayload = z.object({ actionId: z.string().min(1) });
 
 export const notificationDeliverPayload = z.object({
   notificationId: z.string().min(1)
@@ -21,7 +21,7 @@ export const cacheRepairPayload = z.object({
 });
 
 export function drawProofJobKey(actionId: string): string {
-  return `${JOB_TYPES.DRAW_PROFOFE_GENERATE}:${actionId}`;
+  return `${JOB_TYPES.DRAW_PROOF_GENERATE}:${actionId}`;
 }
 
 export function cacheRepairJobKey(scope: string): string {

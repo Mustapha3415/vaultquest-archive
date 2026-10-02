@@ -1,101 +1,19 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { SchemaVersionService } from "../src/services/schemaVersionService.js";
-import { SCHEMA_VERSIONS } from "../src/constants.js";
+import { SCHEMA_VERSIONS, getVersionMismatch } from "../src/constants.js";
+import {
+  RECORD_SCHEMA_VERSION,
+  RecordCompatibilityError,
+  UnsupportedSchemaVersionError,
+} from "../src/schemas/recordCompatibility.js";
 
 /**
- * Legacy VAULTQUEST fixture pack.
+ * SchemaVersionService covers the deployment-facing half of schema versioning:
+ * the database/indexer stamps and the preflight compatibility check (#803).
  *
- * Provenance:
-* These records mirror the historical shapes emitted by the VaultQuest
- * indexer and prize vault accounting layers before the current schema
- * version. They are used to exercise the compatibility layer and
- * migration path that normalizes old records into the current shape.
- *
- * Coverage:
- * - clean legacy record (valid old shape)
- * - missing field (old shape lacking a required field)
- * - deprecated field (old shape carrying a field no longer used)
- * - incompatible legacy record (shape that cannot be migrated)
+ * Record-shape compatibility (legacy reads, new writes, unsupported versions)
+ * is covered against the fixture pack in `tests/legacyRecordMigration.spec.ts`.
  */
-
-export interface LegacyVaultRecord {
-  vaultId: string;
-  ownerAddress: string;
-  prizePoolId?: string;
-  depositTotal?: string;
-  // Deprecated in current schema; kept only for legacy records.
-  legacyPrizePoolId?: string;
-  schemaVersion?: string;
-}
-
-export interface CurrentVaultRecord {
-  vaultId: string;
-  ownerAddress: string;
-  prizePoolId: string;
-  depositTotal: bigint;
-  schemaVersion: string;
-}
-
-export const LEGACY_FIXTURES: Record<string, LegacyVaultRecord> = {
-  clean: {
-    vaultId: "vault-legacy-001",
-    ownerAddress: "0x111111111111111111111111111111111111111",
-    prizePoolId: "pool-legacy-001",
-    depositTotal: "10000000000000000000",
-    schemaVersion: SCHEM_VERSIONS.DATABASE.replace(/^(\d+)\.(\d+)\.(\d+)$/, "$1.$2.0"),
-  },
-  missingField: {
-    vaultId: "vault-legacy-002",
-    ownerAddress: "0x222222222222222222222222222222222222222",
-    // prizePoolId intentionally omitted
-    depositTotal: "5000000000000000000",
-    schemaVersion: SCHEMA_VERSIONS.DATABASE.replace(/^(\d+)\.(\d+)\.(\d+)$/, "$1.$2.0"),
-  },
-  deprecatedField: {
-    vaultId: "vault-legacy-003",
-    ownerAddress: "0x333333333333333333333333333333333333333",
-    prizePoolId: "pool-legacy-003",
-    depositTotal: "7500000000000000000",
-    legacyPrizePoolId: "pool-legacy-003",
-    schemaVersion: SCHEMA_VERSIONS.DATABASE.replace(/^(\d+)\.(\d+)\.(\d+)$/, "$1.$2.0"),
-  },
-  incompatible: {
-    vaultId: "",
-    ownerAddress: "",
-    prizePoolId: "",
-    depositTotal: "not-a-number",
-    schemaVersion: "unknown",
-  },
-};
-
-export function migrateLegacyVaultRecord(
-  record: LegacyVaultRecord,
-): { ok: true; value: CurrentVaultRecord } | { ok: false; error: string } {
-  if (!record.vaultId || typeof record.vaultId !== "string") {
-    return { ok: false, error: "missing or invalid vaultId" };
-  }
-  if (!record.ownerAddress || typeof record.ownerAddress !== "string") {
-    return { ok: false, error: "missing or invalid ownerAddress" };
-  }
-  const prizePoolId = record.prizePoolId ?? record.legacyPrizePoolId;
-  if (!prizePoolId) {
-    return { ok: false, error: "missing prizePoolId" };
-  }
-  if (typeof record.depositTotal !== "string" || !/^\d+$/.test(record.depositTotal)) {
-    return { ok: false, error: "invalid depositTotal" };
-  }
-  return {
-    ok: true,
-    value: {
-      vaultId: record.vaultId,
-      ownerAddress: record.ownerAddress,
-      prizePoolId,
-      depositTotal: BigInt(record.depositTotal),
-      schemaVersion: SCHEMA_VERSIONS.DATABASE.replace(/^(\d+)\.(\d+)\.(\d+)$/, "$1.$2.0"),
-    },
-  };
-}
-
 describe("SchemaVersionService", () => {
   let mockPrisma: any;
   let service: SchemaVersionService;
@@ -137,61 +55,117 @@ describe("SchemaVersionService", () => {
       expect(result.indexerVersion).toBe("0.9.0");
       expect(result.issues).toEqual(
         expect.arrayContaining([
-          expect.stringContaining("Indexer schema version 0.9.0 is not supported")
-        ])
+          expect.stringContaining("Indexer schema version 0.9.0 is not supported"),
+        ]),
       );
+    });
+
+    it("accepts database and indexer stamps inside the supported window", async () => {
+      mockPrisma.$queryRaw.mockResolvedValue([
+        { migration_name: "20260725000002_add_wallet_auth" },
+      ]);
+      mockPrisma.indexerCheckpoint.findUnique.mockResolvedValue({
+        indexerVersion: "20260725000002",
+      });
+
+      const result = await service.validateSchemaVersions();
+      expect(result).toMatchObject({ valid: true, issues: [] });
+      expect(result.databaseVersion).toBe("20260725000002");
+    });
+
+    it("rejects a database stamp older than the supported window", async () => {
+      mockPrisma.$queryRaw.mockResolvedValue([
+        { migration_name: "20260101000000_pre_window" },
+      ]);
+      mockPrisma.indexerCheckpoint.findUnique.mockResolvedValue({
+        indexerVersion: SCHEMA_VERSIONS.INDEXER,
+      });
+
+      const result = await service.validateSchemaVersions();
+      expect(result.valid).toBe(false);
+      expect(result.issues.join(" ")).toContain("Database schema version 20260101000000 is not supported");
+    });
+
+    it("reports stamps it cannot read instead of guessing", async () => {
+      mockPrisma.$queryRaw.mockResolvedValue([]);
+      mockPrisma.indexerCheckpoint.findUnique.mockResolvedValue(null);
+
+      const result = await service.validateSchemaVersions();
+      expect(result.valid).toBe(false);
+      expect(result.databaseVersion).toBe("unknown");
+      expect(result.issues).toHaveLength(2);
     });
   });
 
-  describe("legacy fixture pack", () => {
-    it("validates the clean legacy record against the expected old shape", () => {
-      const record = LEGGACY_FIXTURES.clean;
-      expect(record.vaultId).toBe("vault-legacy-001");
-      expect(record.ownerAddress).toMatch(/^0x[0-9a-fA-F]+$/);
-      expect(record.prizePoolId).toBeDefined();
-      expect(record.depositTotal).toMatch(/^\d+$/);
+  describe("record migration delegation", () => {
+    const legacyRecord = {
+      schemaVersion: "0.9.0",
+      id: "legacy-vault-010",
+      owner: "0x5555555555555555555555555555555555555555",
+      asset: "0x0000000000000000000000000000000000000000",
+      balance: "1000000000000000000",
+      prizePoolId: "prize-pool-010",
+      createdAt: "2024-01-01T00:00:00.000Z",
+      updatedAt: "2024-01-02T00:00:00.000Z",
+    };
+
+    it("validates a legacy record against its declared version", () => {
+      expect(service.validateLegacyRecord(legacyRecord)).toEqual([]);
+      expect(service.validateLegacyRecord({ schemaVersion: "0.1.0" })).toEqual([
+        expect.stringContaining("incompatible schema version: 0.1.0"),
+      ]);
+      expect(
+        service.validateLegacyRecord({ ...legacyRecord, prizePoolId: undefined }),
+      ).toEqual([expect.stringContaining("prizePoolId")]);
     });
 
-    it("migrates a clean legacy record into a current valid record", () => {
-      const result = migrateLegacyVaultRecord(LEGACY_FIXTURES.clean);
+    it("migrates a legacy record to the current schema version", () => {
+      const result = service.migrateLegacyRecord(legacyRecord);
       expect(result.ok).toBe(true);
-      if (result.ok) {
-        expect(result.value.vaultId).toBe(LEGACY_FIXTURES.clean.vaultId);
-        expect(typeof result.value.depositTotal).toBe("bigint");
-        expect(result.value.schemaVersion).toBe(
-          SCHEMA_VERSIONS.DATABASE.replace(/^(\d+)\.(\d+)\.(\d+)$/, "$1.$2.0"),
-        );
-      }
+      expect(result.record?.schemaVersion).toBe(RECORD_SCHEMA_VERSION);
+      expect(result.record?.ownerAddress).toBe(legacyRecord.owner);
     });
 
-    // Acceptance criteria: missing field
-    it("fails to migrate a legacy record missing a required field", () => {
-      const result = migrateLegacyVaultRecord(LEGACY_FIXTURES.missingField);
+    it("fails migration with a descriptive error for unsupported versions", () => {
+      const result = service.migrateLegacyRecord({ ...legacyRecord, schemaVersion: "9.9.9" });
       expect(result.ok).toBe(false);
-      if (!result.ok) {
-        expect(result.error).toContain("prizePoolId");
-      }
+      expect(result.issues).toContain("incompatible schema version: 9.9.9");
     });
+  });
+});
 
-    // Acceptance criteria: deprecated field
-    it("migrates a legacy record that carries a deprecated field", () => {
-      const record = LEGACY_FIXTURES.deprecatedField;
-      expect(record.legacyPrizePoolId).toBeDefined();
-      const result = migrateLegacyVaultRecord(record);
-      expect(result.ok).toBe(true);
-      if (result.ok) {
-        expect(result.value.prizePoolId).toBe(record.prizePoolId);
-        expect("deprecated" in result.value).toBe(false);
-      }
+describe("getVersionMismatch", () => {
+  it("treats matching stamps inside the window as compatible", () => {
+    expect(getVersionMismatch(SCHEMA_VERSIONS.DATABASE, SCHEMA_VERSIONS.INDEXER)).toEqual({
+      compatible: true,
+      issues: [],
     });
+  });
 
-    // Acceptance criteria: incompatible legacy record
-    it("rejects an incompatible legacy record", () => {
-      const result = migrateLegacyVaultRecord(LEGGACY_FIXTURES.incompatible);
-      expect(result.ok).toBe(false);
-      if (!result.ok) {
-        expect(result.error).toMatch(/vaultId|ownerAddress|depositTotal/);
-      }
-    });
+  it("flags stamps newer than the build understands", () => {
+    const future = "29991231235959";
+    const { compatible, issues } = getVersionMismatch(future, SCHEMA_VERSIONS.INDEXER);
+    expect(compatible).toBe(false);
+    expect(issues.join(" ")).toContain(`Database schema version ${future} is not supported`);
+  });
+
+  it("flags unreadable stamps on both halves", () => {
+    const { compatible, issues } = getVersionMismatch("unknown", "unknown");
+    expect(compatible).toBe(false);
+    expect(issues).toHaveLength(2);
+  });
+});
+
+describe("compatibility layer error contract", () => {
+  it("exposes a stable machine-readable code for unsupported versions", () => {
+    const error = new UnsupportedSchemaVersionError("0.1.0");
+    expect(error.code).toBe("UNSUPPORTED_SCHEMA_VERSION");
+    expect(error.message).toContain("incompatible schema version: 0.1.0");
+  });
+
+  it("exposes the failing field issues for invalid records", () => {
+    const error = new RecordCompatibilityError(["prizePoolId: Required"]);
+    expect(error.code).toBe("RECORD_SCHEMA_INVALID");
+    expect(error.issues).toEqual(["prizePoolId: Required"]);
   });
 });

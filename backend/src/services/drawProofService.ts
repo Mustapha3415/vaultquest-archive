@@ -1,7 +1,7 @@
 import type { PrismaClient } from "@prisma/client";
 import type { Logger } from "pino";
 import { withTelemetry } from "./telemetry.js";
-import { canonicalize, canonicalJson, canonicalHash } from "../../../lib/canonical.js";
+import { canonicalize, canonicalJson, canonicalHash } from "../utils/canonicalJson.js";
 import {
   assembleDrawProof,
   verifyProofIntegrity,

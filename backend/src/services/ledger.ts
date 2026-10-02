@@ -1,7 +1,7 @@
 import { Prisma } from "@prisma/client";
 import type { PrismaClient } from "@prisma/client";
 import { randomUUID } from "node:crypto";
-import { ERROR_CODES, FINALITY_POLICY } from "../constants.js";
+import { ERROR_CODES, FINALITY_POLICY, canTransition, type ActionStatus } from "../constants.js";
 import { AppError } from "../errors.js";
 import { withTelemetry } from "./telemetry.js";
 import type { IntentInput, ActionRecord } from "../types.js";
@@ -286,20 +286,20 @@ export class LedgerService {
     const expiresAt = new Date(Date.now() + (ttlMs ?? this.defaultLeaseTtlMs));
     try {
       await this.prisma.actionLease.create({
-        data: { actionId: input.actionId, workerId: input.workerId, expiresAt }
+        data: { actionId, workerId, expiresAt }
       });
       return true;
     } catch (err) {
       if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === "P2002") {
-        const owned = await this.prisma.actionLease.findUnique({ where: { actionId: input.actionId } });
+        const owned = await this.prisma.actionLease.findUnique({ where: { actionId } });
         if (!owned || owned.expiresAt.getTime() <= Date.now()) {
           const replaced = await this.prisma.actionLease.updateMany({
-            where: { actionId: input.actionId, expiresAt: { lte: new Date() } },
-            data: { workerId: input.workerId, acquiredAt: new Date(), expiresAt }
+            where: { actionId, expiresAt: { lte: new Date() } },
+            data: { workerId, acquiredAt: new Date(), expiresAt }
           });
           return replaced.count > 0;
         }
-        return owned.workerId === input.workerId;
+        return owned.workerId === workerId;
       }
       throw err;
     }

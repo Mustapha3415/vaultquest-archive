@@ -504,7 +504,7 @@ export class StellarIndexer {
     // per-event path did — only the *timing* changes, never the outcomes.
     if (batchEvents.length > 0) {
       try {
-        const outcomes = await ledger.reconcileEvents(batchEvents.map(toReconcileInput));
+        const outcomes = await ledger.reconcileEvent(batchEvents.map(toReconcileInput));
         for (let i = 0; i < outcomes.length; i++) {
           imported += 1;
           // outcomes is 1:1 with batchEvents (both built in the same loop).

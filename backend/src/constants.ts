@@ -168,3 +168,121 @@ export const FINALITY_POLICY = {
 } as const;
 
 export type FinalityPolicy = typeof FINALITY_POLICY;
+
+/**
+ * Schema stamps for the versioned API and the deployment preflight check (#803).
+ *
+ * Both stamps are derived from Prisma migration names: the 14-digit prefix of a
+ * migration directory (e.g. `20260725000002_add_wallet_auth` -> `20260725000002`).
+ * Because they share one coordinate system, the database stamp and the stamp the
+ * indexer reports can be compared directly.
+ *
+ * - `DATABASE` – migration stamp this build expects the database to be at.
+ * - `INDEXER`  – stamp the indexer writes into its checkpoint on startup.
+ * - `OLDEST`   – oldest migration stamp this build can still serve. Anything
+ *   older predates a schema the current code depends on and must be migrated first.
+ * - `SUPPORTED_*` – the migration stamps inside the supported window, published
+ *   through `GET /schema-version` so integrators can see what is servable.
+ *   Compatibility itself is a range check (see `getVersionMismatch`), so a stamp
+ *   inside the window that is not enumerated here is still compatible.
+ *
+ * Versioning rules:
+ * - Adding a migration that changes the shape of read/write paths bumps
+ *   `DATABASE` and `INDEXER` together and appends the stamp to `SUPPORTED_*`.
+ * - Extending the window backwards (raising `OLDEST`) is a breaking change for
+ *   anyone pinned to an older deployment and must be announced in
+ *   `backend/docs/SCHEMA_VERSIONS.md`.
+ */
+export const SCHEMA_VERSIONS = {
+  DATABASE: "20261001000001",
+  INDEXER: "20261001000001",
+  OLDEST: "20260725000002",
+  SUPPORTED_DATABASE_VERSIONS: [
+    "20260725000002",
+    "20260728000000",
+    "20260728000001",
+    "20260728010000",
+    "20260729000000",
+    "20260729000001",
+    "20260729000002",
+    "20260825000000",
+    "20260830000000",
+    "20260924000000",
+    "20260925000000",
+    "20260926000000",
+    "20260926000001",
+    "20260926000002",
+    "20260927000000",
+    "20260927000001",
+    "20260929000000",
+    "20260930000000",
+    "20261001000000",
+    "20261001000001",
+  ],
+  SUPPORTED_INDEXER_VERSIONS: [
+    "20260725000002",
+    "20260728000000",
+    "20260728000001",
+    "20260728010000",
+    "20260729000000",
+    "20260729000001",
+    "20260729000002",
+    "20260825000000",
+    "20260830000000",
+    "20260924000000",
+    "20260925000000",
+    "20260926000000",
+    "20260926000001",
+    "20260926000002",
+    "20260927000000",
+    "20260927000001",
+    "20260929000000",
+    "20260930000000",
+    "20261001000000",
+    "20261001000001",
+  ],
+} as const;
+
+/**
+ * Compare a reported schema stamp against the window this build supports.
+ *
+ * Both stamps live on the same 14-digit migration coordinate system, so the
+ * window check is a lexicographic range check. `unknown` means the stamp could
+ * not be read at all (no migrations applied / no indexer checkpoint yet) and is
+ * reported as its own issue so a deployment never guesses.
+ */
+export function getVersionMismatch(
+  databaseVersion: string,
+  indexerVersion: string,
+): { compatible: boolean; issues: string[] } {
+  const issues: string[] = [];
+
+  const check = (
+    label: "Database" | "Indexer",
+    version: string,
+    expected: string,
+  ): void => {
+    if (version === "unknown") {
+      issues.push(
+        `${label} schema version could not be determined; apply pending migrations or start the indexer before deploying.`,
+      );
+      return;
+    }
+    if (version < SCHEMA_VERSIONS.OLDEST) {
+      issues.push(
+        `${label} schema version ${version} is not supported: it is older than the oldest supported version ${SCHEMA_VERSIONS.OLDEST}.`,
+      );
+      return;
+    }
+    if (version > expected) {
+      issues.push(
+        `${label} schema version ${version} is not supported by this build (expected ${expected}); roll the deployment back to a build that understands it.`,
+      );
+    }
+  };
+
+  check("Database", databaseVersion, SCHEMA_VERSIONS.DATABASE);
+  check("Indexer", indexerVersion, SCHEMA_VERSIONS.INDEXER);
+
+  return { compatible: issues.length === 0, issues };
+}

@@ -24,6 +24,7 @@
     "lint": "eslint \"src/**/*.ts\" \"tests/**/*.ts\"",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:schema-compat": "vitest run tests/legacyRecordMigration.spec.ts tests/schemaVersionService.spec.ts",
     "test:e2e": "vitest run tests/e2e",
     "prisma:generate": "prisma generate",
     "prisma:mygrate": "prisma migrate dev",

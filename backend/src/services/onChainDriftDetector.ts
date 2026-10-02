@@ -200,7 +200,7 @@ export class OnChainDriftDetector {
     let checkedEntities = 0;
 
     // 1. Read chain tip and indexer watermark to establish race-free baseline
-    const chainLedger = await this.onChainReader.getChainTipLedge();
+    const chainLedger = await this.onChainReader.getChainTipLedger();
     const checkpoint = await this.prisma.indexerCheckpoint.findUnique({
       where: { id: "singleton" },
     });
@@ -332,7 +332,7 @@ export class OnChainDriftDetector {
         severity: isIngestionLag ? "INFO" : (delta < 0n ? "CRITICAL" : "WARNING"),
         chainLedger,
         indexerWatermark,
-        rootCauseHint: isingestionLag
+        rootCauseHint: isIngestionLag
           ? "Potential live ingestion lag: in-flight transactions detected"
           : (delta < 0n ? "Insolvency risk: On-chain balance is lower than ledger tracked deposits" : "Unindexed on-chain deposits or missed event"),
         detectedAt: new Date(),
@@ -422,7 +422,7 @@ export class CacheRepairJob {
         if (!sourceIds.has(entry.entityId)) {
           staleness.push({
             entryId: entry.id,
-            entityType entry.entityType,
+            entityType: entry.entityType,
             entityId: entry.entityId,
             status: "orphaned",
             sourceVersion: 0,
@@ -440,7 +440,7 @@ export class CacheRepairJob {
           // Source vanished between list and read; treat as orphaned.
           staleness.push({
             entryId: entry.id,
-            entityType entry.entityType,
+            entityType: entry.entityType,
             entityId: entry.entityId,
             status: "orphaned",
             sourceVersion: 0,
@@ -460,7 +460,7 @@ export class CacheRepairJob {
         if (driftVersions > 0 || exceedsTime) {
           staleness.push({
             entryId: entry.id,
-            entityType entry.entityType,
+            entityType: entry.entityType,
             entityId: entry.entityId,
             status: "stale",
             sourceVersion: sourceVersion,
