@@ -3,6 +3,62 @@ import type { SchemaVersionService } from "../services/schemaVersionService.js";
 import { ok } from "../responses.js";
 
 /**
+ * Versioned API response contracts for VaultQuest contributor integrations.
+ *
+ * Versioning rules:
+ * - Additive changes (new optional fields, new endpoints) are backward-compatible
+ *   and bump the minor version.
+ * - Removing fields, changing field types, or changing semantics is a breaking
+ *   change and bumps the major version.
+ * - Deprecated fields must be documented and retained for at least one major
+ *   version before removal.
+ *
+ * Deprecation rules:
+ * - Mark deprecated fields with `deprecated: true` and a `sunset` date in the
+ *   schema metadata.
+ * - Consumers should migrate before the sunset date; validation will fail for
+ *   responses that violate the active contract.
+ */
+export const SCHEMA_VERSION = "1.0.0";
+
+export interface SchemaVersionInfo {
+  version: string;
+  deprecated: boolean;
+  sunset?: string;
+}
+
+export interface SchemaValidationResult {
+  valid: boolean;
+  version: string;
+  errors: string[];
+}
+
+/**
+ * Validate a response payload against the documented schema contract.
+ * Returns a list of human-readable errors for any violations.
+ */
+export const validateResponseContract = (
+  payload: unknown,
+  requiredFields: string[] = [],
+): SchemaValidationResult => {
+  const errors: string[] = [];
+
+  if (payload === null || typeof payload !== "object") {
+    errors.push("Response payload must be a non-null object");
+    return { valid: false, version: SCHEMA_VERSION, errors };
+  }
+
+  const record = payload as Record<string, unknown>;
+  for (const field of requiredFields) {
+    if (!(field in record)) {
+      errors.push(`Missing required field: ${field}`);
+    }
+  }
+
+  return { valid: errors.length === 0, version: SCHEMA_VERSION, errors };
+};
+
+/**
  * Routes for schema version validation
  */
 export const schemaVersionRoutes = (svc: SchemaVersionService): FastifyPluginAsync =>
@@ -12,7 +68,17 @@ export const schemaVersionRoutes = (svc: SchemaVersionService): FastifyPluginAsy
      */
     app.get("/schema-version", async () => {
       const versionInfo = await svc.getVersionInfo();
-      return ok(versionInfo);
+      const contract = validateResponseContract(versionInfo, ["version"]);
+
+      if (!contract.valid) {
+        return {
+          ok: false,
+          error: "Schema version response violates contract",
+          data: contract,
+        };
+      }
+
+      return ok({ ...versionInfo, contractVersion: SCHEMA_VERSION });
     });
 
     /**
@@ -21,7 +87,17 @@ export const schemaVersionRoutes = (svc: SchemaVersionService): FastifyPluginAsy
      */
     app.get("/schema-version/validate", async (req, reply) => {
       const validation = await svc.validateSchemaVersions();
-      
+      const contract = validateResponseContract(validation, ["valid"]);
+
+      if (!contract.valid) {
+        reply.status(500);
+        return {
+          ok: false,
+          error: "Schema validation response violates contract",
+          data: contract,
+        };
+      }
+
       if (!validation.valid) {
         reply.status(409); // Conflict
         return {

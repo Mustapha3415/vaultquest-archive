@@ -2,6 +2,68 @@ import type { PrismaClient } from "@prisma/client";
 import { SCHEMA_VERSIONS, getVersionMismatch } from "../constants.js";
 
 /**
+ * Versioned API response contract for schema version endpoints.
+ *
+ * Versioning rules:
+ * - The `version` field is a monotonically increasing integer per response type.
+ * - Adding optional fields is a non-breaking change and does not bump the version.
+ * - Removing fields, changing field types, or making optional fields required is a
+ *   breaking change and MUST bump the version and update the schema below.
+ * - Deprecated fields are retained for at least one major version and marked with
+ *   `deprecated: true` in the schema before removal.
+ */
+export const SCHEMA_VERSION_RESPONSE_VERSION = 1;
+
+/**
+ * JSON schema for the schema version validation response.
+ * Used by contract tests to detect breaking changes early.
+ */
+export const schemaVersionResponseSchema = {
+  $id: "https://vaultquest.dev/schemas/schema-version-response.json",
+  type: "object",
+  required: ["version", "valid", "databaseVersion", "indexerVersion", "issues"],
+  additionalProperties: false,
+  properties: {
+    version: { type: "integer", const: SCHEMA_VERSION_RESPONSE_VERSION },
+    valid: { type: "boolean" },
+    databaseVersion: { type: "string" },
+    indexerVersion: { type: "string" },
+    issues: { type: "array", items: { type: "string" } },
+  },
+} as const;
+
+/**
+ * JSON schema for the schema version info response.
+ */
+export const schemaVersionInfoResponseSchema = {
+  $id: "https://vaultquest.dev/schemas/schema-version-info-response.json",
+  type: "object",
+  required: ["version", "database", "indexer"],
+  additionalProperties: false,
+  properties: {
+    version: { type: "integer", const: SCHEMA_VERSION_RESPONSE_VERSION },
+    database: {
+      type: "object",
+      required: ["current", "expected", "supported"],
+      additionalProperties: false,
+      properties: {
+        current: { type: "string" },
+        expected: { type: "string" },
+        supported: { type: "array", items: { type: "string" } },
+      },
+    },
+    indexer: {
+      type: "object",
+      required: ["current", "expected", "supported"],
+      additionalProperties: false,
+      properties: {
+        current: { type: "string" },
+        expected: { type: "string" },
+        supported: { type: "array", items: { type: "string" } },
+      },
+    },
+  },
+} as const;
  * Legacy record shapes from previous VaultQuest schemas.
  * These are used by migration/compatibility tests to verify that old
  * records can be reade and upgraded to the current shape.
@@ -137,6 +199,7 @@ export class SchemaVersionService {
    * Throws error if schemas are incompatible
    */
   async validateSchemaVersions(): Promise<{
+    version: number;
     valid: boolean;
     databaseVersion: string;
     indexerVersion: string;
@@ -148,6 +211,7 @@ export class SchemaVersionService {
     const { compatible, issues } = getVersionMismatch(dbVersion, indexerVersion);
     
     return {
+      version: SCHEMA_VERSION_RESPONSE_VERSION,
       valid: compatible,
       databaseVersion: dbVersion,
       indexerVersion: indexerVersion,
@@ -163,6 +227,7 @@ export class SchemaVersionService {
     const indexerVersion = await this.getIndexerVersion();
     
     return {
+      version: SCHEMA_VERSION_RESPONSE_VERSION,
       database: {
         current: dbVersion,
         expected: SCHEMA_VERSIONS.DATABASE,
