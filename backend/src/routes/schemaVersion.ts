@@ -1,6 +1,12 @@
 import type { FastifyPluginAsync } from "fastify";
 import type { SchemaVersionService } from "../services/schemaVersionService.js";
 import { ok } from "../responses.js";
+import {
+  RECORD_SCHEMA_VERSION,
+  SUPPORTED_RECORD_SCHEMA_VERSIONS,
+  UnsupportedSchemaVersionError,
+  negotiateSchemaVersion,
+} from "../schemas/recordCompatibility.js";
 
 /**
  * Versioned API response contracts for VaultQuest contributor integrations.
@@ -65,8 +71,34 @@ export const schemaVersionRoutes = (svc: SchemaVersionService): FastifyPluginAsy
   async (app) => {
     /**
      * GET /schema-version - Get current schema versions
+     *
+     * Optional `?schema_version=<semver>` lets a client check whether a record
+     * schema version is still supported (#803). Supported versions resolve to
+     * the same 200 payload: responses are always the latest shape, so old and
+     * new clients read one contract. Unknown versions fail fast with 400
+     * instead of silently reading a shape the client cannot interpret.
      */
-    app.get("/schema-version", async () => {
+    app.get("/schema-version", async (req, reply) => {
+      const requested = (req.query as { schema_version?: string } | undefined)?.schema_version;
+      try {
+        negotiateSchemaVersion(requested ?? null);
+      } catch (error) {
+        if (error instanceof UnsupportedSchemaVersionError) {
+          reply.status(400);
+          return {
+            ok: false,
+            error: error.message,
+            data: {
+              code: error.code,
+              requested: requested ?? null,
+              served: RECORD_SCHEMA_VERSION,
+              supported: SUPPORTED_RECORD_SCHEMA_VERSIONS,
+            },
+          };
+        }
+        throw error;
+      }
+
       const versionInfo = await svc.getVersionInfo();
       const contract = validateResponseContract(versionInfo, ["version"]);
 

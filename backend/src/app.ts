@@ -151,7 +151,9 @@ declare module "fastify" {
 export function buildApp(deps: AppDeps): FastifyInstance {
   const loggerInstance = deps.logger || createLogger("silent");
   const app = Fastify({
-    logger: loggerInstance as any,
+    // Fastify 5 passes logger instances via `loggerInstance`; `logger` only
+    // accepts a configuration object (FSTDEP / fastify@5 breaking change).
+    loggerInstance: loggerInstance as any,
     disableRequestLogging: true,
   });
 
@@ -160,7 +162,10 @@ export function buildApp(deps: AppDeps): FastifyInstance {
 
   // Register global rate limiting with Redis store if available
   // Note: @fastify/rate-limit 11.x requires Fastify 5.x; skipped for Fastify 4.x (#567)
-  const majorFastifyVersion = parseInt(Fastify.VERSION?.split(".")[0] ?? "4");
+  const majorFastifyVersion = parseInt(
+    (Fastify as unknown as { VERSION?: string }).VERSION?.split(".")[0] ?? "4",
+    10,
+  );
   if (majorFastifyVersion >= 5) {
     const rateLimitOptions: any = {
       global: true,

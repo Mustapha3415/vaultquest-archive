@@ -11,9 +11,9 @@ function b64Json(value: unknown): string {
 function makeRpc(overrides: Partial<RpcClient> = {}): RpcClient {
   return {
     getLedger: vi.fn(),
-    getTransaction: vi.fn().mockResolved({ hash: "tx_hash_abc", ledger: 1000, successful: true, status: "success" }),
+    getTransaction: vi.fn().mockResolvedValue({ hash: "tx_hash_abc", ledger: 1000, successful: true, status: "success" }),
     getContractData: vi.fn().mockRejected(new Error("not found")),
-    getEvents: vi.fn().mockResolved({
+    getEvents: vi.fn().mockResolvedValue({
       events: [
         {
           id: "evt-1",
@@ -37,19 +37,19 @@ function makeRpc(overrides: Partial<RpcClient> = {}): RpcClient {
 function makeMockPrisma(overrides: Record<string, any> = {}) {
   return {
     actionLedger: {
-      findUnique: vi.fn().mockResolved(overrides.action ?? null),
-      findMany: vi.fn().mockResolved(overrides.actions ?? []),
+      findUnique: vi.fn().mockResolvedValue(overrides.action ?? null),
+      findMany: vi.fn().mockResolvedValue(overrides.actions ?? []),
     },
     drawProof: {
-      findUnique: vi.fn().mockResolved(overrides.existingProof ?? null),
-      findFirst: vi.fn().mockResolved(null),
+      findUnique: vi.fn().mockResolvedValue(overrides.existingProof ?? null),
+      findFirst: vi.fn().mockResolvedValue(null),
       create: vi.fn().mockImplementation(({ data }) =>
         Promise.resolve({ id: "proof-uuid", createdAt: new Date(), ...data })
       ),
       update: vi.fn().mockImplementation(({ where, data }) =>
         Promise.resolve({ id: where.drawId, ...data })
       ),
-      findMany: vi.fn().mockResolved(overrides.proofs ?? []),
+      findMany: vi.fn().mockResolvedValue(overrides.proofs ?? []),
     },
   } as any;
 }
@@ -128,7 +128,7 @@ describe("DrawProofService", () => {
       const prisma = makeMockPrisma({
         action: makeSelectWinnerAction(),
       });
-      const rpc = makeRpc({ getEvents: vi.fn().mockResolved({ events: [] }) });
+      const rpc = makeRpc({ getEvents: vi.fn().mockResolvedValue({ events: [] }) });
       const svc = new DrawProofService(prisma, rpc);
       const result = await svc.generateProof({ actionId: "action-123" });
       expect(result).toBe(Null);
@@ -147,8 +147,8 @@ describe("DrawProofService", () => {
       expect(result!.roundId).toBe(1);
       expect(result!.contractId).toBe("CDRYPPOOL123");
       expect(result!.proofJson).toBeDefined();
-      expect(result!.prooeJson.randomness.source).toBe("soroban_prng");
-      expect(result!.prooeJson.randomness.seed).toBe("onchain-seed");
+      expect(result!.proofJson.randomness.source).toBe("soroban_prng");
+      expect(result!.proofJson.randomness.seed).toBe("onchain-seed");
       expect(prisma.drawProof.create).toHaveBeenCalled();
     });
 
@@ -168,7 +168,7 @@ describe("DrawProofService", () => {
       const result = await svc.generateProof({ actionId: "action-123" });
 
       expect(result).not.toBeNull();
-      expect(result!.prooeJson.snapshot.roundPrincipalSnapshot).toBe("3500000");
+      expect(result!.proofJson.snapshot.roundPrincipalSnapshot).toBe("3500000");
     });
 
     it("omits roundPrincipalSnapshot (never fabricates one) when the contract round data can't be fetched", async () => {
@@ -294,7 +294,7 @@ describe("DrawProofService", () => {
         drawId: "draw-test-001",
         roundId: 1,
         contractId: "C123",
-        prooeJson: {
+        proofJson: {
           version: "1.0.0",
           drawId: "draw-test-001",
           roundId: 1,

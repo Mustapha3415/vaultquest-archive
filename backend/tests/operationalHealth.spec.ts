@@ -1,1 +1,356 @@
-aW1wb3J0IHsgZGVzY3JpYmUsIGl0LCBleHBlY3QsIGJlZm9yZUVhY2gsIHZpIH0gZnJvbSAidml0ZXN0IjsKaW1wb3J0IHsgT3BlcmF0aW9uYWxIZWFsdGhTZXJ2aWNlIH0gZnJvbSAiLi4vc3JjL3NlcnZpY2VzL29wZXJhdGlvbmFsSGVhbHRoU2VydmljZS5qcyI7CgpkZXNjcmliZSgiT3BlcmF0aW9uYWxIZWFsdGhTZXJ2aWNlIiwgKCkgPT4gewogIGxldCBtb2NrUHJpc21hOiBhbnk7CiAgbGV0IHNlcnZpY2U6IE9wZXJhdGlvbmFsSGVhbHRoU2VydmljZTsKCiAgYmVmb3JlRWFjaCgoKSA9PiB7CiAgICBtb2NrUHJpc21hID0gewogICAgICBhY3Rpb25MZWRnZXI6IHsgY291bnQ6IHZpLmZuKGFzeW5jICgpID0+IDApLCBmaW5kTWFueTogdmkuZm4oYXN5bmMgKCkgPT4gW10pIH0sCiAgICAgIHBlbmRpbmdFdmVudDogeyBjb3VudDogdmkuZm4oYXN5bmMgKCkgPT4gMCksIGZpbmRNYW55OiB2aS5mbihhc3luYyAoKSA9PiBbXSkgfSwKICAgICAgYmFja2dyb3VuZEpvYjogeyBjb3VudDogdmkuZm4oYXN5bmMgKCkgPT4gMCksIGZpbmRNYW55OiB2aS5mbihhc3luYyAoKSA9PiBbXSkgfSwKICAgICAgYWN0aW9uTGVhc2U6IHsgY291bnQ6IHZpLmZuKGFzeW5jICgpID0+IDApIH0sCiAgICAgIHZhdWx0U2V0dGxlbWVudDogeyBjb3VudDogdmkuZm4oYXN5bmMgKCkgPT4gMCksIGZpbmRNYW55OiB2aS5mbihhc3luYyAoKSA9PiBbXSkgfSwKICAgICAgcmVwYWlyUXVhcmFudGluZTogeyBjb3VudDogdmkuZm4oYXN5bmMgKCkgPT4gMCkgfSwKICAgICAgcmVwYWlyUHJvcG9zYWw6IHsgY291bnQ6IHZpLmZuKGFzeW5jICgpID0+IDApLCBmaW5kTWFueTogdmkuZm4oYXN5bmMgKCkgPT4gW10pIH0sCiAgICAgIGluZGV4ZXJDaGVja3BvaW50OiB7IGZpbmRGaXJzdDogdmkuZm4oYXN5bmMgKCkgPT4gbnVsbCkgfSwKICAgICAgcG9pc29uRXZlbnQ6IHsgY291bnQ6IHZpLmZuKGFzeW5jICgpID0+IDApLCBmaW5kTWFueTogdmkuZm4oYXN5bmMgKCkgPT4gW10pIH0sCiAgICB9OwogICAgc2VydmljZSA9IG5ldyBPcGVyYXRpb25hbEhlYWx0aFNlcnZpY2UobW9ja1ByaXNtYSk7CiAgfSk7CgogIGRlc2NyaWJlKCJnZW5lcmF0ZUhlYWx0aFJlcG9ydCIsICgpID0+IHsKICAgIGl0KCJyZXR1cm5zIGhlYWx0aHkgc3RhdHVzIHdoZW4gYWxsIGluZGljYXRvcnMgYXJlIHplcm8iLCBhc3luYyAoKSA9PiB7CiAgICAgIGNvbnN0IHJlcG9ydCA9IGF3YWl0IHNlcnZpY2UuZ2VuZXJhdGVIZWFsdGhSZXBvcnQoKTsKCiAgICAgIGV4cGVjdChyZXBvcnQub3ZlcmFsbFN0YXR1cykudG9CZSgiaGVhbHRoeSIpOwogICAgICBleHBlY3QocmVwb3J0LnN1bW1hcnkudG90YWxJc3N1ZXMpLnRvQmUoMCk7CiAgICAgIGV4cGVjdChyZXBvcnQuc3VtbWFyeS5jcml0aWNhbENvdW50KS50b0JlKDApOwogICAgICBleHBlY3QocmVwb3J0LnN1bW1hcnkud2FybmluZ0NvdW50KS50b0JlKDApOwogICAgICBleHBlY3QocmVwb3J0LmluZGljYXRvcnMpLnRvSGF2ZUxlbmd0aCgwKTsKICAgIH0pOwoKICAgIGl0KCJkZXRlY3RzIG9ycGhhbmVkIGFjdGlvbnMgYXMgd2FybmluZyIsIGFzeW5jICgpID0+IHsKICAgICAgbW9ja1ByaXNtYS5hY3Rpb25MZWRnZXIuY291bnQubW9ja1Jlc29sdmVkVmFsdWUoNSk7CgogICAgICBjb25zdCByZXBvcnQgPSBhd2FpdCBzZXJ2aWNlLmdlbmVyYXRlSGVhbHRoUmVwb3J0KCk7CgogICAgICBjb25zdCBvcnBoYW5lZEluZGljYXRvciA9IHJlcG9ydC5pbmRpY2F0b3JzLmZpbmQoKGkpID0+IGkuY2F0ZWdvcnkgPT09ICJPcnBoYW5lZCBBY3Rpb25zIik7CiAgICAgIGV4cGVjdChvcnBoYW5lZEluZGljYXRvcikudG9CZU RlZmluZWQoKTsKICAgICAgZXhwZWN0KG9ycGhhbmVkSW5kaWNhdG9yPy5jb3VudCkudG9CZSg1KTsKICAgICAgZXhwZWN0KG9ycGhhbmVkSW5kaWNhdG9yPy5zdGF0dXMpLnRvQmUoIndhcm5pbmciKTsKICAgICAgZXhwZWN0KHJlcG9ydC5vdmVyYWxsU3RhdHVzKS50b0JlKCJ3YXJuaW5nIik7CiAgICB9KTsKCiAgICBpdCgiZXNjYWxhdGVzIG9ycGhhbmVkIGFjdGlvbnMgdG8gY3JpdGljYWwgd2hlbiA+IDEwIiwgYXN5bmMgKCkgPT4gewogICAgICBtb2NrUHJpc21hLmFjdGlvbkxlZGdlci5jb3VudC5tb2NrUmVzb2x2ZWRWYWx1ZSgxNSk7CgogICAgICBjb25zdCByZXBvcnQgPSBhd2FpdCBzZXJ2aWNlLmdlbmVyYXRlSGVhbHRoUmVwb3J0KCk7CgogICAgICBjb25zdCBvcnBoYW5lZEluZGljYXRvciA9IHJlcG9ydC5pbmRpY2F0b3JzLmZpbmQoKGkpID0+IGkuY2F0ZWdvcnkgPT09ICJPcnBoYW5lZCBBY3Rpb25zIik7CiAgICAgIGV4cGVjdChvcnBoYW5lZEluZGljYXRvcj8uc3RhdHVzKS50b0JlKCJjcml0aWNhbCIpOwogICAgICBleHBlY3QocmVwb3J0Lm92ZXJhbGxTdGF0dXMpLnRvQmUoImNyaXRpY2FsIik7CiAgICAgIGV4cGVjdChyZXBvcnQuc3VtbWFyeS5jcml0aWNhbENvdW50KS50b0JlKDEpOwogICAgfSk7CgogICAgaXQoImRldGVjdHMgc3RhbGUgcGVuZGluZyBldmVudHMiLCBhc3luYyAoKSA9PiB7CiAgICAgIG1vY2tQcmlzbWEucGVuZGluZ0V2ZW50LmNvdW50Lm1vY2tSZXNvbHZlZFZhbHVlKDI1KTsKCiAgICAgIGNvbnN0IHJlcG9ydCA9IGF3YWl0IHNlcnZpY2UuZ2VuZXJhdGVIZWFsdGhSZXBvcnQoKTsKCiAgICAgIGNvbnN0IHN0YWxlSW5kaWNhdG9yID0gcmVwb3J0LmluZGljYXRvcnMuZmluZCgoaSkgPT4gaS5jYXRlZ29yeSA9PT0gIlN0YWxlIFBlbmRpbmcgRXZlbnRzIik7CiAgICAgIGV4cGVjdChzdGFsZUluZGljYXRvcikudG9CZU RlZmluZWQoKTsKICAgICAgZXhwZWN0KHN0YWxlSW5kaWNhdG9yPy5jb3VudCkudG9CZSgyNSk7CiAgICAgIGV4cGVjdChzdGFsZUluZGljYXRvcj8uc3RhdHVzKS50b0JlKCJ3YXJuaW5nIik7CiAgICB9KTsKCiAgICBpdCgiZXNjYWxhdGVzIHN0YWxlIHBlbmRpbmcgZXZlbnRzIHRvIGNyaXRpY2FsIHdoZW4gPiA1MCIsIGFzeW5jICgpID0+IHsKICAgICAgbW9ja1ByaXNtYS5wZW5kaW5nRXZlbnQuY291bnQubW9ja1Jlc29sdmVkVmFsdWUoNzUpOwoKICAgICAgY29uc3QgcmVwb3J0ID0gYXdhaXQgc2VydmljZS5nZW5lcmF0ZUhlYWx0aFJlcG9ydCgpOwoKICAgICAgY29uc3Qgc3RhbGVJbmRpY2F0b3IgPSByZXBvcnQuaW5kaWNhdG9ycy5maW5kKChpKSA9PiBpLmNhdGVnb3J5ID09PSAiU3RhbGUgUGVuZGluZyBFdmVudHMiKTsKICAgICAgZXhwZWN0KHN0YWxlSW5kaWNhdG9yPy5zdGF0dXMpLnRvQmUoImNyaXRpY2FsIik7CiAgICAgIGV4cGVjdChyZXBvcnQuc3VtbWFyeS5jcml0aWNhbENvdW50KS50b0JlKDEpOwogICAgfSk7CgogICAgaXQoImRldGVjdHMgZmFpbGVkIGJhY2tncm91bmQgam9icyIsIGFzeW5jICgpID0+IHsKICAgICAgbW9ja1ByaXNtYS5iYWNrZ3JvdW5kSm9iLmNvdW50Lm1vY2tSZXNvbHZlZFZhbHVlKDMpOwoKICAgICAgY29uc3QgcmVwb3J0ID0gYXdhaXQgc2VydmljZS5nZW5lcmF0ZUhlYWx0aFJlcG9ydCgpOwoKICAgICAgY29uc3QgZmFpbGVkSW5kaWNhdG9yID0gcmVwb3J0LmluZGljYXRvcnMuZmluZCgoaSkgPT4gaS5jYXRlZ29yeSA9PT0gIkZhaWxlZCBCYWNrZ3JvdW5kIEpvYnMiKTsKICAgICAgZXhwZWN0KGZhaWxlZEluZGljYXRvcikudG9CZU RlZmluZWQoKTsKICAgICAgZXhwZWN0KGZhaWxlZEluZGljYXRvcj8uY291bnQpLnRvQmUoMyk7CiAgICAgIGV4cGVjdChmYWlsZWRJbmRpY2F0b3I/LnN0YXR1cykudG9CZSgid2FybmluZyIpOwogICAgfSk7CgogICAgaXQoImVzY2FsYXRlcyBmYWlsZWQgam9icyB0byBjcml0aWNhbCB3aGVuID4gNSIsIGFzeW5jICgpID0+IHsKICAgICAgbW9ja1ByaXNtYS5iYWNrZ3JvdW5kSm9iLmNvdW50Lm1vY2tSZXNvbHZlZFZhbHVlKDgpOwoKICAgICAgY29uc3QgcmVwb3J0ID0gYXdhaXQgc2VydmljZS5nZW5lcmF0ZUhlYWx0aFJlcG9ydCgpOwoKICAgICAgY29uc3QgZmFpbGVkSW5kaWNhdG9yID0gcmVwb3J0LmluZGljYXRvcnMuZmluZCgoaSkgPT4gaS5jYXRlZ29yeSA9PT0gIkZhaWxlZCBCYWNrZ3JvdW5kIEpvYnMiKTsKICAgICAgZXhwZWN0KGZhaWxlZEluZGljYXRvcj8uc3RhdHVzKS50b0JlKCJjcml0aWNhbCIpOwogICAgfSk7CgogICAgaXQoImRldGVjdHMgc3RhbGUgYWN0aW9uIGxlYXNlcyAod29ya2VyIGhhbmdzKSIsIGFzeW5jICgpID0+IHsKICAgICAgbW9ja1ByaXNtYS5hY3Rpb25MZWFzZS5jb3VudC5tb2NrUmVzb2x2ZWRWYWx1ZSgyKTsKCiAgICAgIGNvbnN0IHJlcG9ydCA9IGF3YWl0IHNlcnZpY2UuZ2VuZXJhdGVIZWFsdGhSZXBvcnQoKTsKCiAgICAgIGNvbnN0IGxlYXNlSW5kaWNhdG9yID0gcmVwb3J0LmluZGljYXRvcnMuZmluZCgoaSkgPT4gaS5jYXRlZ29yeSA9PT0gIlN0YWxlIEFjdGlvbiBMZWFzZXMiKTsKICAgICAgZXhwZWN0KGxlYXNlSW5kaWNhdG9yKS50b0Jl RGVmaW5lZCgpOwogICAgICBleHBlY3QobGVhc2VJbmRpY2F0b3I/LmNvdW50KS50b0JlKDIpOwogICAgICBleHBlY3QobGVhc2VJbmRpY2F0b3I/LnN0YXR1cykudG9CZSgid2FybmluZyIpOwogICAgfSk7CgogICAgaXQoImVzY2FsYXRlcyBzdGFsZSBsZWFzZXMgdG8gY3JpdGljYWwgd2hlbiA+IDMiLCBhc3luYyAoKSA9PiB7CiAgICAgIG1vY2tQcmlzbWEuYWN0aW9uTGVhc2UuY291bnQubW9ja1Jlc29sdmVkVmFsdWUoNSk7CgogICAgICBjb25zdCByZXBvcnQgPSBhd2FpdCBzZXJ2aWNlLmdlbmVyYXRlSGVhbHRoUmVwb3J0KCk7CgogICAgICBjb25zdCBsZWFzZUluZGljYXRvciA9IHJlcG9ydC5pbmRpY2F0b3JzLmZpbmQoKGkpID0+IGkuY2F0ZWdvcnkgPT09ICJTdGFsZSBBY3Rpb24gTGVhc2VzIik7CiAgICAgIGV4cGVjdChsZWFzZUluZGljYXRvcj8uc3RhdHVzKS50b0JlKCJjcml0aWNhbCIpOwogICAgfSk7CgogICAgaXQoImRldGVjdHMgdW5yZXNvbHZlZCB2YXVsdCBzZXR0bGVtZW50cyIsIGFzeW5jICgpID0+IHsKICAgICAgbW9ja1ByaXNtYS52YXVsdFNldHRsZW1lbnQuY291bnQubW9ja1Jlc29sdmVkVmFsdWUoMTApOwoKICAgICAgY29uc3QgcmVwb3J0ID0gYXdhaXQgc2VydmljZS5nZW5lcmF0ZUhlYWx0aFJlcG9ydCgpOwoKICAgICAgY29uc3Qgc2V0dGxlbWVudEluZGljYXRvciA9IHJlcG9ydC5pbmRpY2F0b3JzLmZpbmQoCiAgICAgICAgKGkpID0+IGkuY2F0ZWdvcnkgPT09ICJVbnJlc29sdmVkIFZhdWx0IFNldHRsZW1lbnRzIgogICAgICApOwogICAgICBleHBlY3Qoc2V0dGxlbWVudEluZGljYXRvcikudG9CZSBEZWZpbmVkKCk7CiAgICAgIGV4cGVjdChzZXR0bGVtZW50SW5kaWNhdG9yPy5jb3VudCkudG9CZSgxMCk7CiAgICAgIGV4cGVjdChzZXR0bGVtZW50SW5kaWNhdG9yPy5zdGF0dXMpLnRvQmUoIndhcm5pbmciKTsKICAgIH0pOwoKICAgIGl0KCJlc2NhbGF0ZXMgdW5yZXNvbHZlZCBzZXR0bGVtZW50cyB0byBjcml0aWNhbCB3aGVuID4gMjAiLCBhc3luYyAoKSA9PiB7CiAgICAgIG1vY2tQcmlzbWEudmF1bHRTZXR0bGVtZW50LmNvdW50Lm1vY2tSZXNvbHZlZFZhbHVlKDMwKTsKCiAgICAgIGNvbnN0IHJlcG9ydCA9IGF3YWl0IHNlcnZpY2UuZ2VuZXJhdGVIZWFsdGhSZXBvcnQoKTsKCiAgICAgIGNvbnN0IHNldHRsZW1lbnRJbmRpY2F0b3IgPSByZXBvcnQuaW5kaWNhdG9ycy5maW5kKAogICAgICAgIChpKSA9PiBpLmNhdGVnb3J5ID09PSAiVW5yZXNvbHZlZCBWYXVsdCBTZXR0bGVtZW50cyIKICAgICAgKTsKICAgICAgZXhwZWN0KHNldHRsZW1lbnRJbmRpY2F0b3I/LnN0YXR1cykudG9CZSgiY3JpdGljYWwiKTsKICAgIH0pOwoKICAgIGl0KCJkZXRlY3RzIHJlY29uY2lsaWF0aW9uIGRyaWZ0IiwgYXN5bmMgKCkgPT4gewogICAgICBtb2NrUHJpc21hLnJlcGFpclF1YXJhbnRpbmUuY291bnQubW9ja1Jlc29sdmVkVmFsdWUoMyk7CgogICAgICBjb25zdCByZXBvcnQgPSBhd2FpdCBzZXJ2aWNlLmdlbmVyYXRlSGVhbHRoUmVwb3J0KCk7CgogICAgICBjb25zdCBkcmlmdEluZGljYXRvciA9IHJlcG9ydC5pbmRpY2F0b3JzLmZpbmQoCiAgICAgICAgKGkpID0+IGkuY2F0ZWdvcnkgPT09ICJEZXRlY3RlZCBSZWNvbmNpbGlhdGlvbiBEcmlmdCIKICAgICAgKTsKICAgICAgZXhwZWN0KGRyaWZ0SW5kaWNhdG9yKS50b0Jl RGVmaW5lZCgpOwogICAgICBleHBlY3QoZHJpZnRJbmRpY2F0b3I/LmNvdW50KS50b0JlKDMpOwogICAgICBleHBlY3QoZHJpZnRJbmRpY2F0b3I/LnN0YXR1cykudG9CZSgid2FybmluZyIpOwogICAgfSk7CgogICAgaXQoImVzY2FsYXRlcyBkcmlmdCB0byBjcml0aWNhbCB3aGVuID4gNSIsIGFzeW5jICgpID0+IHsKICAgICAgbW9ja1ByaXNtYS5yZXBhaXJRdWFyYW50aW5lLmNvdW50Lm1vY2tSZXNvbHZlZFZhbHVlKDgpOwoKICAgICAgY29uc3QgcmVwb3J0ID0gYXdhaXQgc2VydmljZS5nZW5lcmF0ZUhlYWx0aFJlcG9ydCgpOwoKICAgICAgY29uc3QgZHJpZnRJbmRpY2F0b3IgPSByZXBvcnQuaW5kaWNhdG9ycy5maW5kKAogICAgICAgIChpKSA9PiBpLmNhdGVnb3J5ID09PSAiRGV0ZWN0ZWQgUmVjb25jaWxpYXRpb24gRHJpZnQiCiAgICAgICk7CiAgICAgIGV4cGVjdChkcmlmdEluZGljYXRvcj8uc3RhdHVzKS50b0JlKCJjcml0aWNhbCIpOwogICAgfSk7CgogICAgaXQoImRldGVjdHMgcGVuZGluZyByZXBhaXIgcHJvcG9zYWxzIiwgYXN5bmMgKCkgPT4gewogICAgICBtb2NrUHJpc21hLnJlcGFpclByb3Bvc2FsLmNvdW50Lm1vY2tSZXNvbHZlZFZhbHVlKDIpOwoKICAgICAgY29uc3QgcmVwb3J0ID0gYXdhaXQgc2VydmljZS5nZW5lcmF0ZUhlYWx0aFJlcG9ydCgpOwoKICAgICAgY29uc3QgcmVwYWlySW5kaWNhdG9yID0gcmVwb3J0LmluZGljYXRvcnMuZmluZCgoaSkgPT4gaS5jYXRlZ29yeSA9PT0gIlBlbmRpbmcgUmVwYWlyIFByb3Bvc2FscyIpOwogICAgICBleHBlY3QocmVwYWlySW5kaWNhdG9yKS50b0Jl RGVmaW5lZCgpOwogICAgICBleHBlY3QocmVwYWlySW5kaWNhdG9yPy5jb3VudCkudG9CZSgyKTsKICAgICAgZXhwZWN0KHJlcGFpckluZGljYXRvcj8uc3RhdHVzKS50b0JlKCJ3YXJuaW5nIik7CiAgICB9KTsKCiAgICBpdCgiZGV0ZWN0cyBwb2lzb24gZXZlbnRzIChtYWxmb3JtZWQgY29udHJhY3QgZXZlbnRzKSIsIGFzeW5jICgpID0+IHsKICAgICAgbW9ja1ByaXNtYS5wb2lzb25FdmVudC5jb3VudC5tb2NrUmVzb2x2ZWRWYWx1ZSg1KTsKCiAgICAgIGNvbnN0IHJlcG9ydCA9IGF3YWl0IHNlcnZpY2UuZ2VuZXJhdGVIZWFsdGhSZXBvcnQoKTsKCiAgICAgIGNvbnN0IHBvaXNvbkluZGljYXRvciA9IHJlcG9ydC5pbmRpY2F0b3JzLmZpbmQoKGkpID0+IGkuY2F0ZWdvcnkgPT09ICJQb2lzb24gRXZlbnRzIik7CiAgICAgIGV4cGVjdChwb2lzb25JbmRpY2F0b3IpLnRvQmVEZWZpbmVkKCk7CiAgICAgIGV4cGVjdChwb2lzb25JbmRpY2F0b3I/LmNvdW50KS50b0JlKDUpOwogICAgICBleHBlY3QocG9pc29uSW5kaWNhdG9yPy5zdGF0dXMpLnRvQmUoIndhcm5pbmciKTsKICAgIH0pOwoKICAgIGl0KCJlc2NhbGF0ZXMgcG9pc29uIGV2ZW50cyB0byBjcml0aWNhbCB3aGVuID4gMTAiLCBhc3luYyAoKSA9PiB7CiAgICAgIG1vY2tQcmlzbWEucG9pc29uRXZlbnQuY291bnQubW9ja1Jlc29sdmVkVmFsdWUoMTUpOwoKICAgICAgY29uc3QgcmVwb3J0ID0gYXdhaXQgc2VydmljZS5nZW5lcmF0ZUhlYWx0aFJlcG9ydCgpOwoKICAgICAgY29uc3QgcG9pc29uSW5kaWNhdG9yID0gcmVwb3J0LmluZGljYXRvcnMuZmluZCgoaSkgPT4gaS5jYXRlZ29yeSA9PT0gIlBvaXNvbiBFdmVudHMiKTsKICAgICAgZXhwZWN0KHBvaXNvbkluZGljYXRvcj8uc3RhdHVzKS50b0JlKCJjcml0aWNhbCIpOwogICAgfSk7CgogICAgaXQoImluY2x1ZGVzIGludmVzdGlnYXRpb24gbGlua3MgZm9yIGVhY2ggaW5kaWNhdG9yIiwgYXN5bmMgKCkgPT4gewogICAgICBtb2NrUHJpc21hLmFjdGlvbkxlZGdlci5jb3VudC5tb2NrUmVzb2x2ZWRWYWx1ZSgzKTsKCiAgICAgIGNvbnN0IHJlcG9ydCA9IGF3YWl0IHNlcnZpY2UuZ2VuZXJhdGVIZWFsdGhSZXBvcnQoKTsKCiAgICAgIGNvbnN0IG9ycGhhbmVkSW5kaWNhdG9yID0gcmVwb3J0LmluZGljYXRvcnMuZmluZCgoaSkgPT4gaS5jYXRlZ29yeSA9PT0gIk9ycGhhbmVkIEFjdGlvbnMiKTsKICAgICAgZXhwZWN0KG9ycGhhbmVkSW5kaWNhdG9yPy5pbnZlc3RpZ2F0aW9uTGluaykudG9CZSBEZWZpbmVkKCk7CiAgICAgIGV4cGVjdChvcnBoYW5lZEluZGljYXRvcj8uaW52ZXN0aWdhdGlvbkxpbmspLnRvQ29udGFpbigiYWN0aW9uX2xlZGdlciIpOwogICAgICBleHBlY3Qob3JwaGFuZWRJbmRpY2F0b3I/LmludmVzdGlnYXRpb25MaW5rKS50b0NvbnRhaW4oIm9ycGhhbmVkIik7CiAgICB9KTsKCiAgICBpdCgiaW5jbHVkZXMgYWN0aW9uYWJsZSBndWlkYW5jZSBmb3IgZWFjaCBpbmRpY2F0b3IiLCBhc3luYyAoKSA9PiB7CiAgICAgIG1vY2tQcmlzbWEuYWN0aW9uTGVkZ2VyLmNvdW50Lm1vY2tSZXNvbHZlZFZhbHVlKDIpOwoKICAgICAgY29uc3QgcmVwb3J0ID0gYXdhaXQgc2VydmljZS5nZW5lcmF0ZUhlYWx0aFJlcG9ydCgpOwoKICAgICAgY29uc3QgaW5kaWNhdG9yID0gcmVwb3J0LmluZGljYXRvcnNbMF07CiAgICAgIGV4cGVjdChpbmRpY2F0b3IuYWN0aW9uYWJsZSkudG9CZSBEZWZpbmVkKCk7CiAgICAgIGV4cGVjdChpbmRpY2F0b3IuYWN0aW9uYWJsZS5sZW5ndGgpLnRvQmVHcmVhdGVyVGhhbigwKTsKICAgIH0pOwoKICAgIGl0KCJhZ2dyZWdhdGVzIG11bHRpcGxlIGluZGljYXRvcnMgY29ycmVjdGx5IiwgYXN5bmMgKCkgPT4gewogICAgICBtb2NrUHJpc21hLmFjdGlvbkxlZGdlci5jb3VudC5tb2NrUmVzb2x2ZWRWYWx1ZSg1KTsKICAgICAgbW9ja1ByaXNtYS5wZW5kaW5nRXZlbnQuY291bnQubW9ja1Jlc29sdmVkVmFsdWUoMyk7CiAgICAgIG1vY2tQcmlzbWEuYmFja2dyb3VuZEpvYi5jb3VudC5tb2NrUmVzb2x2ZWRWYWx1ZSgxKTsKCiAgICAgIGNvbnN0IHJlcG9ydCA9IGF3YWl0IHNlcnZpY2UuZ2VuZXJhdGVIZWFsdGhSZXBvcnQoKTsKCiAgICAgIGV4cGVjdChyZXBvcnQuaW5kaWNhdG9ycy5sZW5ndGgpLnRvQmUoMyk7CiAgICAgIGV4cGVjdChyZXBvcnQuc3VtbWFyeS50b3RhbElzc3VlcykudG9CZSgzKTsKICAgICAgZXhwZWN0KHJlcG9ydC5zdW1tYXJ5Lndhcm5pbmdDb3VudCkudG9CZSgzKTsKICAgICAgZXhwZWN0KHJlcG9ydC5zdW1tYXJ5LmNyaXRpY2FsQ291bnQpLnRvQmUoMCk7CiAgICB9KTsKCiAgICBpdCgicmVwb3J0cyBjcml0aWNhbCB3aGVuIGFueSBpbmRpY2F0b3IgaXMgY3JpdGljYWwiLCBhc3luYyAoKSA9PiB7CiAgICAgIG1vY2tQcmlzbWEuYWN0aW9uTGVkZ2VyLmNvdW50Lm1vY2tSZXNvbHZlZFZhbHVlKDE1KTsgLy8gPiAxMCwgY3JpdGljYWwKICAgICAgbW9ja1ByaXNtYS5wZW5kaW5nRXZlbnQuY291bnQubW9ja1Jlc29sdmVkVmFsdWUoMyk7IC8vIHdhcm5pbmcKCiAgICAgIGNvbnN0IHJlcG9ydCA9IGF3YWl0IHNlcnZpY2UuZ2VuZXJhdGVIZWFsdGhSZXBvcnQoKTsKCiAgICAgIGV4cGVjdChyZXBvcnQub3ZlcmFsbFN0YXR1cykudG9CZSgiY3JpdGljYWwiKTsKICAgICAgZXhwZWN0KHJlcG9ydC5zdW1tYXJ5LmNyaXRpY2FsQ291bnQpLnRvQmUoMSk7CiAgICAgIGV4cGVjdChyZXBvcnQuc3VtbWFyeS53YXJuaW5nQ291bnQpLnRvQmUoMSk7CiAgICB9KTsKCiAgICBpdCgiaW5jbHVkZXMgdGltZXN0YW1wIGluIHJlcG9ydCIsIGFzeW5jICgpID0+IHsKICAgICAgY29uc3QgcmVwb3J0ID0gYXdhaXQgc2VydmljZS5nZW5lcmF0ZUhlYWx0aFJlcG9ydCgpOwoKICAgICAgZXhwZWN0KHJlcG9ydC50aW1lc3RhbXApLnRvQmVEZWZpbmVkKCk7CiAgICAgIGV4cGVjdChyZXBvcnQudGltZXN0YW1wIGluc3RhbmNlb2YgRGF0ZSkudG9CZS h0cnVlKTsKICAgIH0pOwogIH0pOwoKICBkZXNjcmliZSgiZ2V0SGVhbHRoQ2F0ZWdvcnlEZXRhaWxzIiwgKCkgPT4gewogICAgaXQoInJldHVybnMgb3JwaGFuZWQgYWN0aW9ucyB3aXRoIGRldGFpbHMiLCBhc3luYyAoKSA9PiB7CiAgICAgIGNvbnN0IG9ycGhhbmVkQWN0aW9ucyA9IFsKICAgICAgICB7CiAgICAgICAgICBpZDogImFjdGlvbi0xIiwKICAgICAgICAgIHdhbGxldEFkZHJlc3M6ICJHQkQzLi4uIiwKICAgICAgICAgIGFjdGlvblR5cGU6ICJkZXBvc2l0IiwKICAgICAgICAgIHR4SGFzaDogInR4LTEyMyIsCiAgICAgICAgICBlcnJvckNvZGU6ICJUSU1FT1VUIiwKICAgICAgICAgIHVwZGF0ZWRBdDogbmV3IERhdGUoKSwKICAgICAgICB9LAogICAgICBdOwoKICAgICAgbW9ja1ByaXNtYS5hY3Rpb25MZWRnZXIuZmluZE1hbnkubW9ja1Jlc29sdmVkVmFsdWUob3JwaGFuZWRBY3Rpb25zKTsKICAgICAgbW9ja1ByaXNtYS5hY3Rpb25MZWRnZXIuY291bnQubW9ja1Jlc29sdmVkVmFsdWUoMSk7CgogICAgICBjb25zdCBkZXRhaWxzID0gYXdhaXQgc2VydmljZS5nZXRIZWFsdGhDYXRlZ29yeURldGFpbHMoIk9ycGhhbmVkIEFjdGlvbnMiKTsKCiAgICAgIGV4cGVjdChkZXRhaWxzLnRvdGFsKS50b0JlKDEpOwogICAgICBleHBlY3QoZGV0YWlscy5pdGVtcykudG9IYXZlTGVuZ3RoKDEpOwogICAgICBleHBlY3QoZGV0YWlscy5pdGVtc1swXS5pZCkudG9CZSgiYWN0aW9uLTEiKTsKICAgICAgZXhwZWN0KGRldGFpbHMuaXRlbXNbMF0uZXJyb3JDb2RlKS50b0JlKCJUSU1FT1VUIik7CiAgICB9KTsKCiAgICBpdCgicmV0dXJucyBmYWlsZWQgYmFja2dyb3VuZCBqb2JzIHdpdGggZGV0YWlscyIsIGFzeW5jICgpID0+IHsKICAgICAgY29uc3QgZmFpbGVkSm9icyA9IFsKICAgICAgICB7CiAgICAgICAgICBpZDogImpvYi0xIiwKICAgICAgICAgIHR5cGU6ICJkcmF3X3Byb29mX2dlbmVyYXRlIiwKICAgICAgICAgIGF0dGVtcHRzOiAzLAogICAgICAgICAgdXBkYXRlZEF0OiBuZXcgRGF0ZSgpLAogICAgICAgIH0sCiAgICAgIF07CgogICAgICBtb2NrUHJpc21hLmJhY2tncm91bmRKb2IuZmluZE1hbnkubW9ja1Jlc29sdmVkVmFsdWUoZmFpbGVkSm9icyk7CiAgICAgIG1vY2tQcmlzbWEuYmFja2dyb3VuZEpvYi5jb3VudC5tb2NrUmVzb2x2ZWRWYWx1ZSgxKTsKCiAgICAgIGNvbnN0IGRldGFpbHMgPSBhd2FpdCBzZXJ2aWNlLmdldEhlYWx0aENhdGVnb3J5RGV0YWlscygiRmFpbGVkIEJhY2tncm91bmQgSm9icyIpOwoKICAgICAgZXhwZWN0KGRldGFpbHMudG90YWwpLnRvQmUoMSk7CiAgICAgIGV4cGVjdChkZXRhaWxzLml0ZW1zKS50b0hhdmVMZW5ndGgoMSk7CiAgICAgIGV4cGVjdChkZXRhaWxzLml0ZW1zWzBdLnR5cGUpLnRvQmUoImRyYXdfcHJvb2ZfZ2VuZXJhdGUiKTsKICAgICAgZXhwZWN0KGRldGFpbHMuaXRlbXNbMF0uYXR0ZW1wdHMpLnRvQmUoMyk7CiAgICB9KTsKCiAgICBpdCgicmV0dXJucyBwZW5kaW5nIHJlcGFpciBwcm9wb3NhbHMgd2l0aCBkZXRhaWxzIiwgYXN5bmMgKCkgPT4gewogICAgICBjb25zdCBwZW5kaW5nUmVwYWlycyA9IFsKICAgICAgICB7CiAgICAgICAgICBpZDogInJlcGFpci0xIiwKICAgICAgICAgIHByb3Bvc2VySWQ6ICJvcGVyYXRvci0xMjMiLAogICAgICAgICAgc3RlcENvdW50OiAzLAogICAgICAgICAgdmFsdWVUb3RhbDogMTAwMC41LAogICAgICAgICAgY3JlYXRlZEF0OiBuZXcgRGF0ZSgpLAogICAgICAgIH0sCiAgICAgIF07CgogICAgICBtb2NrUHJpc21hLnJlcGFpclByb3Bvc2FsLmZpbmRNYW55Lm1vY2tSZXNvbHZlZFZhbHVlKHBlbmRpbmdSZXBhaXJzKTsKICAgICAgbW9ja1ByaXNtYS5yZXBhaXJQcm9wb3NhbC5jb3VudC5tb2NrUmVzb2x2ZWRWYWx1ZSgxKTsKCiAgICAgIGNvbnN0IGRldGFpbHMgPSBhd2FpdCBzZXJ2aWNlLmdldEhlYWx0aENhdGVnb3J5RGV0YWlscygiUGVuZGluZyBSZXBhaXIgUHJvcG9zYWxzIik7CgogICAgICBleHBlY3QoZGV0YWlscy50b3RhbCkudG9CZSgxKTsKICAgICAgZXhwZWN0KGRldGFpbHMuaXRlbXNbMF0uc3RlcENvdW50KS50b0JlKDMpOwogICAgICBleHBlY3QoZGV0YWlscy5pdGVtc1swXS52YWx1ZVRvdGFsKS50b0JlKDEwMDAuNSk7CiAgICB9KTsKCiAgICBpdCgicmV0dXJucyB1cCB0byA1MCBpdGVtcyBwZXIgY2F0ZWdvcnkiLCBhc3luYyAoKSA9PiB7CiAgICAgIGNvbnN0IG1hbnlJdGVtcyA9IEFycmF5LmZyb20oeyBsZW5ndGg6IDYwIH0sICgfCwgaSkgPT4gKHsKICAgICAgICBpZDogYGFjdGlvbi0ke2l9YCwKICAgICAgICB3YWxsZXRBZGRyZXNzOiAiR0JEMy4uLiIsCiAgICAgICAgYWN0aW9uVHlwZTogImRlcG9zaXQiLAogICAgICAgIHR4SGFzaDogYHR4LSR7aX1gLAogICAgICAgIGVycm9yQ29kZTogIlRJTUVPVVQiLAogICAgICAgIHVwZGF0ZWRBdDogbmV3IERhdGUoKSwKICAgICAgfSkpOwoKICAgICAgbW9ja1ByaXNtYS5hY3Rpb25MZWRnZXIuZmluZE1hbnkubW9ja1Jlc29sdmVkVmFsdWUobWFueUl0ZW1zKTsKICAgICAgbW9ja1ByaXNtYS5hY3Rpb25MZWRnZXIuY291bnQubW9ja1Jlc29sdmVkVmFsdWUoNjApOwoKICAgICAgY29uc3QgZGV0YWlscyA9IGF3YWl0IHNlcnZpY2UuZ2V0SGVhbHRoQ2F0ZWdvcnlEZXRhaWxzKCJPcnBoYW5lZCBBY3Rpb25zIik7CgogICAgICBleHBlY3QoZGV0YWlscy50b3RhbCkudG9CZSg2MCk7CiAgICAgIGV4cGVjdChkZXRhaWxzLml0ZW1zLmxlbmd0aCkudG9CZSg1MCk7CiAgICB9KTsKCiAgICBpdCgicmVkYWN0cyBzZW5zaXRpdmUgZGV0YWlscyBpbiBpdGVtcyIsIGFzeW5jICgpID0+IHsKICAgICAgY29uc3Qgb3JwaGFuZWRBY3Rpb25zID0gWwogICAgICAgIHsKICAgICAgICAgIGlkOiAiYWN0aW9uLTEiLAogICAgICAgICAgd2FsbGV0QWRkcmVzczogIkdCRDMuLi4iLAogICAgICAgICAgYWN0aW9uVHlwZTogImRlcG9zaXQiLAogICAgICAgICAgdHhIYXNoOiAidHgtMTIzIiwKICAgICAgICAgIGVycm9yQ29kZTogIlRJTUVPVVQiLAogICAgICAgICAgdXBkYXRlZEF0OiBuZXcgRGF0ZSgpLAogICAgICAgICAgc2VjcmV0OiAic2VjcmV0LXZhbHVlIiwKICAgICAgICB9LAogICAgICBdOwoKICAgICAgbW9ja1ByaXNtYS5hY3Rpb25MZWRnZXIuZmluZE1hbnkubW9ja1Jlc29sdmVkVmFsdWUob3JwaGFuZWRBY3Rpb25zKTsKICAgICAgbW9ja1ByaXNtYS5hY3Rpb25MZWRnZXIuY291bnQubW9ja1Jlc29sdmVkVmFsdWUoMSk7CgogICAgICBjb25zdCBkZXRhaWxzID0gYXdhaXQgc2VydmljZS5nZXRIZWFsdGhDYXRlZ29yeURldGFpbHMoIk9ycGhhbmVkIEFjdGlvbnMiKTsKCiAgICAgIGV4cGVjdChkZXRhaWxzLml0ZW1zWzBdKS5ub3QudG9IYXZlUHJvcGVydHkoInNlY3JldCIpOwogICAgfSk7CiAgfSk7Cn0pOw==
+import { describe, it, expect, beforeEach, vi } from "vitest";
+import { OperationalHealthService } from "../src/services/operationalHealthService.js";
+
+describe("OperationalHealthService", () => {
+  let mockPrisma: any;
+  let service: OperationalHealthService;
+
+  beforeEach(() => {
+    mockPrisma = {
+      actionLedger: { count: vi.fn(async () => 0), findMany: vi.fn(async () => []) },
+      pendingEvent: { count: vi.fn(async () => 0), findMany: vi.fn(async () => []) },
+      backgroundJob: { count: vi.fn(async () => 0), findMany: vi.fn(async () => []) },
+      actionLease: { count: vi.fn(async () => 0) },
+      vaultSettlement: { count: vi.fn(async () => 0), findMany: vi.fn(async () => []) },
+      repairQuarantine: { count: vi.fn(async () => 0) },
+      repairProposal: { count: vi.fn(async () => 0), findMany: vi.fn(async () => []) },
+      indexerCheckpoint: { findFirst: vi.fn(async () => null) },
+      poisonEvent: { count: vi.fn(async () => 0), findMany: vi.fn(async () => []) },
+    };
+    service = new OperationalHealthService(mockPrisma);
+  });
+
+  describe("generateHealthReport", () => {
+    it("returns healthy status when all indicators are zero", async () => {
+      const report = await service.generateHealthReport();
+
+      expect(report.overallStatus).toBe("healthy");
+      expect(report.summary.totalIssues).toBe(0);
+      expect(report.summary.criticalCount).toBe(0);
+      expect(report.summary.warningCount).toBe(0);
+      expect(report.indicators).toHaveLength(0);
+    });
+
+    it("detects orphaned actions as warning", async () => {
+      mockPrisma.actionLedger.count.mockResolvedValue(5);
+
+      const report = await service.generateHealthReport();
+
+      const orphanedIndicator = report.indicators.find((i) => i.category === "Orphaned Actions");
+      expect(orphanedIndicator).toBeDefined();
+      expect(orphanedIndicator?.count).toBe(5);
+      expect(orphanedIndicator?.status).toBe("warning");
+      expect(report.overallStatus).toBe("warning");
+    });
+
+    it("escalates orphaned actions to critical when > 10", async () => {
+      mockPrisma.actionLedger.count.mockResolvedValue(15);
+
+      const report = await service.generateHealthReport();
+
+      const orphanedIndicator = report.indicators.find((i) => i.category === "Orphaned Actions");
+      expect(orphanedIndicator?.status).toBe("critical");
+      expect(report.overallStatus).toBe("critical");
+      expect(report.summary.criticalCount).toBe(1);
+    });
+
+    it("detects stale pending events", async () => {
+      mockPrisma.pendingEvent.count.mockResolvedValue(25);
+
+      const report = await service.generateHealthReport();
+
+      const staleIndicator = report.indicators.find((i) => i.category === "Stale Pending Events");
+      expect(staleIndicator).toBeDefined();
+      expect(staleIndicator?.count).toBe(25);
+      expect(staleIndicator?.status).toBe("warning");
+    });
+
+    it("escalates stale pending events to critical when > 50", async () => {
+      mockPrisma.pendingEvent.count.mockResolvedValue(75);
+
+      const report = await service.generateHealthReport();
+
+      const staleIndicator = report.indicators.find((i) => i.category === "Stale Pending Events");
+      expect(staleIndicator?.status).toBe("critical");
+      expect(report.summary.criticalCount).toBe(1);
+    });
+
+    it("detects failed background jobs", async () => {
+      mockPrisma.backgroundJob.count.mockResolvedValue(3);
+
+      const report = await service.generateHealthReport();
+
+      const failedIndicator = report.indicators.find((i) => i.category === "Failed Background Jobs");
+      expect(failedIndicator).toBeDefined();
+      expect(failedIndicator?.count).toBe(3);
+      expect(failedIndicator?.status).toBe("warning");
+    });
+
+    it("escalates failed jobs to critical when > 5", async () => {
+      mockPrisma.backgroundJob.count.mockResolvedValue(8);
+
+      const report = await service.generateHealthReport();
+
+      const failedIndicator = report.indicators.find((i) => i.category === "Failed Background Jobs");
+      expect(failedIndicator?.status).toBe("critical");
+    });
+
+    it("detects stale action leases (worker hangs)", async () => {
+      mockPrisma.actionLease.count.mockResolvedValue(2);
+
+      const report = await service.generateHealthReport();
+
+      const leaseIndicator = report.indicators.find((i) => i.category === "Stale Action Leases");
+      expect(leaseIndicator).toBeDefined();
+      expect(leaseIndicator?.count).toBe(2);
+      expect(leaseIndicator?.status).toBe("warning");
+    });
+
+    it("escalates stale leases to critical when > 3", async () => {
+      mockPrisma.actionLease.count.mockResolvedValue(5);
+
+      const report = await service.generateHealthReport();
+
+      const leaseIndicator = report.indicators.find((i) => i.category === "Stale Action Leases");
+      expect(leaseIndicator?.status).toBe("critical");
+    });
+
+    it("detects unresolved vault settlements", async () => {
+      mockPrisma.vaultSettlement.count.mockResolvedValue(10);
+
+      const report = await service.generateHealthReport();
+
+      const settlementIndicator = report.indicators.find(
+        (i) => i.category === "Unresolved Vault Settlements"
+      );
+      expect(settlementIndicator).toBeDefined();
+      expect(settlementIndicator?.count).toBe(10);
+      expect(settlementIndicator?.status).toBe("warning");
+    });
+
+    it("escalates unresolved settlements to critical when > 20", async () => {
+      mockPrisma.vaultSettlement.count.mockResolvedValue(30);
+
+      const report = await service.generateHealthReport();
+
+      const settlementIndicator = report.indicators.find(
+        (i) => i.category === "Unresolved Vault Settlements"
+      );
+      expect(settlementIndicator?.status).toBe("critical");
+    });
+
+    it("detects reconciliation drift", async () => {
+      mockPrisma.repairQuarantine.count.mockResolvedValue(3);
+
+      const report = await service.generateHealthReport();
+
+      const driftIndicator = report.indicators.find(
+        (i) => i.category === "Detected Reconciliation Drift"
+      );
+      expect(driftIndicator).toBeDefined();
+      expect(driftIndicator?.count).toBe(3);
+      expect(driftIndicator?.status).toBe("warning");
+    });
+
+    it("escalates drift to critical when > 5", async () => {
+      mockPrisma.repairQuarantine.count.mockResolvedValue(8);
+
+      const report = await service.generateHealthReport();
+
+      const driftIndicator = report.indicators.find(
+        (i) => i.category === "Detected Reconciliation Drift"
+      );
+      expect(driftIndicator?.status).toBe("critical");
+    });
+
+    it("detects pending repair proposals", async () => {
+      mockPrisma.repairProposal.count.mockResolvedValue(2);
+
+      const report = await service.generateHealthReport();
+
+      const repairIndicator = report.indicators.find((i) => i.category === "Pending Repair Proposals");
+      expect(repairIndicator).toBeDefined();
+      expect(repairIndicator?.count).toBe(2);
+      expect(repairIndicator?.status).toBe("warning");
+    });
+
+    it("detects poison events (malformed contract events)", async () => {
+      mockPrisma.poisonEvent.count.mockResolvedValue(5);
+
+      const report = await service.generateHealthReport();
+
+      const poisonIndicator = report.indicators.find((i) => i.category === "Poison Events");
+      expect(poisonIndicator).toBeDefined();
+      expect(poisonIndicator?.count).toBe(5);
+      expect(poisonIndicator?.status).toBe("warning");
+    });
+
+    it("escalates poison events to critical when > 10", async () => {
+      mockPrisma.poisonEvent.count.mockResolvedValue(15);
+
+      const report = await service.generateHealthReport();
+
+      const poisonIndicator = report.indicators.find((i) => i.category === "Poison Events");
+      expect(poisonIndicator?.status).toBe("critical");
+    });
+
+    it("includes investigation links for each indicator", async () => {
+      mockPrisma.actionLedger.count.mockResolvedValue(3);
+
+      const report = await service.generateHealthReport();
+
+      const orphanedIndicator = report.indicators.find((i) => i.category === "Orphaned Actions");
+      expect(orphanedIndicator?.investigationLink).toBeDefined();
+      expect(orphanedIndicator?.investigationLink).toContain("action_ledger");
+      expect(orphanedIndicator?.investigationLink).toContain("orphaned");
+    });
+
+    it("includes actionable guidance for each indicator", async () => {
+      mockPrisma.actionLedger.count.mockResolvedValue(2);
+
+      const report = await service.generateHealthReport();
+
+      const indicator = report.indicators[0];
+      expect(indicator.actionable).toBeDefined();
+      expect(indicator.actionable.length).toBeGreaterThan(0);
+    });
+
+    it("aggregates multiple indicators correctly", async () => {
+      mockPrisma.actionLedger.count.mockResolvedValue(5);
+      mockPrisma.pendingEvent.count.mockResolvedValue(3);
+      mockPrisma.backgroundJob.count.mockResolvedValue(1);
+
+      const report = await service.generateHealthReport();
+
+      expect(report.indicators.length).toBe(3);
+      expect(report.summary.totalIssues).toBe(3);
+      expect(report.summary.warningCount).toBe(3);
+      expect(report.summary.criticalCount).toBe(0);
+    });
+
+    it("reports critical when any indicator is critical", async () => {
+      mockPrisma.actionLedger.count.mockResolvedValue(15); // > 10, critical
+      mockPrisma.pendingEvent.count.mockResolvedValue(3); // warning
+
+      const report = await service.generateHealthReport();
+
+      expect(report.overallStatus).toBe("critical");
+      expect(report.summary.criticalCount).toBe(1);
+      expect(report.summary.warningCount).toBe(1);
+    });
+
+    it("includes timestamp in report", async () => {
+      const report = await service.generateHealthReport();
+
+      expect(report.timestamp).toBeDefined();
+      expect(report.timestamp instanceof Date).toBe(true);
+    });
+  });
+
+  describe("getHealthCategoryDetails", () => {
+    it("returns orphaned actions with details", async () => {
+      const orphanedActions = [
+        {
+          id: "action-1",
+          walletAddress: "GBD3...",
+          actionType: "deposit",
+          txHash: "tx-123",
+          errorCode: "TIMEOUT",
+          updatedAt: new Date(),
+        },
+      ];
+
+      mockPrisma.actionLedger.findMany.mockResolvedValue(orphanedActions);
+      mockPrisma.actionLedger.count.mockResolvedValue(1);
+
+      const details = await service.getHealthCategoryDetails("Orphaned Actions");
+
+      expect(details.total).toBe(1);
+      expect(details.items).toHaveLength(1);
+      expect(details.items[0].id).toBe("action-1");
+      expect(details.items[0].errorCode).toBe("TIMEOUT");
+    });
+
+    it("returns failed background jobs with details", async () => {
+      const failedJobs = [
+        {
+          id: "job-1",
+          type: "draw_proof_generate",
+          attempts: 3,
+          updatedAt: new Date(),
+        },
+      ];
+
+      mockPrisma.backgroundJob.findMany.mockResolvedValue(failedJobs);
+      mockPrisma.backgroundJob.count.mockResolvedValue(1);
+
+      const details = await service.getHealthCategoryDetails("Failed Background Jobs");
+
+      expect(details.total).toBe(1);
+      expect(details.items).toHaveLength(1);
+      expect(details.items[0].type).toBe("draw_proof_generate");
+      expect(details.items[0].attempts).toBe(3);
+    });
+
+    it("returns pending repair proposals with details", async () => {
+      const pendingRepairs = [
+        {
+          id: "repair-1",
+          proposerId: "operator-123",
+          stepCount: 3,
+          valueTotal: 1000.5,
+          createdAt: new Date(),
+        },
+      ];
+
+      mockPrisma.repairProposal.findMany.mockResolvedValue(pendingRepairs);
+      mockPrisma.repairProposal.count.mockResolvedValue(1);
+
+      const details = await service.getHealthCategoryDetails("Pending Repair Proposals");
+
+      expect(details.total).toBe(1);
+      expect(details.items[0].stepCount).toBe(3);
+      expect(details.items[0].valueTotal).toBe(1000.5);
+    });
+
+    it("returns up to 50 items per category", async () => {
+      const manyItems = Array.from({ length: 60 }, (_, i) => ({
+        id: `action-${i}`,
+        walletAddress: "GBD3...",
+        actionType: "deposit",
+        txHash: `tx-${i}`,
+        errorCode: "TIMEOUT",
+        updatedAt: new Date(),
+      }));
+
+      mockPrisma.actionLedger.findMany.mockResolvedValue(manyItems);
+      mockPrisma.actionLedger.count.mockResolvedValue(60);
+
+      const details = await service.getHealthCategoryDetails("Orphaned Actions");
+
+      expect(details.total).toBe(60);
+      expect(details.items.length).toBe(50);
+    });
+
+    it("redacts sensitive details in items", async () => {
+      const orphanedActions = [
+        {
+          id: "action-1",
+          walletAddress: "GBD3...",
+          actionType: "deposit",
+          txHash: "tx-123",
+          errorCode: "TIMEOUT",
+          updatedAt: new Date(),
+          secret: "secret-value",
+        },
+      ];
+
+      mockPrisma.actionLedger.findMany.mockResolvedValue(orphanedActions);
+      mockPrisma.actionLedger.count.mockResolvedValue(1);
+
+      const details = await service.getHealthCategoryDetails("Orphaned Actions");
+
+      expect(details.items[0]).not.toHaveProperty("secret");
+    });
+  });
+});

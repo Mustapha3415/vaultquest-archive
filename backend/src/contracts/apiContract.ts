@@ -144,9 +144,15 @@ export const job = z
 /**
  * Schema version information returned by `GET /schema-version`
  * (service: `src/services/schemaVersionService.ts`).
+ *
+ * `version` is the response envelope version, `contractVersion` the API
+ * contract version this deployment serves (#803). Both are additive metadata:
+ * the supported stamps are unchanged.
  */
 export const schemaVersionInfo = z
   .object({
+    version: z.number().int().positive(),
+    contractVersion: z.string(),
     database: z
       .object({
         current: z.string(),
@@ -169,6 +175,7 @@ export const schemaVersionInfo = z
  */
 export const schemaValidation = z
   .object({
+    version: z.number().int().positive(),
     valid: z.boolean(),
     databaseVersion: z.string(),
     indexerVersion: z.string(),
@@ -187,8 +194,8 @@ export const CONTRACT_VERSIONS = {
   health: "1.0.0",
   job: "1.0.0",
   "job-list": "1.0.0",
-  schema-version: "1.0.0",
-  "schema-validation": "1.0.0"
+  "schema-version": "1.1.0",
+  "schema-validation": "1.1.0"
 } as const;
 
 /**

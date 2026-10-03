@@ -1,1 +1,159 @@
-aW1wb3J0IHR5cGUgeyBGYXN0aWZ5UGx1Z2luQXN5bmMgfSBmcm9tICJmYXN0aWZ5IjsKaW1wb3J0IHR5cGUgeyBPcGVyYXRpb25hbEhlYWx0aFNlcnZpY2UgfSBmcm9tICIuLi9zZXJ2aWNlcy9vcGVyYXRpb25hbEhlYWx0aFNlcnZpY2UuanMiOwppbXBvcnQgeyByZXF1aXJlUGVybWlzc2lvbiwgc2VydmljZVNlY3JldFJlc29sdmVyIH0gZnJvbSAiLi4vbWlkZGxld2FyZS9yYmFjLmpzIjsKaW1wb3J0IHsgQXBwRXJyb3IgfSBmcm9tICIuLi9lcnJvcnMuanMiOwppbXBvcnQgeyBvayB9IGZyb20gIi4uL3Jlc3BvbnNlcy5qcyI7CgpleHBvcnQgY29uc3QgSEVBTFRIX0NBVEVHT1JJRVMgPSBbCiAgIk9ycGhhbmVkIEFjdGlvbnMiLAogICJTdGFsZSBQZW5kaW5nIEV2ZW50cyIsCiAgIkZhaWxlZCBCYWNrZ3JvdW5kIEpvYnMiLAogICJVbnJlc29sdmVkIFZhdWx0IFNldHRsZW1lbnRzIiwKICAiUGVuZGluZyBSZXBhaXIgUHJvcG9zYWxzIiwKICAiUG9pc29uIEV2ZW50cyIsCl0gYXMgY29uc3Q7CgpleHBvcnQgdHlwZSBIZWFsdGhDYXRlZ29yeSA9ICh0eXBlb2YgSEVBTFRIX0NBVEVHT1JJRVMpW251bWJlcl07CgpleHBvcnQgdHlwZSBIZWFsdGhTZXZlcml0eSA9ICJjcml0aWNhbCIgfCAid2FybmluZyIgfCAiaW5mbyI7CgpleHBvcnQgaW50ZXJmYWNlIEhlYWx0aENhdGVnb3J5RGV0YWlsIHsKICBjYXRlZ29yeTogSGVhbHRoQ2F0ZWdvcnk7CiAgc2V2ZXJpdHk6IEhlYWx0aFNldmVyaXR5OwogIHRvdGFsOiBudW1iZXI7CiAgaXRlbXM6IEFycmF5PFJlY29yZDxzdHJpbmcsIHVua25vd24+PjsKfQoKY29uc3QgQ0FURUdPUllfU0VWRVJJVFk6IFJlY29yZDxIZWFsdGhDYXRlZ29yeSwgSGVhbHRoU2V2ZXJpdHk+ID0gewogICJPcnBoYW5lZCBBY3Rpb25zIjogImNyaXRpY2FsIiwKICAiU3RhbGUgUGVuZGluZyBFdmVudHMiOiAid2FybmluZyIsCiAgIkZhaWxlZCBCYWNrZ3JvdW5kIEpvYnMiOiAiY3JpdGljYWwiLAogICJVbnJlc29sdmVkIFZhdWx0IFNldHRsZW1lbnRzIjogImNyaXRpY2FsIiwKICAiUGVuZGluZyBSZXBhaXIgUHJvcG9zYWxzIjogIndhcm5pbmciLAogICJQb2lzb24gRXZlbnRzIjogImNyaXRpY2FsIiwKfTsKCi8qKgogKiBSZWRhY3RzIHNlbnNpdGl2ZSBpZGVudGlmaWVycyAod2FsbGV0IGFkZHJlc3Nlcywga2V5cywgc2VjcmV0cykKICogd2hpbGUga2VlcGluZyB0aGUgZmlyc3Qv bGFzdCBjaGFyYWN0ZXJzIGZvciBjb3JyZWxhdGlvbi4KICovCmV4cG9ydCBjb25zdCByZWRhY3RTZW5zaXRpdmUgPSAodmFsdWU6IHVua25vd24pOiB1bmtub3duID0+IHsKICBpZiAodHlwZW9mIHZhbHVlICE9PSAic3RyaW5nIikgcmV0dXJuIHZhbHVlOwogIGNvbnN0IHMgPSB2YWx1ZS50cmltKCk7CiAgaWYgKHMubGVuZ3RoIDw9IDgpIHJldHVybiAiW3JlZGFjdGVkXSI7CiAgcmV0dXJuIGAke3Muc2xpY2UoMCwgNCl94oCmJHtzLnNsaWNlKC00KX1gOwp9OwoKY29uc3QgU0VOU0lUSVZFX0tFWVMgPSAvKHdhbGxldHxhZGRyZXNzfHNlY3JldHxrZXl8dG9rZW58c2lnbmF0dXJlKS9pOwoKY29uc3QgcmVkYWN0UmVjb3JkID0gKHJlY29yZDogUmVjb3JkPHN0cmluZywgdW5rbm93bj4pOiBSZWNvcmQ8c3RyaW5nLCB1bmtub3duPiA9PiB7CiAgY29uc3Qgb3V0OiBSZWNvcmQ8c3RyaW5nLCB1bmtub3duPiA9IHt9OwogIGZvciAoY29uc3QgW2tleSwgdmFsdWVdIG9mIE9iamVjdC5lbnRyaWVzKHJlY29yZCkpIHsKICAgIG91dFtrZXldID0gU0VOU0lUSVZFX0tFWVMudGVzdChrZXkpID8gcmVkYWN0U2Vuc2l0aXZlKHZhbHVlKSA6IHZhbHVlOwogIH0KICByZXR1cm4gb3V0Owp9OwoKLyoqCiAqIE1haW50YWluZXIgZGFzaGJvYXJkIHJvdXRlcyBmb3Igb3BlcmF0aW9uYWwgaGVhbHRoIG1vbml0b3JpbmcuCiAqIEFsbCByb3V0ZXMgcmVxdWlyZSBpbnRlcm5hbCBzZXJ2aWNlIGF1dGhlbnRpY2F0aW9uLgogKi8KZXhwb3J0IGNvbnN0IG9wZXJhdGlvbmFsSGVhbHRoUm91dGVzID0gKAogIGhlYWx0aFN2YzogT3BlcmF0aW9uYWxIZWFsdGhTZXJ2aWNlLAogIHNlY3JldDogc3RyaW5nCik6IEZhc3RpZnlQbHVnaW5Bc3luYyA9PgogIGFzeW5jIChhcHApID0+IHsKICAgIGNvbnN0IHNlcnZpY2UgPSBzZXJ2aWNlU2VjcmV0UmVzb2x2ZXIoc2VjcmV0KTsKICAgIGNvbnN0IGd1YXJkID0gKHBlcm06IFBhcmFtZXRlcnM8dHlwZW9mIHJlcXVpcmVQZXJtaXNzaW9uPlswXT4pID0+CiAgICAgIHJlcXVpcmVQZXJtaXNzaW9uKHBlcm0sIFtzZXJ2aWNlXSk7CgogICAgLyoqCiAgICAgKiBHRVQgL2ludGVybmFsL2hlYWx0aC9yZXBvcnQKICAgICAqCiAgICAgKiBSZXR1cm5zIGNvbXByZWhlbnNpdmUgb3BlcmF0aW9uYWwgaGVhbHRoIHJlcG9ydCB3aXRoOgogICAgICogLSBPdmVyYWxsIHN5c3RlbSBzdGF0dXMgKGhlYWx0aHkvd2FybmluZy9jcml0aWNhbCkKICAgICAqIC0gSGVhbHRoIGluZGljYXRvcnMgd2l0aCBjb3VudHMsIHNldmVyaXR5LCBhbmQgYWN0aW9uYWJsZSBpbnNpZ2h0cwogICAgICogLSBJbnZlc3RpZ2F0aW9uIGxpbmtzIChTUUwgcXVlcmllcykgZm9yIGVhY2ggaW5kaWNhdG9yCiAgICAgKgogICAgICogUmVzcG9uc2UgaW5jbHVkZXMgc2Vuc2l0aXZlIHF1ZXJ5IHN0cmluZ3MgZm9yIG1haW50YWluZXIgaW52ZXN0aWdhdGlvbi4KICAgICAqIE5vIHNlbnNpdGl2ZSB1c2VyIGRhdGEgaXMgZXhwb3NlZCBpbiB0aGUgcmVwb3J0IGl0c2VsZi4KICAgICAqLwogICAgYXBwLmdldCgiL2ludGVybmFsL2hlYWx0aC9yZXBvcnQiLCB7IHByZUhhbmRsZXI6IFtedWd1YXJkKCJpbnRlcm5hbC5oZWFsdGgucmVhZCIpXSB9LCBhc3luYyAocmVxKSA9PiB7CiAgICAgIHRyeSB7CiAgICAgICAgY29uc3QgcmVwb3J0ID0gYXdhaXQgaGVhbHRoU3ZjLmdlbmVyYXRlSGVhbHRoUmVwb3J0KCk7CiAgICAgICAgcmV0dXJuIG9rKHJlcG9ydCk7CiAgICAgIH0gY2F0Y2ggKGVycikgewogICAgICAgIHJlcS5sb2cuZXJyb3IoeyBlcnIgfSwgImZhaWxlZCB0byBnZW5lcmF0ZSBoZWFsdGggcmVwb3J0Iik7CiAgICAgICAgdGhyb3cgQXBwRXJyb3Iuc2VydmVyRXJyb3IoImhlYWx0aCByZXBvcnQgZ2VuZXJhdGlvbiBmYWlsZWQiLCBTdHJpbmcoZXJyKSk7CiAgICAgIH0KICAgIH0pOwoKICAgIC8qKgogICAgICogR0VUIC9pbnRlcm5hbC9oZWFsdGgvcmVwb3J0L3N1bW1hcnkKICAgICAqCiAgICAgKiBMaWdodHdlaWdodCBzdW1tYXJ5IGZvciBkYXNoYm9hcmQgc3RhdHVzIGluZGljYXRvci4KICAgICAqIFJldHVybnMgb25seTogb3ZlcmFsbFN0YXR1cywgdG90YWxJc3N1ZXMsIGNyaXRpY2FsQ291bnQsIHdhcm5pbmdDb3VudAogICAgICogVXNlZnVsIGZvciBmcm9udGVuZHMgdGhhdCBwb2xsIGhlYWx0aCBmcmVxdWVudGx5LgogICAgICovCiAgICBhcHAuZ2V0KAogICAgICAiL2ludGVybmFsL2hlYWx0aC9yZXBvcnQvc3VtbWFyeSIsCiAgICAgIHsgcHJlSGFuZGxlcjogW2d1YXJkKCJpbnRlcm5hbC5oZWFsdGgucmVhZCIpXSB9LAogICAgICBhc3luYyAocmVxKSA9PiB7CiAgICAgICAgdHJ5IHsKICAgICAgICAgIGNvbnN0IHJlcG9ydCA9IGF3YWl0IGhlYWx0aFN2Yy5nZW5lcmF0ZUhlYWx0aFJlcG9ydCgpOwogICAgICAgICAgcmV0dXJuIG9rKHsKICAgICAgICAgICAgdGltZXN0YW1wOiByZXBvcnQudGltZXN0YW1wLAogICAgICAgICAgICBvdmVyYWxsU3RhdHVzOiByZXBvcnQub3ZlcmFsbFN0YXR1cywKICAgICAgICAgICAgdG90YWxJc3N1ZXM6IHJlcG9ydC5zdW1tYXJ5LnRvdGFsSXNzdWVzLAogICAgICAgICAgICBjcml0aWNhbENvdW50OiByZXBvcnQuc3VtbWFyeS5jcml0aWNhbENvdW50LAogICAgICAgICAgICB3YXJuaW5nQ291bnQ6IHJlcG9ydC5zdW1tYXJ5Lndhcm5pbmdDb3VudCwKICAgICAgICAgIH0pOwogICAgICAgIH0gY2F0Y2ggKGVycikgewogICAgICAgICAgcmVxLmxvZy5lcnJvcih7IGVyciB9LCAiZmFpbGVkIHRvIGdlbmVyYXRlIGhlYWx0aCBzdW1tYXJ5Iik7CiAgICAgICAgICB0aHJvdyBBcHBFcnJvci5zZXJ2ZXJFcnJvcigiaGVhbHRoIHN1bW1hcnkgZ2VuZXJhdGlvbiBmYWlsZWQiLCBTdHJpbmcoZXJyKSk7CiAgICAgICAgfQogICAgICB9CiAgICApOwoKICAgIC8qKgogICAgICogR0VUIC9pbnRlcm5hbC9oZWFsdGgvY2F0ZWdvcnkvOmNhdGVnb3J5CiAgICAgKgogICAgICogRHJpbGwtZG93biBpbnRvIGEgc3BlY2lmaWMgaGVhbHRoIGNhdGVnb3J5LgogICAgICogUmV0dXJucyB1cCB0byA1MCBkZXRhaWxlZCByZWNvcmRzIGZvciBpbnZlc3RpZ2F0aW9uLgogICAgICoKICAgICAqIFN1cHBvcnRlZCBjYXRlZ29yaWVzOgogICAgICogLSBPcnBoYW5lZCBBY3Rpb25zCiAgICAgKiAtIFN0YWxlIFBlbmRpbmcgRXZlbnRzCiAgICAgKiAtIEZhaWxlZCBCYWNrZ3JvdW5kIEpvYnMKICAgICAqIC0gVW5yZXNvbHZlZCBWYXVsdCBTZXR0bGVtZW50cwogICAgICogLSBQZW5kaW5nIFJlcGFpciBQcm9wb3NhbHMKICAgICAqIC0gUG9pc29uIEV2ZW50cwogICAgICoKICAgICAqIFJlY29yZHMgYXJlIHBhZ2luYXRlZDsgc2Vuc2l0aXZlIFBJSSAod2FsbGV0IGFkZHJlc3NlcykgaXMgcmVkYWN0ZWQKICAgICAqIGJlZm9yZSByZXR1cm5pbmcgdG8gdGhlIGNsaWVudC4KICAgICAqLwogICAgYXBwLmdldCgKICAgICAgIi9pbnRlcm5hbC9oZWFsdGgvY2F0ZWdvcnkvOmNhdGVnb3J5IiwKICAgICAgeyBwcmVIYW5kbGVyOiBbZ3VhcmQoImludGVybmFsLmhlYWx0aC5yZWFkIildIH0sCiAgICAgIGFzeW5jIChyZXEpID0+IHsKICAgICAgICBjb25zdCB7IGNhdGVnb3J5IH0gPSByZXEucGFyYW1zIGFzIHsgY2F0ZWdvcnk6IHN0cmluZyB9OwoKICAgICAgICBpZiAoIUhFQUxUSF9DQVRFR09SSUVTLmluY2x1ZGVzKGNhdGVnb3J5IGFzIEhlYWx0aENhdGVnb3J5KSkgewogICAgICAgICAgdGhyb3cgQXBwRXJyb3IudmFsaWRhdGlvbmAoYGludmFsaWQgY2F0ZWdvcnk6ICR7Y2F0ZWdvcnl9YCk7CiAgICAgICAgfQoKICAgICAgICB0cnkgewogICAgICAgICAgY29uc3QgZGV0YWlscyA9IGF3YWl0IGhlYWx0aFN2Yy5nZXRIZWFsdGhDYXRlZ29yeURldGFpbHMoY2F0ZWdvcnkpOwogICAgICAgICAgcmV0dXJuIG9rKHsKICAgICAgICAgICAgY2F0ZWdvcnksCiAgICAgICAgICAgIHNldmVyaXR5OiBDQVRFR09SWV9TRVZFUklUWVtjYXRlZ29yeSBhcyBIZWFsdGhDYXRlZ29yeV0sCiAgICAgICAgICAgIHRvdGFsOiBkZXRhaWxzLnRvdGFsLAogICAgICAgICAgICBpdGVtczogZGV0YWlscy5pdGVtcy5tYXAocmVkYWN0UmVjb3JkKSwKICAgICAgICAgIH0pOwogICAgICAgIH0gY2F0Y2ggKGVycikgewogICAgICAgICAgcmVxLmxvZy5lcnJvcih7IGVyciwgY2F0ZWdvcnkgfSwgImZhaWxlZCB0byBmZXRjaCBjYXRlZ29yeSBkZXRhaWxzIik7CiAgICAgICAgICB0aHJvdyBBcHBFcnJvci5zZXJ2ZXJFcnJvcigiY2F0ZWdvcnkgZGV0YWlscyBmZXRjaCBmYWlsZWQiLCBTdHJpbmcoZXJyKSk7CiAgICAgICAgfQogICAgICB9CiAgICApOwogIH07Cg==
+import type { FastifyPluginAsync } from "fastify";
+import type { OperationalHealthService } from "../services/operationalHealthService.js";
+import { requirePermission, serviceSecretResolver } from "../middleware/rbac.js";
+import { AppError } from "../errors.js";
+import { ok } from "../responses.js";
+
+export const HEALTH_CATEGORIES = [
+  "Orphaned Actions",
+  "Stale Pending Events",
+  "Failed Background Jobs",
+  "Unresolved Vault Settlements",
+  "Pending Repair Proposals",
+  "Poison Events",
+] as const;
+
+export type HealthCategory = (typeof HEALTH_CATEGORIES)[number];
+
+export type HealthSeverity = "critical" | "warning" | "info";
+
+export interface HealthCategoryDetail {
+  category: HealthCategory;
+  severity: HealthSeverity;
+  total: number;
+  items: Array<Record<string, unknown>>;
+}
+
+const CATEGORY_SEVERITY: Record<HealthCategory, HealthSeverity> = {
+  "Orphaned Actions": "critical",
+  "Stale Pending Events": "warning",
+  "Failed Background Jobs": "critical",
+  "Unresolved Vault Settlements": "critical",
+  "Pending Repair Proposals": "warning",
+  "Poison Events": "critical",
+};
+
+/**
+ * Redacts sensitive identifiers (wallet addresses, keys, secrets)
+ * while keeping the first/last characters for correlation.
+ */
+export const redactSensitive = (value: unknown): unknown => {
+  if (typeof value !== "string") return value;
+  const s = value.trim();
+  if (s.length <= 8) return "[redacted]";
+  return `${s.slice(0, 4)}…${s.slice(-4)}`;
+};
+
+const SENSITIVE_KEYS = /(wallet|address|secret|key|token|signature)/i;
+
+const redactRecord = (record: Record<string, unknown>): Record<string, unknown> => {
+  const out: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(record)) {
+    out[key] = SENSITIVE_KEYS.test(key) ? redactSensitive(value) : value;
+  }
+  return out;
+};
+
+/**
+ * Maintainer dashboard routes for operational health monitoring.
+ * All routes require internal service authentication.
+ */
+export const operationalHealthRoutes = (
+  healthSvc: OperationalHealthService,
+  secret: string
+): FastifyPluginAsync =>
+  async (app) => {
+    const service = serviceSecretResolver(secret);
+    const guard = (perm: Parameters<typeof requirePermission>[0]) =>
+      requirePermission(perm, [service]);
+
+    /**
+     * GET /internal/health/report
+     *
+     * Returns comprehensive operational health report with:
+     * - Overall system status (healthy/warning/critical)
+     * - Health indicators with counts, severity, and actionable insights
+     * - Investigation links (SQL queries) for each indicator
+     *
+     * Response includes sensitive query strings for maintainer investigation.
+     * No sensitive user data is exposed in the report itself.
+     */
+    app.get("/internal/health/report", { preHandler: [guard("internal.health.read")] }, async (req) => {
+      try {
+        const report = await healthSvc.generateHealthReport();
+        return ok(report);
+      } catch (err) {
+        req.log.error({ err }, "failed to generate health report");
+        throw AppError.serverError("health report generation failed", String(err));
+      }
+    });
+
+    /**
+     * GET /internal/health/report/summary
+     *
+     * Lightweight summary for dashboard status indicator.
+     * Returns only: overallStatus, totalIssues, criticalCount, warningCount
+     * Useful for frontends that poll health frequently.
+     */
+    app.get(
+      "/internal/health/report/summary",
+      { preHandler: [guard("internal.health.read")] },
+      async (req) => {
+        try {
+          const report = await healthSvc.generateHealthReport();
+          return ok({
+            timestamp: report.timestamp,
+            overallStatus: report.overallStatus,
+            totalIssues: report.summary.totalIssues,
+            criticalCount: report.summary.criticalCount,
+            warningCount: report.summary.warningCount,
+          });
+        } catch (err) {
+          req.log.error({ err }, "failed to generate health summary");
+          throw AppError.serverError("health summary generation failed", String(err));
+        }
+      }
+    );
+
+    /**
+     * GET /internal/health/category/:category
+     *
+     * Drill-down into a specific health category.
+     * Returns up to 50 detailed records for investigation.
+     *
+     * Supported categories:
+     * - Orphaned Actions
+     * - Stale Pending Events
+     * - Failed Background Jobs
+     * - Unresolved Vault Settlements
+     * - Pending Repair Proposals
+     * - Poison Events
+     *
+     * Records are paginated; sensitive PII (wallet addresses) is redacted
+     * before returning to the client.
+     */
+    app.get(
+      "/internal/health/category/:category",
+      { preHandler: [guard("internal.health.read")] },
+      async (req) => {
+        const { category } = req.params as { category: string };
+
+        if (!HEALTH_CATEGORIES.includes(category as HealthCategory)) {
+          throw AppError.validation(`invalid category: ${category}`);
+        }
+
+        try {
+          const details = await healthSvc.getHealthCategoryDetails(category);
+          return ok({
+            category,
+            severity: CATEGORY_SEVERITY[category as HealthCategory],
+            total: details.total,
+            items: details.items.map(redactRecord),
+          });
+        } catch (err) {
+          req.log.error({ err, category }, "failed to fetch category details");
+          throw AppError.serverError("category details fetch failed", String(err));
+        }
+      }
+    );
+  };

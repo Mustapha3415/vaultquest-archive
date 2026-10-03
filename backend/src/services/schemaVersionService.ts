@@ -1,5 +1,11 @@
 import type { PrismaClient } from "@prisma/client";
 import { SCHEMA_VERSIONS, getVersionMismatch } from "../constants.js";
+import {
+  RecordCompatibilityError,
+  UnsupportedSchemaVersionError,
+  readVaultRecord,
+  type VaultRecord,
+} from "../schemas/recordCompatibility.js";
 
 /**
  * Versioned API response contract for schema version endpoints.
@@ -64,83 +70,16 @@ export const schemaVersionInfoResponseSchema = {
     },
   },
 } as const;
- * Legacy record shapes from previous VaultQuest schemas.
- * These are used by migration/compatibility tests to verify that old
- * records can be reade and upgraded to the current shape.
- */
-export interface LegacyVaultRecord {
-  id: string;
-  address: string;
-  ownerAddress: string;
-  totalDeposits: string;
-  totalWithdrawals?: string;
-  createdAt: string;
-  schemaVersion: string;
-}
-
-export interface LegacyPrizeRecord {
-  id: string;
-  vaultId: string;
-  winnerAddress: string;
-  amount: string;
-  drawId: string;
-  drawnAt: string;
-  schemaVersion: string;
-}
-
-export interface LegacyWalletRecord {
-  id: string;
-  address: string;
-  balance?: string;
-  lastSeenAt: string;
-  schemaVersion: string;
-}
-
-export type LegacyRecord = LegacyVaultRecord | LegacyPrizeRecord | LegacyWalletRecord;
-
-export interface CurrentVaultRecord {
-  id: string;
-  address: string;
-  ownerAddress: string;
-  totalDeposits: string;
-  totalWithdrawals: string;
-  createdAt: string;
-  schemaVersion: string;
-  migratedFrom?: string;
-}
-
-export interface CurrentPrizeRecord {
-  id: string;
-  vaultId: string;
-  winnerAddress: string;
-  amount: string;
-  drawId: string;
-  drawnAt: string;
-  schemaVersion: string;
-  migratedFrom?: string;
-}
-
-export interface CurrentWalletRecord {
-  id: string;
-  address: string;
-  balance: string;
-  lastSeenAt: string;
-  schemaVersion: string;
-  migratedFrom?: string;
-}
-
-export type CurrentRecord = CurrentVaultRecord | CurrentPrizeRecord | CurrentWalletRecord;
-
-export interface MigrationResult {
-  ok: boolean;
-  record?: CurrentRecord;
-  issues: string;
-}
 
 /**
- * Known legacy schema versions that this service can migrate.
+ * Result of migrating a stored record to the current schema through the
+ * compatibility layer (`src/schemas/recordCompatibility.ts`, #803).
  */
-export const LEGACY_SCHEMA_VERSIONS = ["1.0.0", "1.1.0", "1.2.0"] as const;
+export interface MigrationResult {
+  ok: boolean;
+  record?: VaultRecord;
+  issues: string;
+}
 
 /**
  * Service for validating database and indexer schema versions
@@ -162,11 +101,11 @@ export class SchemaVersionService {
         LIMIT 1
       `;
       
-      if (result && result.length > 0) {
+      const latest = result?.[0];
+      if (latest) {
         // Extract version from migration name (e.g., "20260725000002_add_wallet_auth")
-        const migrationName = result[0].migration_name;
-        const versionMatch = migrationName.match(/^(\d{14})/);
-        return versionMatch ? versionMatch[1] : "unknown";
+        const versionMatch = latest.migration_name.match(/^(\d{14})/);
+        return versionMatch?.[1] ?? "unknown";
       }
       
       return "unknown";
@@ -242,106 +181,37 @@ export class SchemaVersionService {
   }
 
   /**
-   * Validate a legacy record against its expected old shape.
-   * Returns an array of issues (strings); empty means the record is valid.
+   * Validate a record against the schema of the version it declares.
+   * Delegates to the compatibility layer so validation and migration can never
+   * drift apart. Returns an array of issues (strings); empty means valid.
    */
   validateLegacyRecord(record: unknown): string[] {
-    const issues: string[] = [];
-
-    if (!record || typeof record !== "object") {
-      return ["record is not an object"];
+    try {
+      readVaultRecord(record);
+      return [];
+    } catch (error) {
+      if (error instanceof RecordCompatibilityError) return error.issues;
+      if (error instanceof UnsupportedSchemaVersionError) return [error.message];
+      return [error instanceof Error ? error.message : String(error)];
     }
-
-    const r = record as Record<string, unknown>;
-
-    if (typeof r.id !== "string" || r.id.length === 0) {
-      issues.push("missing or invalid required field: id");
-    }
-
-    if (typeof r.schemaVersion !== "string") {
-      issues.push("missing or invalid required field: schemaVersion");
-    } else if (!LEGACY_SCHEMA_VERSIONS.includes(r.schemaVersion as (typeof LEGACY_SCHEMA_VERSIONS)[number])) {
-      issues.push(`unsupported legacy schemaVersion: ${r.schemaVersion}`);
-    }
-
-    // Discriminate by known legacy field sets.
-    if "vaultId" in r || "winnerAddress" in r) {
-      // Legacy prize record
-      for (const field of ["vaultId", "winnerAddress", "amount", "drawId", "drawnAt"]) {
-        if (typeof r[field] !== "string" || (r[field] as string).length === 0) {
-          issues.push(`missing or invalid required field: ${field}`);
-        }
-      }
-    } else if ("ownerAddress" in r || "totalDeposits" in r) {
-      // Legacy vault record
-      for (const field of ["address", "ownerAddress", "totalDeposits", "createdAt"]) {
-        if (typeof r[field] !== "string" || (r[field] as string).length === 0) {
-          issues.push(`missing or invalid required field: ${field}`);
-        }
-      }
-    } else if ("address" in r) {
-      // Legacy wallet record
-      for (const field of ["address", "lastSeenAt"]) {
-        if (typeof r[field] !== "string" || (r[field] as string).length === 0) {
-          issues.push(`missing or invalid required field: ${field}`);
-        }
-      }
-    } else {
-      issues.push("unrecognized legacy record shape");
-    }
-
-    return issues;
   }
 
   /**
-   * Migrate a legacy record to the current shape.
+   * Migrate a stored record (any supported version) to the current shape.
    * Returns a result with either the migrated record or the issues encountered.
    */
   migrateLegacyRecord(record: unknown): MigrationResult {
-    const issues = this.validateLegacyRecord(record);
-    if (issues.length > 0) {
-      return { ok: false, issues: issues.join("; ") };
+    try {
+      const { record: migrated } = readVaultRecord(record);
+      return { ok: true, record: migrated, issues: "" };
+    } catch (error) {
+      const issues =
+        error instanceof RecordCompatibilityError
+          ? error.issues.join("; ")
+          : error instanceof Error
+            ? error.message
+            : String(error);
+      return { ok: false, issues };
     }
-
-    const r = record as Record<string, unknown>;
-    const migratedFrom = r.schemaVersion as string;
-
-    if ("vaultId" in r) {
-      const current: CurrentPrizeRecord = {
-        id: r.id as string,
-        vaultId: r.vaultId as string,
-        winnerAddress: r.winnerAddress as string,
-        amount: r.amount as string,
-        drawId: r.drawId as string,
-        drawnAt: r.drawnAt as string,
-        schemaVersion: SCHEMA_VERSIONS.DATABASE,
-        migratedFrom,
-      };
-      return { ok: true, record: current, issues: "" };
-    }
-
-    if ("ownerAddress" in r) {
-      const current: CurrentVaultRecord = {
-        id: r.id as string,
-        address: r.address as string,
-        ownerAddress: r.ownerAddress as string,
-        totalDeposits: r.totalDeposits as string,
-        totalWithdrawals: (r.totalWithdrawals as string || "0"),
-        createdAt: r.createdAt as string,
-        schemaVersion: SCHEMA_VERSIONS.DATABASE,
-        migratedFrom,
-      };
-      return { ok: true, record: current, issues: "" };
-    }
-
-    const current: CurrentWalletRecord = {
-      id: r.id as string,
-      address: r.address as string,
-      balance: (r.balance as string || "0"),
-      lastSeenAt: r.lastSeenAt as string,
-      schemaVersion: SCHEMA_VERSIONS.DATABASE,
-      migratedFrom,
-    };
-    return { ok: true, record: current, issues: "" };
   }
 }

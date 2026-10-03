@@ -1,1 +1,128 @@
-aW1wb3J0IHR5cGUgeyBGYXN0aWZ5UGx1Z2luQXN5bmMgfSBmcm9tICJmYXN0aWZ5IjsKaW1wb3J0IHsgeiB9IGZyb20gInpvZCI7CmltcG9ydCB7IEFwcEVycm9yIH0gZnJvbSAiLi4vZXJyb3JzLmpzIjsKaW1wb3J0IHsgcmVxdWlyZVNlcnZpY2VBdXRoIH0gZnJvbSAiLi4vbWlkZGxld2FyZS9zZXJ2aWNlLWF1dGguanMiOwppbXBvcnQgeyBvayB9IGZyb20gIi4uL3Jlc3BvbnNlcy5qcyI7CmltcG9ydCB7IEpPQl9TVEFUVUVTLCB0eXBlIEpvYlJlY29yZCB9IGZyb20gIi4uL3dvcmtlci90eXBlcy5qcyI7CmltcG9ydCB0eXBlIHsgSm9iUXVldWUgfSBmcm9tICIuLi93b3JrZXIvam9iV29ya2VyLmpzIjsKCmNvbnN0IGxpc3RRdWVyeSA9IHoub2JqZWN0KHsKICBzdGF0dXM6IHouZW51bShKT0JfU1RBVFVTRVMpLm9wdGlvbmFsKCksCiAgdHlwZTogei5zdHJpbmcoKS5taW4oMSkubWF4KDEwMCkub3B0aW9uYWwoKSwKICBsaW1pdDogei5jb2VyY2UubnVtYmVyKCkuaW50KCkubWluKDEpLm1heCgyMDApLmRlZmF1bHQoNTApCn0pOwpjb25zdCBpZFBhcmFtcyA9IHoub2JqZWN0KHsgaWQ6IHouc3RyaW5nKCkudXVpZCgpIH0pOwoKY29uc3Qgc3RhbGVRdWVyeSA9IHoub2JqZWN0KHsKICBsaW1pdDogei5jb2VyY2UubnVtYmVyKCkuaW50KCkubWluKDEpLm1heCg1MDApLmRlZmF1bHQoMTAwKSwKICB0eXBlOiB6LnN0cmluZygpLm1pbigxKS5tYXgoMTAwKS5vcHRpb25hbCgpCn0pOwoKY29uc3QgcmVwYWlyQm9keSA9IHoub2JqZWN0KHsKICBkcnlfcnVuOiB6LmJvb2xlYW4oKS5kZWZhdWx0KHRydWUpLAogIGxpbWl0OiB6LmNvZXJjZS5udW1iZXIoKS5pbnQoKS5taW4oMSkubWF4KDUwMCkuZGVmYXVsdCgxMDApLAogIHR5cGU6IHouc3RyaW5nKCkubWluKDEpLm1heCgxMDApLm9wdGlvbmFsKCksCiAgaWRzOiB6LmFycmF5KHouc3RyaW5nKCkubWluKDEpLm1heCgyMDApKS5tYXgoNTAwKS5vcHRpb25hbCgpCn0pOwoKZXhwb3J0IGludGVyZmFjZSBTdGFsZUNhY2hlRW50cnkgewogIGlkOiBzdHJpbmc7CiAgY2FjaGVfa2V5OiBzdHJpbmc7CiAgc291cmNlX3R5cGU6IHN0cmluZzsKICBzb3VyY2VfaWQ6IHN0cmluZzsKICBzb3VyY2VfdmVyc2lvbjogbnVtYmVyOwogIGNhY2hlZF92ZXJzaW9uOiBudW1iZXI7CiAgdXBkYXRlZF9hdDogc3RyaW5nOwogIHJlYXNvbjogInZlcnNpb25fbWlzbWF0Y2giIHwgIm1pc3NpbmdfY2FjaGUiOwp9CgpleHBvcnQgaW50ZXJmYWNlIFN0YWxlQ2FjaGVEZXRlY3RvciB7CiAgZGV0ZWN0U3RhbGUob3B0aW9ucz86IHsgbGltaXQ/OiBudW1iZXI7IHR5cGU/OiBzdHJpbmcgfSk6IFByb21pc2U8U3RhbGVDYWNoZUVudHJ5W10+Owp9CgpleHBvcnQgaW50ZXJmYWNlIENhY2hlUmVwYWlySm9iIHsKICBydW4ob3B0aW9uczogeyBkcnlSdW46IGJvb2xlYW47IGxpbWl0OiBudW1iZXI7IHR5cGU/OiBzdHJpbmc7IGlkcz86IHN0cmluZ1tdIH0pOiBQcm9taXNlPHsKICAgIGRyeV9ydW46IGJvb2xlYW47CiAgICBkZXRlY3RlZDogbnVtYmVyOwogICAgcmVwYWlyZWQ6IG51bWJlcjsKICAgIGZhaWxlZDogbnVtYmVyOwogICAgZW50cmllczogU3RhbGVDYWNoZUVudHJ5W107CiAgICBlcnJvcnM6IEFycmF5PHsgaWQ6IHN0cmluZzsgbWVzc2FnZTogc3RyaW5nIH0+OwogIH0+Owp9CgpleHBvcnQgZnVuY3Rpb24gc2VyaWFsaXplSm9iKGogSm9iUmVjb3JkKSB7CiAgcmV0dXJuIHsKICAgIGlkOiBqLmlkLAogICAgdHlwZTogai50eXBlLAogICAgc3RhdHVzOiBqLnN0YXR1cywKICAgIGlkZW1wb3RlbmN5X2tleTogai5pZGVtcG90ZW5jeUtleSwKICAgIHBheWxvYWQ6IGoucGF5bG9hZCwKICAgIGF0dGVtcHRzOiBqLmF0dGVtcHRzLAogICAgbWF4X2F0dGVtcHRzOiBqLm1heEF0dGVtcHRzLAogICAgcnVuX2F0OiBqLnJ1bkF0LAogICAgY29ycmVsYXRpb25faWQ6IGouY29ycmVsYXRpb25JZCwKICAgIGxhc3RfZXJyb3I6IGoubGFzdEVycm9yLAogICAgZmFpbHVyZXM6IGouZmFpbHVyZXMsCiAgICBjcmVhdGVkX2F0OiBqLmNyZWF0ZWRBdCwKICAgIHVwZGF0ZWRfYXQ6IGoudXBkYXRlZEF0LAogICAgY29tcGxldGVkX2F0OiBqLmNvbXBsZXRlZEF0CiAgfTsKfQoKLyoqIE9wZXJhdG9yIGluc3BlY3Rpb24gb2YgYmFja2dyb3VuZCBqb2JzLiBHdWFyZGVkIGJ5IHRoZSBpbnRlcm5hbCBzZXJ2aWNlIHNlY3JldC4gKi8KZXhwb3J0IGNvbnN0IGpvYnNSb3V0ZXMgPSAoCiAgcXVldWU6IEpvYlF1ZXVlLAogIHNlY3JldDogc3RyaW5nLAogIGRldGVjdG9yPzogU3RhbGVDYWNoZURldGVjdG9yLAogIHJlcGFpcmVyPzogQ2FjaGVSZXBhaXJKb2IKKTogRmFzdGlmeVBsdWdpbkFzeW5jID0+CiAgYXN5bmMgKGFwcCkgPT4gewogICAgY29uc3QgZ3VhcmQgPSByZXF1aXJlU2VydmljZUF1dGgoc2VjcmV0KTsKCiAgICBhcHAuZ2V0KCIvaW50ZXJuYWwvam9icyIsIHsgcHJlSGFuZGxlcjogW2d1YXJkXSB9LCBhc3luYyAocmVxKSA9PiB7CiAgICAgIGNvbnN0IHEgPSBsaXN0UXVlcnkucGFyc2UocmVxLnF1ZXJ5KTsKICAgICAgcmV0dXJuIG9rKChhd2FpdCBxdWV1ZS5saXN0Sm9icyhxKSkubWFwKHNlcmlhbGl6ZUpvYikpOwogICAgfSk7CgogICAgYXBwLmdldCgiL2ludGVybmFsL2pvYnMvOnN0YWxlIiwgeyBwcmVIYW5kbGVyOiBbZ3VhcmRdIH0sIGFzeW5jIChyZXEpID0+IHsKICAgICAgaWYgKCFkZXRlY3RvcikgdGhyb3cgQXBwRXJyb3Iubm90SW1wbGVtZW50ZWQoInN0YWxlIGNhY2hlIGRldGVjdG9yIG5vdCBjb25maWd1cmVkIik7CiAgICAgIGNvbnN0IHEgPSBzdGFsZVF1ZXJ5LnBhcnNlKHJlcS5xdWVyeSk7CiAgICAgIGNvbnN0IGVudHJpZXMgPSBhd2FpdCBkZXRlY3Rvci5kZXRlY3RTdGFsZSh7IGxpbWl0OiBxLmxpbWl0LCB0eXBlOiBxLnR5cGUgfSk7CiAgICAgIHJldHVybiBvayh7IGNvdW50OiBlbnRyaWVzLmxlbmd0aCwgZW50cmllcyB9KTsKICAgIH0pOwoKICAgIGFwcC5wb3N0KCIvaW50ZXJuYWwvam9icy9yZXBhaXItY2FjaGUiLCB7IHByZUhhbmRsZXI6IFtn dWFyZF0gfSwgYXN5bmMgKHJlcSkgPT4gewogICAgICBpZiAoIXJlcGFpcmVyKSB0aHJvdyBBcHBFcnJvci5ub3RJbXBsZW1lbnRlZCgiY2FjaGUgcmVwYWlyIGpvYiBub3QgY29uZmlndXJlZCIpOwogICAgICBjb25zdCBib2R5ID0gcmVwYWlyQm9keS5wYXJzZShyZXEuYm9keSA/PyB7fSk7CiAgICAgIGNvbnN0IHJlc3VsdCA9IGF3YWl0IHJlcGFpcmVyLnJ1bih7CiAgICAgICAgZHJ5UnVuOiBib2R5LmRyeV9ydW4sCiAgICAgICAgbGltaXQ6IGJvZHkubGltaXQsCiAgICAgICAgdHlwZTogYm9keS50eXBlLAogICAgICAgIGlkczogYm9keS5pZHMKICAgICAgfSk7CiAgICAgIHJldHVybiBvayhyZXN1bHQpOwogICAgfSk7CgogICAgYXBwLmdldCgiL2ludGVybmFsL2pvYnMvOmlkIiwgeyBwcmVIYW5kbGVyOiBbZ3VhcmRdIH0sIGFzeW5jIChyZXEpID0+IHsKICAgICAgY29uc3QgeyBpZCB9ID0gaWRQYXJhbXMucGFyc2UocmVxLnBhcmFtcyk7CiAgICAgIGNvbnN0IGpvYiA9IGF3YWl0IHF1ZXVlLmdldEpvYihpZCk7CiAgICAgIGlmICgham9iKSB0aHJvdyBBcHBFcnJvci5ub3RGb3VuZChgam9iICR7aWR9IG5vdCBmb3VuZGApOwogICAgICByZXR1cm4gb2soc2VyaWFsaXplSm9iKGpvYikpOwogICAgfSk7CgogICAgYXBwLnBvc3QoIi9pbnRlcm5hbC9qb2JzLzppZC9yZXRyeSIsIHsgcHJlSGFuZGxlcjogW2d1YXJkXSB9LCBhc3luYyAocmVxKSA9PiB7CiAgICAgIGNvbnN0IHsgaWQgfSA9IGlkUGFyYW1zLnBhcnNlKHJlcS5wYXJhbXMpOwogICAgICBjb25zdCBqb2IgPSBhd2FpdCBxdWV1ZS5yZXRyeURlYWRKb2IoaWQpOwogICAgICBpZiAoIWpvYikgdGhyb3cgQXBwRXJyb3Iubm90Rm91bmQoYGRlYWQgam9iICR7aWR9IG5vdCBmb3VuZGApOwogICAgICByZXR1cm4gb2soc2VyaWFsaXplSm9iKGpvYikpOwogICAgfSk7CiAgfTsK
+import type { FastifyPluginAsync } from "fastify";
+import { z } from "zod";
+import { AppError } from "../errors.js";
+import { requireServiceAuth } from "../middleware/service-auth.js";
+import { ok } from "../responses.js";
+import { JOB_STATUSES, type JobRecord } from "../worker/types.js";
+import type { JobQueue } from "../worker/jobWorker.js";
+
+const listQuery = z.object({
+  status: z.enum(JOB_STATUSES).optional(),
+  type: z.string().min(1).max(100).optional(),
+  limit: z.coerce.number().int().min(1).max(200).default(50)
+});
+const idParams = z.object({ id: z.string().uuid() });
+
+const staleQuery = z.object({
+  limit: z.coerce.number().int().min(1).max(500).default(100),
+  type: z.string().min(1).max(100).optional()
+});
+
+const repairBody = z.object({
+  dry_run: z.boolean().default(true),
+  limit: z.coerce.number().int().min(1).max(500).default(100),
+  type: z.string().min(1).max(100).optional(),
+  ids: z.array(z.string().min(1).max(200)).max(500).optional()
+});
+
+export interface StaleCacheEntry {
+  id: string;
+  cache_key: string;
+  source_type: string;
+  source_id: string;
+  source_version: number;
+  cached_version: number;
+  updated_at: string;
+  reason: "version_mismatch" | "missing_cache";
+}
+
+export interface StaleCacheDetector {
+  detectStale(options?: { limit?: number; type?: string }): Promise<StaleCacheEntry[]>;
+}
+
+export interface CacheRepairJob {
+  run(options: { dryRun: boolean; limit: number; type?: string; ids?: string[] }): Promise<{
+    dry_run: boolean;
+    detected: number;
+    repaired: number;
+    failed: number;
+    entries: StaleCacheEntry[];
+    errors: Array<{ id: string; message: string }>;
+  }>;
+}
+
+export function serializeJob(j: JobRecord) {
+  return {
+    id: j.id,
+    type: j.type,
+    status: j.status,
+    idempotency_key: j.idempotencyKey,
+    payload: j.payload,
+    attempts: j.attempts,
+    max_attempts: j.maxAttempts,
+    run_at: j.runAt,
+    correlation_id: j.correlationId,
+    last_error: j.lastError,
+    failures: j.failures,
+    created_at: j.createdAt,
+    updated_at: j.updatedAt,
+    completed_at: j.completedAt
+  };
+}
+
+/** Operator inspection of background jobs. Guarded by the internal service secret. */
+export const jobsRoutes = (
+  queue: JobQueue,
+  secret: string,
+  detector?: StaleCacheDetector,
+  repairer?: CacheRepairJob
+): FastifyPluginAsync =>
+  async (app) => {
+    const guard = requireServiceAuth(secret);
+
+    app.get("/internal/jobs", { preHandler: [guard] }, async (req) => {
+      const q = listQuery.parse(req.query);
+      return ok((await queue.listJobs(q)).map(serializeJob));
+    });
+
+    // Stale-cache inspection and repair are opt-in: they only register when the
+    // caller wires a detector/repairer, and use a literal segment so they can
+    // never collide with `/internal/jobs/:id` (find-my-way rejects duplicate
+    // parametric siblings with different names).
+    const activeDetector = detector;
+    if (activeDetector) {
+      app.get("/internal/jobs/stale", { preHandler: [guard] }, async (req) => {
+        const q = staleQuery.parse(req.query);
+        const entries = await activeDetector.detectStale({ limit: q.limit, type: q.type });
+        return ok({ count: entries.length, entries });
+      });
+    }
+
+    const activeRepairer = repairer;
+    if (activeRepairer) {
+      app.post("/internal/jobs/repair-cache", { preHandler: [guard] }, async (req) => {
+        const body = repairBody.parse(req.body ?? {});
+        const result = await activeRepairer.run({
+          dryRun: body.dry_run,
+          limit: body.limit,
+          type: body.type,
+          ids: body.ids
+        });
+        return ok(result);
+      });
+    }
+
+    app.get("/internal/jobs/:id", { preHandler: [guard] }, async (req) => {
+      const { id } = idParams.parse(req.params);
+      const job = await queue.getJob(id);
+      if (!job) throw AppError.notFound(`job ${id} not found`);
+      return ok(serializeJob(job));
+    });
+
+    app.post("/internal/jobs/:id/retry", { preHandler: [guard] }, async (req) => {
+      const { id } = idParams.parse(req.params);
+      const job = await queue.retryDeadJob(id);
+      if (!job) throw AppError.notFound(`dead job ${id} not found`);
+      return ok(serializeJob(job));
+    });
+  };
