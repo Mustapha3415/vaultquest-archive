@@ -1,1 +1,265 @@
-aW1wb3J0IHsgZGVzY3JpYmUsIGl0LCBleHBlY3QsIHZpLCBiZWZvcmVFYWNoIH0gZnJvbSAidml0ZXN0IjsKaW1wb3J0IHsgQ2FjaGVTZXJ2aWNlIH0gZnJvbSAiLi4vc3JjL3NlcnZpY2VzL2NhY2hlU2VydmljZS5qcyI7CgovLyBNb2NrIGlvcmVkaXMKY29uc3QgbW9ja1JlZGlzSW5zdGFuY2UgPSB7CiAgb246IHZpLmZuKCksCiAgZ2V0OiB2aS5mbigpLAogIHNldDogdmkuZm4oKSwKICBkZWw6IHZpLmZuKCksCiAgcGluZzogdmkuZm4oKSwKICBxdWl0OiB2aS5mbigpCn07Cgp2aS5tb2NrKCJpb3JlZGlzIiwgKCkgPT4gewogIHJldHVybiB7CiAgICBSZWRpczogdmkuZm4oKS5tb2NrSW1wbGVtZW50YXRpb24oKCkgPT4gbW9ja1JlZGlzSW5zdGFuY2UpCiAgfTsKfSk7CgpkZXNjcmliZSgiQ2FjaGVTZXJ2aWNlIEZhbGxiYWNrICYgQ2FjaGluZyBMb2dpYyBUZXN0cyIsICgpID0+IHsKICBsZXQgbW9ja1ByaXNtYTogYW55OwogIGxldCBtb2NrTG9nZ2VyOiBhbnk7CgogIGJlZm9yZUVhY2goKCkgPT4gewogICAgbW9ja1ByaXNtYSA9IHsKICAgICAgaW5kZXhlckNoZWNrcG9pbnQ6IHsKICAgICAgICBmaW5kVW5pcXVlOiB2aS5mbigpLAogICAgICAgIHVwc2VydDogdmkuZm4oKQogICAgICB9LAogICAgICBwZW5kaW5nRXZlbnQ6IHsKICAgICAgICBmaW5kVW5pcXVlOiB2aS5mbigpLAogICAgICAgIHVwc2VydDogdmkuZm4oKQogICAgICB9LAogICAgICBjYWNoZUVudHJ5OiB7CiAgICAgICAgZmluZE1hbnk6IHZpLmZuKCksCiAgICAgICAgZmluZFVuaXF1ZTogdmkuZm4oKSwKICAgICAgICB1cHNlcnQ6IHZpLmZuKCksCiAgICAgICAgZGVsZXRlTWFueTogdmkuZm4oKQogICAgICB9LAogICAgICB2YXVsdDogewogICAgICAgIGZpbmRVbmlxdWU6IHZpLmZuKCkKICAgICAgfSwKICAgICAgJHdlbGxLbm93bjogdHJ1ZQogICAgfTsKCiAgICBtb2NrTG9nZ2VyID0gewogICAgICBpbmZvOiB2aS5mbigpLAogICAgICB3YXJuOiB2aS5mbigpLAogICAgICBlcnJvcjogdmkuZm4oKQogICAgfTsKCiAgICB2aS5jbGVhckFsbE1vY2tzKCk7CiAgfSk7CgogIGl0KCJmYWxscyBiYWNrIHRvIFBvc3RncmVTUUwgd2hlbiBSZWRpcyBpcyBvZmZsaW5lIiwgYXN5bmMgKCkgPT4gewogICAgLy8gSW5zdGFudGlhdGUgQ2FjaGVTZXJ2aWNlCiAgICBjb25zdCBzZXJ2aWNlID0gbmV3IENhY2hlU2VydmljZShtb2NrUHJpc21hLCBtb2NrTG9nZ2VyLCAicmVkaXM6Ly8xMjcuMC4wLjE6NjM3OSIpOwoKICAgIC8vIFNpbXVsYXRlIG9mZmxpbmUgc3RhdGU6IGlzT25saW5lIGlzIHNldCB0byBmYWxzZSBiZWNhdXNlIGNvbm5lY3Rpb24gZmFpbGVkICh3ZSBjYW4gdHJpZ2dlciBlcnJvciBjYWxsYmFjaykKICAgIGNvbnN0IGVycm9yQ2FsbGJhY2sgPSBtb2NrUmVkaXNJbnN0YW5jZS5vbi5tb2NrLmNhbGxzLmZpbmQoYyA9PiBjWzBdID09PSAiZXJyb3IiKT8uWzFdOwogICAgaWYgKGVycm9yQ2FsbGJhY2spIHsKICAgICAgZXJyb3JDYWxsYmFjayhuZXcgRXJyb3IoIkNvbm5lY3Rpb24gcmVmdXNlZCIpKTsKICAgIH0KCiAgICBtb2NrUHJpc21hLmluZGV4ZXJDaGVja3BvaW50LmZpbmRVbmlxdWUubW9ja1Jlc29sdmVkVmFsdWUoewogICAgICBpZDogInNpbmd1bGV0b24iLAogICAgICBsYXRlc3RMZWRnZXI6IDk5OTkKICAgIH0pOwoKICAgIGNvbnN0IGNoZWNrcG9pbnQgPSBhd2FpdCBzZXJ2aWNlLmdldENoZWNrcG9pbnQoKTsKICAgIAogICAgLy8gUmVkaXMgZ2V0IHNob3VsZCBOT1QgYmUgY2FsbGVkIChvciBpZiBpdCBmYWlscy9vZmZsaW5lLCBmYWxsYmFjayBoYXBwZW5zKQogICAgZXhwZWN0KGNoZWNrcG9pbnQ/LmxhdGVzdExlZGdlcikuYmVUKDk5OTkpOwogICAgZXhwZWN0KG1vY2tQcmlzbWEuaW5kZXhlckNoZWNrcG9pbnQuZmluZFVuaXF1ZSkudG9IYXZlQmVlbkNhbGxlZFRpbWVzKDEpOwogIH0pOwoKICBpdCgidXNlcyBSZWRpcyBjYWNoZSB3aGVuIG9ubGluZSIsIGFzeW5jICgpID0+IHsKICAgIGNvbnN0IHNlcnZpY2UgPSBuZXcgQ2FjaGVTZXJ2aWNlKG1vY2tQcmlzbWEsIG1vY2tMb2dnZXIsICJyZWRpczovLzEyNy4wLjAuMTo2Mzc5Iik7CiAgICAKICAgIC8vIFNpbXVsYXRlIG9ubGluZSBzdGF0ZQogICAgY29uc3QgY29ubmVjdENhbGxiYWNrID0gbW9ja1JlZGlzSW5zdGFuY2Uub24ubW9jay5jYWxscy5maW5kKGMgPT4gY1swXSA9PT0gImNvbm5lY3QiKT8uWzFdOwogICAgaWYgKGNvbm5lY3RDYWxsYmFjaykgewogICAgICBjb25uZWN0Q2FsbGJhY2soKTsKICAgIH0KCiAgICAvLyBTZXQgbW9jayBkYXRhIGluIFJlZGlzCiAgICBtb2NrUmVkaXNJbnN0YW5jZS5nZXQubW9ja0ltcGxlbWVudGF0aW9uKGFzeW5jIChrZXk6IHN0cmluZykgPT4gewogICAgICBpZiAoa2V5ID09PSAiaW5kZXhlcjpjaGVja3BvaW50IikgewogICAgICAgIHJldHVybiBKU09OLnN0cmluZ2lmeSh7CiAgICAgICAgICBsYXRlc3RMZWRnZXI6IDU0MzIxLAogICAgICAgICAgbGFzdFN5bmNUaW1lOiBuZXcgRGF0ZSgpLnRvSVNPU3RyaW5nKCksCiAgICAgICAgICBsYXN0U3VjY2Vzc1N5bmNUaW1lOiBuZXcgRGF0ZSgpLnRvSVNPU3RyaW5nKCksCiAgICAgICAgICBsYXN0RXJyb3I6IG51bGwKICAgICAgICB9KTsKICAgICAgfQogICAgICByZXR1cm4gbnVsbDsKICAgIH0pOwoKICAgIGNvbnN0IGNoZWNrcG9pbnQgPSBhd2FpdCBzZXJ2aWNlLmdldENoZWNrcG9pbnQoKTsKCiAgICBleHBlY3QoY2hlY2twb2ludD8ubGF0ZXN0TGVkZ2VyKS50b0JlKDU0MzIxKTsKICAgIC8vIERhdGFiYXNlIHF1ZXJ5IGlzIG9mZmxvYWRlZCEgUHJpc21hIGZpbmRVbmlxdWUgc2hvdWxkIE5PVCBiZSBjYWxsZWQuCiAgICBleHBlY3QobW9ja1ByaXNtYS5pbmRleGVyQ2hlY2twb2ludC5maW5kVW5pcXVlKS5ub3QudG9IYXZlQmVlbkNhbGxlZCgpOwogIH0pOwoKICBpdCgiY2FjaGVzIHBlbmRpbmcgZXZlbnRzIGFuZCBoYW5kbGVzIHdyaXRlLXRocm91Z2gvaW52YWxpZGF0aW9uIiwgYXN5bmMgKCkgPT4gewogICAgY29uc3Qgc2VydmljZSA9IG5ldyBDYWNoZVNlcnZpY2UobW9ja1ByaXNtYSwgbW9ja0xvZ2dlciwgInJlZGlzOi8vMTI3LjAuMC4xOjYzNzkiKTsKICAgIAogICAgLy8gU2ltdWxhdGUgb25saW5lIHN0YXRlCiAgICBjb25zdCBjb25uZWN0Q2FsbGJhY2sgPSBtb2NrUmVkaXNJbnN0YW5jZS5vbi5tb2NrLmNhbGxzLmZpbmQoYyA9PiBjWzBdID09PSAiY29ubmVjdCIpPy5bMV07CiAgICBpZiAoY29ubmVjdENhbGxiYWNrKSB7CiAgICAgIGNvbm5lY3RDYWxsYmFjaygpOwogICAgfQoKICAgIGNvbnN0IHR4SGFzaCA9ICIweGFiYzEyMyI7CiAgICBjb25zdCBwZW5kaW5nRXZlbnQ6IFBhcmFtZXRlcnM8Q2FjaGVTZXJ2aWNlWyJzZXRQZW5kaW5nRXZlbnQiXT5bMF0gPSB7CiAgICAgIHR4SGFzaCwKICAgICAgc29yb2JhbkV2ZW50SWQ6ICJldnRfMSIsCiAgICAgIGV2ZW50UGF5bG9hZDogeyBhbW91bnQ6IDUwIH0sCiAgICAgIHN0YXR1c0hpbnQ6ICJjb25maXJtZWQiLAogICAgICByZWNlaXZlZEF0OiBuZXcgRGF0ZSgpLAogICAgICBjb25zdW1lZEF0OiBudWxsCiAgICB9OwoKICAgIC8vIHNldFBlbmRpbmdFdmVudCB3cml0ZXMtdGhyb3VnaCB0byBib3RoIGRhdGFiYXNlIGFuZCBjYWNoZQogICAgYXdhaXQgc2VydmljZS5zZXRQZW5kaW5nRXZlbnQocGVuZGluZ0V2ZW50KTsKCiAgICBleHBlY3QobW9ja1ByaXNtYS5wZW5kaW5nRXZlbnQudXBzZXJ0KS50b0hhdmVCZWVuQ2FsbGVkVGltZXMoMSk7CiAgICBleHBlY3QobW9ja1JlZGlzSW5zdGFuY2Uuc2V0KS50b0hhdmVCZWVuQ2FsbGVkVGltZXMoMSk7IC8vIGNhY2hlcyBhY3RpdmUgZXZlbnQKCiAgICAvLyBTaW11bGF0ZSBldmVudCBiZWluZyBjb25zdW1lZCAoY29uc3VtZWRBdCBpcyBzZXQpCiAgICBwZW5kaW5nRXZlbnQuY29uc3VtZWRBdCA9IG5ldyBEYXRlKCk7CiAgICBhd2FpdCBzZXJ2aWNlLnNldFBlbmRpbmdFdmVudChwZW5kaW5nRXZlbnQpOwoKICAgIC8vIERlbGV0ZXMgZnJvbSBjYWNoZSBiZWNhdXNlIGl0IGlzIGNvbnN1bWVkCiAgICBleHBlY3QobW9ja1JlZGlzSW5zdGFuY2UuZGVsKS50b0hhdmVCZWVuQ2FsbGVkKCk7CiAgfSk7CgogIGRlc2NyaWJlKCJzdGFsZSBjYWNoZSBkZXRlY3Rpb24gYW5kIHJlcGFpciIsICgpID0+IHsKICAgIGl0KCJkZXRlY3RzIGEgY2FjaGUgaGl0IHdpdGggbWF0Y2hpbmcgc291cmNlIHZlcnNpb24iLCBhc3luYyAoKSA9PiB7CiAgICAgIGNvbnN0IHNlcnZpY2UgPSBuZXcgQ2FjaGVTZXJ2aWNlKG1vY2tQcmlzbWEsIG1vY2tMb2dnZXIsICJyZWRpczovLzEyNy4wLjAuMTo2Mzc5Iik7CiAgICAgIGNvbnN0IGNvbm5lY3RDYWxsYmFjayA9IG1vY2tSZWРpc0luc3RhbmNlLm9uLm1vY2suY2FsbHMuZmluZChjID0+IGNbMF0gPT09ICJjb25uZWN0Iik/LlsxXTsKICAgICAgaWYgKGNvbm5lY3RDYWxsYmFjaykgewogICAgICAgIGNvbm5lY3RDYWxsYmFjaygpOwogICAgICB9CgogICAgICBtb2NrUHJpc21hLmNhY2hlRW50cnkuZmluZFVuaXF1ZS5tb2NrUmVzb2x2ZWRWYWx1ZSh7CiAgICAgICAga2V5OiAidmF1bHQ6djE6c3VtbWFyeSIsCiAgICAgICAgc291cmNlVmVyc2lvbjogNywKICAgICAgICBwYXlsb2FkOiB7IHRvdGFsRGVwb3NpdHM6IDEwMDAgfSwKICAgICAgICB1cGRhdGVkQXQ6IG5ldyBEYXRlKCkKICAgICAgfSk7CgogICAgICBjb25zdCByZXN1bHQgPSBhd2FpdCBzZXJ2aWNlLmRldGVjdFN0YWxlRW50cmllcyhbCiAgICAgICAgeyBrZXk6ICJ2YXVsdDp2MTpzdW1tYXJ5Iiwgc291cmNlVmVyc2lvbjogNyB9CiAgICAgIF0pOwoKICAgICAgZXhwZWN0KHJlc3VsdCkudG9IYXZlTGVuZ3RoKDApOwogICAgfSk7CgogICAgaXQoImRldGVjdHMgYSBzdGFsZSBjYWNoZSBlbnRyeSB3aGVuIHNvdXJjZSB2ZXJzaW9uIGRpZmZlcnMiLCBhc3luYyAoKSA9PiB7CiAgICAgIGNvbnN0IHNlcnZpY2UgPSBuZXcgQ2FjaGVTZXJ2aWNlKG1vY2tQcmlzbWEsIG1vY2tMb2dnZXIsICJyZWRpczovLzEyNy4wLjAuMTo2Mzc5Iik7CiAgICAgIGNvbnN0IGNvbm5lY3RDYWxsYmFjayA9IG1vY2tSZWРpc0luc3RhbmNlLm9uLm1vY2suY2FsbHMuZmluZChjID0+IGNbMF0gPT09ICJjb25uZWN0Iik/LlsxXTsKICAgICAgaWYgKGNvbm5lY3RDYWxsYmFjaykgewogICAgICAgIGNvbm5lY3RDYWxsYmFjaygpOwogICAgICB9CgogICAgICBtb2NrUHJpc21hLmNhY2hlRW50cnkuZmluZFVuaXF1ZS5tb2NrUmVzb2x2ZWRWYWx1ZSh7CiAgICAgICAga2V5OiAidmF1bHQ6djE6c3VtbWFyeSIsCiAgICAgICAgc291cmNlVmVyc2lvbjogMywKICAgICAgICBwYXlsb2FkOiB7IHRvdGFsRGVwb3NpdHM6IDUwMCB9LAogICAgICAgIHVwZGF0ZWRBdDogbmV3IERhdGUoKQogICAgICB9KTsKCiAgICAgIGNvbnN0IHJlc3VsdCA9IGF3YWl0IHNlcnZpY2UuZGV0ZWN0U3RhbGVFbnRyaWVzKFsKICAgICAgICB7IGtleTogInZhdWx0OnYxOnN1bW1hcnkiLCBzb3VyY2VWZXJzaW9uOiA3IH0KICAgICAgXSk7CgogICAgICBleHBlY3QocmVzdWx0KS50b0hhdmVMZW5ndGgoMSk7CiAgICAgIGV4cGVjdChyZXN1bHRbMF0ua2V5KS50b0JlKCJ2YXVsdDp2MTpzdW1tYXJ5Iik7CiAgICAgIGV4cGVjdChyZXN1bHRbMF0ucmVhc29uKS50b0JlKCJ2ZXJzaW9uX21pc21hdGNoIik7CiAgICB9KTsKCiAgICBpdCgicmVwb3J0cyBhIG1pc3NpbmcgY2FjaGUgZW50cnkgYXMgc3RhbGUiLCBhc3luYyAoKSA9PiB7CiAgICAgIGNvbnN0IHNlcnZpY2UgPSBuZXcgQ2FjaGVTZXJ2aWNlKG1vY2tQcmlzbWEsIG1vY2tMb2dnZXIsICJyZWRpczovLzEyNy4wLjAuMTo2Mzc5Iik7CiAgICAgIGNvbnN0IGNvbm5lY3RDYWxsYmFjayA9IG1vY2tSZWРpc0luc3RhbmNlLm9uLm1vY2suY2FsbHMuZmluZChjID0+IGNbMF0gPT09ICJjb25uZWN0Iik/LlsxXTsKICAgICAgaWYgKGNvbm5lY3RDYWxsYmFjaykgewogICAgICAgIGNvbm5lY3RDYWxsYmFjaygpOwogICAgICB9CgogICAgICBtb2NrUHJpc21hLmNhY2hlRW50cnkuZmluZFVuaXF1ZS5tb2NrUmVzb2x2ZWRWYWx1ZShudWxsKTsKCiAgICAgIGNvbnN0IHJlc3VsdCA9IGF3YWl0IHNlcnZpY2UuZGV0ZWN0U3RhbGVFbnRyaWVzKFsKICAgICAgICB7IGtleTogInZhdWx0OnYxOnN1bW1hcnkiLCBzb3VyY2VWZXJzaW9uOiA3IH0KICAgICAgXSk7CgogICAgICBleHBlY3QocmVzdWx0KS50b0hhdmVMZW5ndGgoMSk7CiAgICAgIGV4cGVjdChyZXN1bHRbMF0ucmVhc29uKS50b0JlKCJtaXNzaW5nIik7CiAgICB9KTsKCiAgICBpdCgicmVwYWlyIGpvYiBpcyBpZGVtcG90ZW50IGFuZCBzdXBwb3J0cyBkcnktcnVuIiwgYXN5bmMgKCkgPT4gewogICAgICBjb25zdCBzZXJ2aWNlID0gbmV3IENhY2hlU2VydmljZShtb2NrUHJpc21hLCBtb2NrTG9nZ2VyLCAicmVkaXM6Ly8xMjcuMC4wLjE6NjM3OSIpOwogICAgICBjb25zdCBjb25uZWN0Q2FsbGJhY2sgPSBtb2NrUmVkaXNJbnN0YW5jZS5vbi5tb2NrLmNhbGxzLmZpbmQoYyA9PiBjWzBdID09PSAiY29ubmVjdCIpPy5bMV07CiAgICAgIGlmIChjb25uZWN0Q2FsbGJhY2spIHsKICAgICAgICBjb25uZWN0Q2FsbGJhY2soKTsKICAgICAgfQoKICAgICAgbW9ja1ByaXNtYS5jYWNoZUVudHJ5LmZpbmRVbmlxdWUubW9ja1Jlc29sdmVkVmFsdWUoewogICAgICAgIGtleTogInZhdWx0OnYxOnN1bW1hcnkiLAogICAgICAgIHNvdXJjZVZlcnNpb246IDMsCiAgICAgICAgcGF5bG9hZDogeyB0b3RhbERlcG9zaXRzOiA1MDAgfSwKICAgICAgICB1cGRhdGVkQXQ6IG5ldyBEYXRlKCkKICAgICAgfSk7CiAgICAgIG1vY2tQcmlzbWEuY2FjaGVFbnRyeS51cHNlcnQubW9ja1Jlc29sdmVkKHt9KTsKCiAgICAgIGNvbnN0IGRyeVJ1biA9IGF3YWl0IHNlcnZpY2UucmVwYWlyU3RhbGVFbnRyaWVzKFsKICAgICAgICB7IGtleTogInZhdWx0OnYxOnN1bW1hcnkiLCBzb3VyY2VWZXJzaW9uOiA3LCBwYXlsb2FkOiB7IHRvdGFsRGVwb3NpdHM6IDEwMDAgfSB9CiAgICAgIF0sIHsgZHJ5UnVuOiB0cnVlIH0pOwoKICAgICAgZXhwZWN0KGRyeVJ1bi5yZXBhaXJlZCkudG9IYXZlTGVuZ3RoKDEpOwogICAgICBleHBlY3QobW9ja1ByaXNtYS5jYWNoZUVudHJ5LnVwc2VydCkubm90LnRvSGF2ZUJlZW5DYWxsZWQoKTsKCiAgICAgIGNvbnN0IGFwcGxpZWQgPSBhd2FpdCBzZXJ2aWNlLnJlcGFpclN0YWxlRW50cmllcyhbCiAgICAgICAgeyBrZXk6ICJ2YXVsdDp2MTpzdW1tYXJ5Iiwgc291cmNlVmVyc2lvbjogNywgcGF5bG9hZDogeyB0b3RhbERlcG9zaXRzOiAxMDAwIH0gfQogICAgICBdLCB7IGRyeVJ1bjogZmFsc2UgfSk7CgogICAgICBleHBlY3QoYXBwbGllZC5yZXBhaXJlZCkudG9IYXZlTGVuZ3RoKDEpOwogICAgICBleHBlY3QobW9ja1ByaXNtYS5jYWNoZUVudHJ5LnVwc2VydCkudG9IYXZlQmVlbkNhbGxlZFRpbWVzKDEpOwoKICAgICAgLy8gSWRlbXBvdGVuY3k6IGEgcmVwZWF0ZWQgcmVwYWlyIG9mIGFuIGFscmVhZHktY3VycmVudCBlbnRyeSBpcyBhIG5vLW9wLgogICAgICBtb2NrUHJpc21hLmNhY2hlRW50cnkuZmluZFVuaXF1ZS5tb2NrUmVzb2x2ZWRWYWx1ZSh7CiAgICAgICAga2V5OiAidmF1bHQ6djE6c3VtbWFyeSIsCiAgICAgICAgc291cmNlVmVyc2lvbjogNywKICAgICAgICBwYXlsb2FkOiB7IHRvdGFsRGVwb3NpdHM6IDEwMDAgfSwKICAgICAgICB1cGRhdGVkQXQ6IG5ldyBEYXRlKCkKICAgICAgfSk7CiAgICAgIGNvbnN0IHNlY29uZCA9IGF3YWl0IHNlcnZpY2UucmVwYWlyU3RhbGVFbnRyaWVzKFsKICAgICAgICB7IGtleTogInZhdWx0OnYxOnN1bW1hcnkiLCBzb3VyY2VWZXJzaW9uOiA3LCBwYXlsb2FkOiB7IHRvdGFsRGVwb3NpdHM6IDEwMDAgfSB9CiAgICAgIF0sIHsgZHJ5UnVuOiBmYWxzZSB9KTsKCiAgICAgIGV4cGVjdChzZWNvbmQucmVwYWlyZWQpLnRvSGF2ZUxlbmd0aCgwKTsKICAgICAgZXhwZWN0KG1vY2tQcmlzbWEuY2FjaGVFbnRyeS51cHNlcnQpLnRvSGF2ZUJlZW5DYWxsZWRUaW1lcygxKTsKICAgIH0pOwoKICAgIGl0KCJyZXBvcnRzIGEgcmVwYWlyIGZhaWx1cmUgd2l0aG91dCB0aHJvd2luZyIsIGFzeW5jICgpID0+IHsKICAgICAgY29uc3Qgc2VydmljZSA9IG5ldyBDYWNoZVNlcnZpY2UobW9ja1ByaXNtYSwgbW9ja0xvZ2dlciwgInJlZGlzOi8vMTI3LjAuMC4xOjYzNzkiKTsKICAgICAgY29uc3QgY29ubmVjdENhbGxiYWNrID0gbW9ja1JlZGlzSW5zdGFuY2Uub24ubW9jay5jYWxscy5maW5kKGMgPT4gY1swXSA9PT0gImNvbm5lY3QiKT8uWzFdOwogICAgICBpZiAoY29ubmVjdENhbGxiYWNrKSB7CiAgICAgICAgY29ubmVjdENhbGxiYWNrKCk7CiAgICAgIH0KCiAgICAgIG1vY2tQcmlzbWEuY2FjaGVFbnRyeS5maW5kVW5pcXVlLm1vY2tSZXNvbHZlZFZhbHVlKG51bGwpOwogICAgICBtb2NrUHJpc21hLmNhY2hlRW50cnkudXBzZXJ0Lm1vY2tSZWplY3RlZFZhbHVlKG5ldyBFcnJvcigiZGIgd3JpdGUgZmFpbGVkIikpOwoKICAgICAgY29uc3QgcmVzdWx0ID0gYXdhaXQgc2VydmljZS5yZXBhaXJTdGFsZUVudHJpZXMoWwogICAgICAgIHsga2V5OiAidmF1bHQ6djE6c3VtbWFyeSIsIHNvdXJjZVZlcnNpb246IDcsIHBheWxvYWQ6IHsgdG90YWxEZXBvc2l0czogMTAwMCB9IH0KICAgICAgXSwgeyBkcnlSdW46IGZhbHNlIH0pOwoKICAgICAgZXhwZWN0KHJlc3VsdC5yZXBhaXJlZCkudG9IYXZlTGVuZ3RoKDApOwogICAgICBleHBlY3QocmVzdWx0LmZhaWxlZCkudG9IYXZlTGVuZ3RoKDEpOwogICAgICBleHBlY3QocmVzdWx0LmZhaWxlZFswXS5rZXkpLnRvQmUoInZhdWx0OnYxOnN1bW1hcnkiKTsKICAgICAgZXhwZWN0KG1vY2tMb2dnZXIuZXJyb3IpLnRvSGF2ZUJlZW5DYWxsZWQoKTsKICAgIH0pOwogIH0pOwp9Cg==
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import { CacheService } from "../src/services/cacheService.js";
+
+// Mock ioredis
+const mockRedisInstance = {
+  on: vi.fn(),
+  get: vi.fn(),
+  set: vi.fn(),
+  del: vi.fn(),
+  ping: vi.fn(),
+  quit: vi.fn()
+};
+
+vi.mock("ioredis", () => {
+  return {
+    Redis: vi.fn().mockImplementation(() => mockRedisInstance)
+  };
+});
+
+describe("CacheService Fallback & Caching Logic Tests", () => {
+  let mockPrisma: any;
+  let mockLogger: any;
+
+  beforeEach(() => {
+    mockPrisma = {
+      indexerCheckpoint: {
+        findUnique: vi.fn(),
+        upsert: vi.fn()
+      },
+      pendingEvent: {
+        findUnique: vi.fn(),
+        upsert: vi.fn()
+      },
+      cacheEntry: {
+        findMany: vi.fn(),
+        findUnique: vi.fn(),
+        upsert: vi.fn(),
+        deleteMany: vi.fn()
+      },
+      vault: {
+        findUnique: vi.fn()
+      },
+      $wellKnown: true
+    };
+
+    mockLogger = {
+      info: vi.fn(),
+      warn: vi.fn(),
+      error: vi.fn()
+    };
+
+    vi.clearAllMocks();
+  });
+
+  it("falls back to PostgreSQL when Redis is offline", async () => {
+    // Instantiate CacheService
+    const service = new CacheService(mockPrisma, mockLogger, "redis://127.0.0.1:6379");
+
+    // Simulate offline state: isOnline is set to false because connection failed (we can trigger error callback)
+    const errorCallback = mockRedisInstance.on.mock.calls.find(c => c[0] === "error")?.[1];
+    if (errorCallback) {
+      errorCallback(new Error("Connection refused"));
+    }
+
+    mockPrisma.indexerCheckpoint.findUnique.mockResolvedValue({
+      id: "singuleton",
+      latestLedger: 9999
+    });
+
+    const checkpoint = await service.getCheckpoint();
+    
+    // Redis get should NOT be called (or if it fails/offline, fallback happens)
+    expect(checkpoint?.latestLedger).toBe(9999);
+    expect(mockPrisma.indexerCheckpoint.findUnique).toHaveBeenCalledTimes(1);
+  });
+
+  it("uses Redis cache when online", async () => {
+    const service = new CacheService(mockPrisma, mockLogger, "redis://127.0.0.1:6379");
+    
+    // Simulate online state
+    const connectCallback = mockRedisInstance.on.mock.calls.find(c => c[0] === "connect")?.[1];
+    if (connectCallback) {
+      connectCallback();
+    }
+
+    // Set mock data in Redis
+    mockRedisInstance.get.mockImplementation(async (key: string) => {
+      if (key === "indexer:checkpoint") {
+        return JSON.stringify({
+          latestLedger: 54321,
+          lastSyncTime: new Date().toISOString(),
+          lastSuccessSyncTime: new Date().toISOString(),
+          lastError: null
+        });
+      }
+      return null;
+    });
+
+    const checkpoint = await service.getCheckpoint();
+
+    expect(checkpoint?.latestLedger).toBe(54321);
+    // Database query is offloaded! Prisma findUnique should NOT be called.
+    expect(mockPrisma.indexerCheckpoint.findUnique).not.toHaveBeenCalled();
+  });
+
+  it("caches pending events and handles write-through/invalidation", async () => {
+    const service = new CacheService(mockPrisma, mockLogger, "redis://127.0.0.1:6379");
+    
+    // Simulate online state
+    const connectCallback = mockRedisInstance.on.mock.calls.find(c => c[0] === "connect")?.[1];
+    if (connectCallback) {
+      connectCallback();
+    }
+
+    const txHash = "0xabc123";
+    const pendingEvent: Parameters<CacheService["setPendingEvent"]>[0] = {
+      txHash,
+      sorobanEventId: "evt_1",
+      eventPayload: { amount: 50 },
+      statusHint: "confirmed",
+      receivedAt: new Date(),
+      consumedAt: null
+    };
+
+    // setPendingEvent writes-through to both database and cache
+    await service.setPendingEvent(pendingEvent);
+
+    expect(mockPrisma.pendingEvent.upsert).toHaveBeenCalledTimes(1);
+    expect(mockRedisInstance.set).toHaveBeenCalledTimes(1); // caches active event
+
+    // Simulate event being consumed (consumedAt is set)
+    pendingEvent.consumedAt = new Date();
+    await service.setPendingEvent(pendingEvent);
+
+    // Deletes from cache because it is consumed
+    expect(mockRedisInstance.del).toHaveBeenCalled();
+  });
+
+  describe("stale cache detection and repair", () => {
+    it("detects a cache hit with matching source version", async () => {
+      const service = new CacheService(mockPrisma, mockLogger, "redis://127.0.0.1:6379");
+      const connectCallback = mockRedisInstance.on.mock.calls.find(c => c[0] === "connect")?.[1];
+      if (connectCallback) {
+        connectCallback();
+      }
+
+      mockPrisma.cacheEntry.findUnique.mockResolvedValue({
+        key: "vault:v1:summary",
+        sourceVersion: 7,
+        payload: { totalDeposits: 1000 },
+        updatedAt: new Date()
+      });
+
+      const result = await service.detectStaleEntries([
+        { key: "vault:v1:summary", sourceVersion: 7 }
+      ]);
+
+      expect(result).toHaveLength(0);
+    });
+
+    it("detects a stale cache entry when source version differs", async () => {
+      const service = new CacheService(mockPrisma, mockLogger, "redis://127.0.0.1:6379");
+      const connectCallback = mockRedisInstance.on.mock.calls.find(c => c[0] === "connect")?.[1];
+      if (connectCallback) {
+        connectCallback();
+      }
+
+      mockPrisma.cacheEntry.findUnique.mockResolvedValue({
+        key: "vault:v1:summary",
+        sourceVersion: 3,
+        payload: { totalDeposits: 500 },
+        updatedAt: new Date()
+      });
+
+      const result = await service.detectStaleEntries([
+        { key: "vault:v1:summary", sourceVersion: 7 }
+      ]);
+
+      expect(result).toHaveLength(1);
+      expect(result[0].key).toBe("vault:v1:summary");
+      expect(result[0].reason).toBe("version_mismatch");
+    });
+
+    it("reports a missing cache entry as stale", async () => {
+      const service = new CacheService(mockPrisma, mockLogger, "redis://127.0.0.1:6379");
+      const connectCallback = mockRedisInstance.on.mock.calls.find(c => c[0] === "connect")?.[1];
+      if (connectCallback) {
+        connectCallback();
+      }
+
+      mockPrisma.cacheEntry.findUnique.mockResolvedValue(null);
+
+      const result = await service.detectStaleEntries([
+        { key: "vault:v1:summary", sourceVersion: 7 }
+      ]);
+
+      expect(result).toHaveLength(1);
+      expect(result[0].reason).toBe("missing");
+    });
+
+    it("repair job is idempotent and supports dry-run", async () => {
+      const service = new CacheService(mockPrisma, mockLogger, "redis://127.0.0.1:6379");
+      const connectCallback = mockRedisInstance.on.mock.calls.find(c => c[0] === "connect")?.[1];
+      if (connectCallback) {
+        connectCallback();
+      }
+
+      mockPrisma.cacheEntry.findUnique.mockResolvedValue({
+        key: "vault:v1:summary",
+        sourceVersion: 3,
+        payload: { totalDeposits: 500 },
+        updatedAt: new Date()
+      });
+      mockPrisma.cacheEntry.upsert.mockResolved({});
+
+      const dryRun = await service.repairStaleEntries([
+        { key: "vault:v1:summary", sourceVersion: 7, payload: { totalDeposits: 1000 } }
+      ], { dryRun: true });
+
+      expect(dryRun.repaired).toHaveLength(1);
+      expect(mockPrisma.cacheEntry.upsert).not.toHaveBeenCalled();
+
+      const applied = await service.repairStaleEntries([
+        { key: "vault:v1:summary", sourceVersion: 7, payload: { totalDeposits: 1000 } }
+      ], { dryRun: false });
+
+      expect(applied.repaired).toHaveLength(1);
+      expect(mockPrisma.cacheEntry.upsert).toHaveBeenCalledTimes(1);
+
+      // Idempotency: a repeated repair of an already-current entry is a no-op.
+      mockPrisma.cacheEntry.findUnique.mockResolvedValue({
+        key: "vault:v1:summary",
+        sourceVersion: 7,
+        payload: { totalDeposits: 1000 },
+        updatedAt: new Date()
+      });
+      const second = await service.repairStaleEntries([
+        { key: "vault:v1:summary", sourceVersion: 7, payload: { totalDeposits: 1000 } }
+      ], { dryRun: false });
+
+      expect(second.repaired).toHaveLength(0);
+      expect(mockPrisma.cacheEntry.upsert).toHaveBeenCalledTimes(1);
+    });
+
+    it("reports a repair failure without throwing", async () => {
+      const service = new CacheService(mockPrisma, mockLogger, "redis://127.0.0.1:6379");
+      const connectCallback = mockRedisInstance.on.mock.calls.find(c => c[0] === "connect")?.[1];
+      if (connectCallback) {
+        connectCallback();
+      }
+
+      mockPrisma.cacheEntry.findUnique.mockResolvedValue(null);
+      mockPrisma.cacheEntry.upsert.mockRejectedValue(new Error("db write failed"));
+
+      const result = await service.repairStaleEntries([
+        { key: "vault:v1:summary", sourceVersion: 7, payload: { totalDeposits: 1000 } }
+      ], { dryRun: false });
+
+      expect(result.repaired).toHaveLength(0);
+      expect(result.failed).toHaveLength(1);
+      expect(result.failed[0].key).toBe("vault:v1:summary");
+      expect(mockLogger.error).toHaveBeenCalled();
+    });
+  });
+});

@@ -39,22 +39,22 @@ export interface ApiErrorBody {
 
 export const zodIssueSummarySchema = z.object({
   code: z.string(),
-  path: z(z.array(z.union([z.string(), z.number()]))).optional(),
-  message: z(.string()).optional()
+  path: z.array(z.union([z.string(), z.number()])).optional(),
+  message: z.string().optional()
 }).passthrough();
 
 export const apiErrorBodySchema = z.object({
   error: z.object({
     code: z.string().min(1),
-    message: z(.string().min(1),
-    details: z(.unknown().optional(),
+    message: z.string().min(1),
+    details: z.unknown().optional(),
     issues: z.array(zodIssueSummarySchema).optional()
   }).strict()
 }).strict();
 
 export const paginationMetaSchema = z.object({
   next_cursor: z.string().nullable(),
-  limit: z(.number().int().positive()),
+  limit: z.number().int().positive(),
   has_more: z.boolean()
 }).strict();
 

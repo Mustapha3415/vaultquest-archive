@@ -87,8 +87,8 @@ Every core response has a semantic version recorded in
 | `health` | 1.0.0 | Liveness probe. |
 | `job` | 1.0.0 | Worker job record. |
 | `job-list` | 1.0.0 | List of worker jobs. |
-| `schema-version` | 1.0.0 | Database/indexer schema version info. |
-| `schema-validation` | 1.0.0 | Preflight compatibility result. |
+| `schema-version` | 1.1.0 | Database/indexer schema version info plus envelope/contract version metadata. |
+| `schema-validation` | 1.1.0 | Preflight compatibility result. |
 
 ### Version rules
 

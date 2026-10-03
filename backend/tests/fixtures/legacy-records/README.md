@@ -21,13 +21,17 @@ The following cases are covered:
 
 Run the migration test suite to validate these fixtures:
 
-``bbash
+```bash
 cd backend
-npm test -- tests/legacyRecordMigration.spec.ts
-``
+npx vitest run tests/legacyRecordMigration.spec.ts
+```
 
 The tests assert that:
 
 - Legacy fixtures validate against the expected old shapes.
 - Migration produces current valid records.
 - Each of the four cases above behaves as documented.
+
+The transforms themselves live in `backend/src/schemas/recordCompatibility.ts`
+(the compatibility layer for versioned API and record schemas, #803); see
+`backend/docs/SCHEMA_VERSIONS.md` for the deprecation and migration strategy.

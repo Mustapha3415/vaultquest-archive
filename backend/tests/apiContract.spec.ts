@@ -74,7 +74,7 @@ describe("documented route index", () => {
     const m = doc.match(/<!-- route-index:start -->([\s\S]*?)<!-- route-index:end -->/);
     expect(m, "docs/API.md must contain a route-index block").toBeTruthy();
     return new Set(
-      [...m![1].matchAll(/^\|\s*`(GET|POST|PUT|PATCH|DELETE)`\s*\|\s`([^`]+)`\/gm)].map((x) => `${x[1]} ${x[2]}`)
+      [...m![1].matchAll(/^\|\s*`(GET|POST|PUT|PATCH|DELETE)`\s*\|\s`([^`]+)`/gm)].map((x) => `${x[1]} ${x[2]}`)
     );
   }
 
@@ -88,7 +88,7 @@ describe("documented route index", () => {
 
   it("documents exactly the error codes the API can return", () => {
     const section = doc.split("## Standard errors")[1]?.split("\n## ")[0] ?? "";
-    const codes = new Set([...section.matchAll(/^\|\s*`([A-Z_]+)`\/gm)].map((m) => m[1]));
+    const codes = new Set([...section.matchAll(/^\|\s*`([A-Z_]+)`/gm)].map((m) => m[1]));
     expect([...codes].sort()).toEqual([...DOCUMENTED_ERROR_CODES].sort());
   });
 
@@ -160,8 +160,8 @@ describe("live responses match the contract", () => {
 
   it("POST /actions: 201 created, 200 replay, 409 conflict, 400 validation", async () => {
     const created = row();
-    const findUnique = vi.fn().mockResolved(null);
-    const create = vi.fn().mockResolved(created);
+    const findUnique = vi.fn().mockResolvedValue(null);
+    const create = vi.fn().mockResolvedValue(created);
     const app = build({ actionLedger: { findUnique, create } });
     const payload = { wallet_address: WALLET, action_type: "deposit", action_payload: created.actionPayload };
 
@@ -208,7 +208,7 @@ describe("live responses match the contract", () => {
   });
 
   it("GET /actions/:id: 200 and 404", async () => {
-    const findUnique = vi.fn().mockResolvedOnce(row({ status: "confirmed", txHash: "abc123", confirmedAt: new Date("2026-09-26T10:05:00.000Z") })).mockResolved(null);
+    const findUnique = vi.fn().mockResolvedValueOnce(row({ status: "confirmed", txHash: "abc123", confirmedAt: new Date("2026-09-26T10:05:00.000Z") })).mockResolvedValue(null);
     const app = build({ actionLedger: { findUnique } });
     const ok = await app.inject({ method: "GET", url: `/actions/${ID}` });
     expect(ok.statusCode).toBe(200);
@@ -222,11 +222,11 @@ describe("live responses match the contract", () => {
 
   it("GET /actions: paginated with cursor, and validation failure", async () => {
     const rows = [row({ id: "a0000000-0000-4000-8000-000000000001" }), row({ id: "a0000000-0000-4000-8000-000000000002" }), row({ id: "a0000000-0000-4000-8000-000000000003" })];
-    const findMany = vi.fn().mockResolved(rows);
+    const findMany = vi.fn().mockResolvedValue(rows);
     const checkpoint = vi
       .fn()
-      .mockResolvedOnce({ latestLedger: 1234567, lastSuccessSyncTime: new Date("2026-09-26T10:04:30.000Z") })
-      .mockResolvedOnce(null);
+      .mockResolvedValueOnce({ latestLedger: 1234567, lastSuccessSyncTime: new Date("2026-09-26T10:04:30.000Z") })
+      .mockResolvedValueOnce(null);
     const app = build({ actionLedger: { findMany }, indexerCheckpoint: { findUnique: checkpoint } });
     const res = await app.inject({ method: "GET", url: `/actions?wallet=${WALLET}&limit=2` });
     expect(res.statusCode).toBe(200);
@@ -249,8 +249,8 @@ describe("live responses match the contract", () => {
   });
 
   it("POST /actions/:id/cancel: 200, 404 and 409", async () => {
-    const findUnique = vi.fn().mockResolvedOnce(row()).mockResolvedOnce(null).mockResolvedOnce(row({ status: "confirmed" }));
-    const update = vi.fn().mockResolved(row({ status: "failed", errorCode: "WALLET_REJECTED" }));
+    const findUnique = vi.fn().mockResolvedValueOnce(row()).mockResolvedValueOnce(null).mockResolvedValueOnce(row({ status: "confirmed" }));
+    const update = vi.fn().mockResolvedValue(row({ status: "failed", errorCode: "WALLET_REJECTED" }));
     const app = build({ actionLedger: { findUnique, update } });
     const body = { error_code: "WALLET_REJECTED" };
     const h = await csrf(app);
@@ -273,8 +273,8 @@ describe("live responses match the contract", () => {
     parse("error", denied.json());
     expect(denied.json().error).toMatchObject({ code: "UNAUTHORIZED", category: "authorization" });
 
-    const { job } = await app.jobQeuue!.enqueue({ type: "unknown.type", payload: { actionId: "a" }, idempotencyKey: "k", correlationId: "corr-1" });
-    await new JobWorker({ queue: app.jobQeuue!, handlers: {} }).runOnce();
+    const { job } = await app.jobQueue!.enqueue({ type: "unknown.type", payload: { actionId: "a" }, idempotencyKey: "k", correlationId: "corr-1" });
+    await new JobWorker({ queue: app.jobQueue!, handlers: {} }).runOnce();
     const list = await app.inject({ method: "GET", url: "/internal/jobs?status=dead", headers });
     expect(list.statusCode).toBe(200);
     parse("job-list", list.json());
@@ -285,8 +285,8 @@ describe("live responses match the contract", () => {
   it("GET /schema-version and /schema-version/validate", async () => {
     const app = build({
       $lastLine: "SELECT MIGRATION_NAME FROM _PRISMA_MIGRATIONS ORDER BY FINISHED_AT:DESC LIMIT 1",
-      $queryRaw: vi.fn().mockResolved([{ migration_name: "20260725000002_add_wallet_auth" }]),
-      indexerCheckpoint: { findUnique: vi.fn().mockResolved({ indexerVersion: "20260725000002" }) }
+      $queryRaw: vi.fn().mockResolvedValue([{ migration_name: "20260725000002_add_wallet_auth" }]),
+      indexerCheckpoint: { findUnique: vi.fn().mockResolvedValue({ indexerVersion: "20260725000002" }) }
     });
     const version = await app.inject({ method: "GET", url: "/schema-version" });
     expect(version.statusCode).toBe(200);
