@@ -21,9 +21,16 @@ import { metricsRoutes } from "./routes/metrics.js";
 import { usersRoutes } from "./routes/users.js";
 import { prometheusRoutes } from "./routes/prometheus.js";
 import { healthRoutes } from "./routes/health.js";
+import type { DegradedModeService } from "./services/degradedModeService.js";
 import { MetricsService } from "./services/metricsService.js";
 import { DrawProofService } from "./services/drawProofService.js";
-import { FeatureFlagService } from "./services/featureFlagService.js";
+import { FEATURE_FLAGS, FeatureFlagService } from "./services/featureFlagService.js";
+import {
+  FeatureFlagRolloutGuard,
+  PrismaFlagRolloutStore,
+  withdrawalSubmissionsHaltedCheck,
+} from "./services/featureFlagRollout.js";
+import { featureFlagRolloutRoutes } from "./routes/featureFlagRollouts.js";
 import { drawProofRoutes } from "./routes/drawProofs.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { csrfProtection } from "./middleware/csrfProtection.js";
@@ -48,17 +55,34 @@ import { DataExportService } from "./services/dataExport.js";
 import { DataImportService } from "./services/dataImport.js";
 import { exportsRoutes } from "./routes/exports.js";
 import { importsRoutes } from "./routes/imports.js";
+import { permissionPreviewRoutes } from "./routes/permissionPreview.js";
+import { SensitiveFieldAccessLogger } from "../../lib/sensitive-field-access.js";
 import { OperationalHealthService } from "./services/operationalHealthService.js";
 import { operationalHealthRoutes } from "./routes/operationalHealth.js";
 import { privacyAnalyticsRoutes } from "./routes/privacyAnalytics.js";
 import { TrendAggregationService } from "./services/trendAggregationService.js";
 import { trendAggregationRoutes } from "./routes/trendAggregation.js";
 import { IdempotencyService } from "./services/idempotencyService.js";
-import { ImpersonationService, InMemoryImpersonationStore } from "./services/impersonation.js";
+import {
+  ImpersonationService,
+  InMemoryImpersonationStore,
+} from "./services/impersonation.js";
 import { impersonationRoutes } from "./routes/impersonation.js";
 import { createImpersonationHook } from "./middleware/impersonation.js";
+import {
+  CapabilityTokenService,
+  type CapabilityTokenStore,
+} from "./services/capabilityTokenService.js";
+import { capabilityRoutes } from "./routes/capabilityTokens.js";
+import {
+  ResumableRepairEngine,
+  PrismaRepairDataSource,
+} from "./services/resumableRepairJob.js";
 import { PartialFailureService } from "./services/partialFailureService.js";
 import { partialFailureRoutes } from "./routes/partialFailures.js";
+import { policyDryRunRoutes } from "./routes/policyDryRun.js";
+import { SecurityRevocationService } from "./services/securityRevocationService.js";
+import { securityRevocationRoutes } from "./routes/securityRevocation.js";
 
 import { configureTelemetry } from "./services/telemetry.js";
 import { type JobStore } from "./worker/jobStore.js";
@@ -69,10 +93,7 @@ import {
   drawProofJobKey,
 } from "./worker/handlers.js";
 import { jobsRoutes } from "./routes/jobs.js";
-import {
-  ReceiptService,
-  StellarReceiptSigner,
-} from "./services/receipts.js";
+import { ReceiptService, StellarReceiptSigner } from "./services/receipts.js";
 import {
   AuditTrailService,
   type AuditTrailStore,
@@ -99,9 +120,7 @@ import {
   enforceOperationLimit,
   chainPreHandlers,
 } from "./middleware/operationLimit.js";
-import {
-  PendingRecoveryService,
-} from "./services/pendingRecovery.js";
+import { PendingRecoveryService } from "./services/pendingRecovery.js";
 import { receiptsRoutes } from "./routes/receipts.js";
 import { recoveryRoutes } from "./routes/recovery.js";
 import { auditTrailRoutes } from "./routes/auditTrail.js";
@@ -135,6 +154,12 @@ export type AppDeps = {
   jobWorkerPollIntervalMs?: number;
   /** Comma-separated Soroban RPC endpoints used by dependency diagnostics. */
   sorobanRpcUrls?: string;
+  degradedModeService?: DegradedModeService;
+  jobQueue?: JobQueue;
+  capabilityTokenService?: CapabilityTokenService;
+  capabilityTokenSecret?: string;
+  capabilityTokenStore?: CapabilityTokenStore;
+  resumableRepairEngine?: ResumableRepairEngine;
 };
 
 declare module "fastify" {
@@ -142,14 +167,30 @@ declare module "fastify" {
     /** Present only when `jobStore` was provided; call `.start()` to begin polling. */
     jobWorker?: JobWorker;
     jobQueue?: JobQueue;
+    /** Guarded feature-flag rollouts; call `record()` from flag-gated code paths. */
+    flagRollouts: FeatureFlagRolloutGuard;
     searchIndexService?: SearchIndexService;
     searchIndexRepairService?: SearchIndexRepairService;
     webhookService?: WebhookService;
+    capabilityTokenService?: CapabilityTokenService;
+    resumableRepairEngine?: ResumableRepairEngine;
   }
 }
 
 export function buildApp(deps: AppDeps): FastifyInstance {
   const loggerInstance = deps.logger || createLogger("silent");
+  const sensitiveFields = new SensitiveFieldAccessLogger(undefined, (entry) => {
+    loggerInstance.info(
+      { event: "sensitive_field_access", ...entry },
+      "sensitive field access",
+    );
+  });
+  sensitiveFields.onAnomaly((anomaly) => {
+    loggerInstance.warn(
+      { event: "sensitive_access_anomaly", ...anomaly },
+      "sensitive access anomaly",
+    );
+  });
   const app = Fastify({
     // Fastify 5 passes logger instances via `loggerInstance`; `logger` only
     // accepts a configuration object (FSTDEP / fastify@5 breaking change).
@@ -173,7 +214,7 @@ export function buildApp(deps: AppDeps): FastifyInstance {
       timeWindow: 60_000, // 1 minute
       keyGenerator(req: FastifyRequest) {
         return (
-          req.headers["x-forwarded-for"]?.toString().split(",")[0].trim() ||
+          req.headers["x-forwarded-for"]?.toString().split(",")[0]?.trim() ??
           req.ip
         );
       },
@@ -236,12 +277,30 @@ export function buildApp(deps: AppDeps): FastifyInstance {
     deps.prisma,
     deps.cacheService,
     deps.categoriesCacheTtlSeconds,
-    idempotencySvc
+    idempotencySvc,
   );
   const metricsSvc = new MetricsService(deps.prisma);
 
   // Feature flag service for runtime toggles
   const featureFlagSvc = new FeatureFlagService(deps.prisma);
+  // Guarded rollouts: scoped enablement, outcome monitoring, automatic
+  // rollback and rollback verification (docs/FEATURE_FLAGS.md).
+  const flagRollouts = new FeatureFlagRolloutGuard({
+    store: new PrismaFlagRolloutStore(deps.prisma),
+    flags: featureFlagSvc,
+    autoReverify: true,
+    checks: {
+      [FEATURE_FLAGS.WITHDRAWAL_SUBMISSION_ENABLED]: [
+        withdrawalSubmissionsHaltedCheck((since, wallet) =>
+          deps.prisma.actionLedger.count({
+            where: { actionType: "withdraw", submittedAt: { gte: since }, ...(wallet ? { walletAddress: wallet } : {}) },
+          }),
+        ),
+      ],
+    },
+  });
+  app.decorate("flagRollouts", flagRollouts);
+  app.addHook("onClose", async () => flagRollouts.close());
 
   const drawProofSvc = new DrawProofService(
     deps.prisma,
@@ -252,13 +311,16 @@ export function buildApp(deps: AppDeps): FastifyInstance {
   const schemaVersionSvc = new SchemaVersionService(deps.prisma);
   const auditSvc = new AuditService(deps.prisma);
 
-  const jobQueue = deps.jobStore
+  const jobQueue = deps.jobQueue || (deps.jobStore
     ? new JobQueue({ store: deps.jobStore })
-    : undefined;
+    : undefined);
   if (jobQueue) {
     const worker = new JobWorker({
       queue: jobQueue,
-      handlers: createJobHandlers({ drawProofs: drawProofSvc }),
+      handlers: createJobHandlers({
+        drawProofs: drawProofSvc,
+        cacheRepair: null as any,
+      }),
       logger: loggerInstance,
       pollIntervalMs: deps.jobWorkerPollIntervalMs,
     });
@@ -305,7 +367,8 @@ export function buildApp(deps: AppDeps): FastifyInstance {
 
   // #815: counters live in Redis when available so every replica enforces
   // the same limits; otherwise per process.
-  const redisForLimits = deps.cacheService?.redisClient as unknown as RedisLikeClient | null | undefined;
+  const redisForLimits = deps.cacheService?.redisClient as unknown as
+    RedisLikeClient | null | undefined;
   const operationLimits = new OperationLimitService({
     policies: resolveOperationPolicies(deps.operationLimits),
     counters: redisForLimits
@@ -319,8 +382,17 @@ export function buildApp(deps: AppDeps): FastifyInstance {
   app.addHook(
     "preHandler",
     operationLimitsHook(operationLimits, [
-      { method: "POST", url: "/actions", operation: "action.create", walletHint: bodyWallet("wallet_address") },
-      { method: "POST", url: "/wallet-auth/challenge", operation: "wallet_auth.challenge" },
+      {
+        method: "POST",
+        url: "/actions",
+        operation: "action.create",
+        walletHint: bodyWallet("wallet_address"),
+      },
+      {
+        method: "POST",
+        url: "/wallet-auth/challenge",
+        operation: "wallet_auth.challenge",
+      },
     ]),
   );
 
@@ -363,7 +435,7 @@ export function buildApp(deps: AppDeps): FastifyInstance {
   const notificationSvc = new NotificationService(
     deps.prisma,
     deps.reminderLeadHours,
-    idempotencySvc
+    idempotencySvc,
   );
   const dashboardAggregateSvc = new DashboardAggregateService(deps.prisma);
   const operationalHealthSvc = new OperationalHealthService(deps.prisma);
@@ -380,7 +452,7 @@ export function buildApp(deps: AppDeps): FastifyInstance {
     prisma: deps.prisma,
     cacheService: deps.cacheService,
     rpcUrls: deps.sorobanRpcUrls,
-  }));
+  }, deps.degradedModeService));
   app.register(savedPoolsRoutes(savedPoolsSvc));
   app.register(schemaVersionRoutes(schemaVersionSvc));
   app.register(
@@ -396,8 +468,28 @@ export function buildApp(deps: AppDeps): FastifyInstance {
     operationalHealthRoutes(operationalHealthSvc, deps.internalSecret),
   );
   app.register(privacyAnalyticsRoutes(deps.prisma, deps.internalSecret));
-  if (jobQueue) app.register(jobsRoutes(jobQueue, deps.internalSecret));
-  app.register(usersRoutes, { prefix: "/api/users", prisma: deps.prisma });
+  const resumableRepair =
+    deps.resumableRepairEngine ??
+    new ResumableRepairEngine({
+      dataSource: new PrismaRepairDataSource(deps.prisma),
+    });
+  app.decorate("resumableRepairEngine", resumableRepair);
+  if (jobQueue) {
+    app.register(
+      jobsRoutes(
+        jobQueue,
+        deps.internalSecret,
+        undefined,
+        undefined,
+        resumableRepair,
+      ),
+    );
+  }
+  app.register(usersRoutes, {
+    prefix: "/api/users",
+    prisma: deps.prisma,
+    accessLogger: sensitiveFields,
+  });
   app.register(metricsRoutes(metricsSvc, apiKeyGuard));
   app.register(prometheusRoutes);
   app.register(drawProofRoutes(drawProofSvc));
@@ -415,8 +507,7 @@ export function buildApp(deps: AppDeps): FastifyInstance {
   app.register(trendAggregationRoutes(trendAggregationSvc, apiKeyGuard));
 
   // Permission-aware search indexing & repair (#802)
-  const searchIndexSvc =
-    deps.searchIndexService || new SearchIndexService();
+  const searchIndexSvc = deps.searchIndexService || new SearchIndexService();
   const searchRepairSvc =
     deps.searchIndexRepairService ||
     new SearchIndexRepairService(deps.prisma, searchIndexSvc, loggerInstance);
@@ -432,18 +523,30 @@ export function buildApp(deps: AppDeps): FastifyInstance {
   );
 
   // Wallet-scoped data portability (#772, #773). Authorization is enforced by
+  app.register(
+    permissionPreviewRoutes(
+      requirePermission("admin.audit.write", [walletPrincipal]),
+    ),
+  );
   // the permission guards and by the services' own wallet-scope checks.
-  const exportSvc = new DataExportService({
-    listActions: ({ walletAddress, cursor, limit }) =>
-      svc.listActions({ walletAddress, cursor, limit }),
-    listSavedPools: (wallet, cursor, limit) =>
-      savedPoolsSvc.listSavedPools(wallet, cursor, limit),
-  });
+  const exportSvc = new DataExportService(
+    {
+      listActions: ({ walletAddress, cursor, limit }) =>
+        svc.listActions({ walletAddress, cursor, limit }),
+      listSavedPools: (wallet, cursor, limit) =>
+        savedPoolsSvc.listSavedPools(wallet, cursor, limit),
+    },
+    sensitiveFields,
+  );
   app.register(
     exportsRoutes(
       exportSvc,
       chainPreHandlers(
-        requirePermission("own.data.export", [walletPrincipal]),
+        requirePermission(
+          "own.data.export",
+          [walletPrincipal],
+          sensitiveFields,
+        ),
         enforceOperationLimit(operationLimits, "data.export"),
       ),
     ),
@@ -487,6 +590,12 @@ export function buildApp(deps: AppDeps): FastifyInstance {
     }),
   );
   app.register(
+    featureFlagRolloutRoutes(flagRollouts, {
+      read: requirePermission("admin.flags.read", [walletPrincipal]),
+      write: requirePermission("admin.flags.write", [walletPrincipal]),
+    }),
+  );
+  app.register(
     operationLimitsRoutes(operationLimits, {
       read: requirePermission("admin.limits.read", [walletPrincipal]),
       write: requirePermission("admin.limits.write", [walletPrincipal]),
@@ -515,6 +624,16 @@ export function buildApp(deps: AppDeps): FastifyInstance {
     }),
   );
 
+  // #984: Expiring capability tokens for sensitive actions.
+  const capabilitySvc =
+    deps.capabilityTokenService ??
+    new CapabilityTokenService({
+      secretKey: deps.capabilityTokenSecret ?? deps.internalSecret,
+      store: deps.capabilityTokenStore,
+    });
+  app.decorate("capabilityTokenService", capabilitySvc);
+  app.register(capabilityRoutes, { capabilityService: capabilitySvc });
+
   // #799: signed webhook verification and replay-window enforcement.
   const webhookStore =
     deps.webhookEventStore ?? new PrismaWebhookEventStore(deps.prisma);
@@ -526,7 +645,8 @@ export function buildApp(deps: AppDeps): FastifyInstance {
         internal: deps.webhookSecret ?? deps.internalSecret,
         stripe: deps.stripeWebhookSecret ?? process.env.STRIPE_WEBHOOK_SECRET,
         stellarPublicKey:
-          deps.stellarWebhookPublicKey ?? process.env.STELLAR_WEBHOOK_PUBLIC_KEY,
+          deps.stellarWebhookPublicKey ??
+          process.env.STELLAR_WEBHOOK_PUBLIC_KEY,
         custom: deps.webhookSecret ?? deps.internalSecret,
       },
       defaultToleranceSeconds: deps.webhookToleranceSeconds,
@@ -540,17 +660,17 @@ export function buildApp(deps: AppDeps): FastifyInstance {
           const poolId = event.payload?.data?.pool_id || event.payload?.pool_id;
           deps.logger?.info(
             { poolId, eventId: event.eventId },
-            "Prize draw completed webhook received"
+            "Prize draw completed webhook received",
           );
         },
         onVaultDeposit: async (event) => {
           deps.logger?.info(
             { eventId: event.eventId },
-            "Vault deposit webhook received"
+            "Vault deposit webhook received",
           );
         },
-      }
-    )
+      },
+    ),
   );
 
   // Central Error Handler Middleware
@@ -558,4 +678,3 @@ export function buildApp(deps: AppDeps): FastifyInstance {
 
   return app;
 }
-

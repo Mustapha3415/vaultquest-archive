@@ -1,5 +1,34 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
+import type { PrismaClient } from "@prisma/client";
+import type { Logger } from "pino";
 import { CacheService } from "../src/services/cacheService.js";
+
+type MockPrisma = {
+  indexerCheckpoint: {
+    findUnique: ReturnType<typeof vi.fn>;
+    upsert: ReturnType<typeof vi.fn>;
+  };
+  pendingEvent: {
+    findUnique: ReturnType<typeof vi.fn>;
+    upsert: ReturnType<typeof vi.fn>;
+  };
+  cacheEntry: {
+    findMany: ReturnType<typeof vi.fn>;
+    findUnique: ReturnType<typeof vi.fn>;
+    upsert: ReturnType<typeof vi.fn>;
+    deleteMany: ReturnType<typeof vi.fn>;
+  };
+  vault: {
+    findUnique: ReturnType<typeof vi.fn>;
+  };
+  $wellKnown: boolean;
+};
+
+type MockLogger = {
+  info: ReturnType<typeof vi.fn>;
+  warn: ReturnType<typeof vi.fn>;
+  error: ReturnType<typeof vi.fn>;
+};
 
 // Mock ioredis
 const mockRedisInstance = {
@@ -8,45 +37,45 @@ const mockRedisInstance = {
   set: vi.fn(),
   del: vi.fn(),
   ping: vi.fn(),
-  quit: vi.fn()
+  quit: vi.fn(),
 };
 
 vi.mock("ioredis", () => {
   return {
-    Redis: vi.fn().mockImplementation(() => mockRedisInstance)
+    Redis: vi.fn().mockImplementation(() => mockRedisInstance),
   };
 });
 
 describe("CacheService Fallback & Caching Logic Tests", () => {
-  let mockPrisma: any;
-  let mockLogger: any;
+  let mockPrisma: MockPrisma;
+  let mockLogger: MockLogger;
 
   beforeEach(() => {
     mockPrisma = {
       indexerCheckpoint: {
         findUnique: vi.fn(),
-        upsert: vi.fn()
+        upsert: vi.fn(),
       },
       pendingEvent: {
         findUnique: vi.fn(),
-        upsert: vi.fn()
+        upsert: vi.fn(),
       },
       cacheEntry: {
         findMany: vi.fn(),
         findUnique: vi.fn(),
         upsert: vi.fn(),
-        deleteMany: vi.fn()
+        deleteMany: vi.fn(),
       },
       vault: {
-        findUnique: vi.fn()
+        findUnique: vi.fn(),
       },
-      $wellKnown: true
+      $wellKnown: true,
     };
 
     mockLogger = {
       info: vi.fn(),
       warn: vi.fn(),
-      error: vi.fn()
+      error: vi.fn(),
     };
 
     vi.clearAllMocks();
@@ -54,31 +83,43 @@ describe("CacheService Fallback & Caching Logic Tests", () => {
 
   it("falls back to PostgreSQL when Redis is offline", async () => {
     // Instantiate CacheService
-    const service = new CacheService(mockPrisma, mockLogger, "redis://127.0.0.1:6379");
+    const service = new CacheService(
+      mockPrisma as unknown as PrismaClient,
+      mockLogger as unknown as Logger,
+      "redis://127.0.0.1:6379",
+    );
 
     // Simulate offline state: isOnline is set to false because connection failed (we can trigger error callback)
-    const errorCallback = mockRedisInstance.on.mock.calls.find(c => c[0] === "error")?.[1];
+    const errorCallback = mockRedisInstance.on.mock.calls.find(
+      (c) => c[0] === "error",
+    )?.[1];
     if (errorCallback) {
       errorCallback(new Error("Connection refused"));
     }
 
     mockPrisma.indexerCheckpoint.findUnique.mockResolvedValue({
       id: "singuleton",
-      latestLedger: 9999
+      latestLedger: 9999,
     });
 
     const checkpoint = await service.getCheckpoint();
-    
+
     // Redis get should NOT be called (or if it fails/offline, fallback happens)
     expect(checkpoint?.latestLedger).toBe(9999);
     expect(mockPrisma.indexerCheckpoint.findUnique).toHaveBeenCalledTimes(1);
   });
 
   it("uses Redis cache when online", async () => {
-    const service = new CacheService(mockPrisma, mockLogger, "redis://127.0.0.1:6379");
-    
+    const service = new CacheService(
+      mockPrisma as unknown as PrismaClient,
+      mockLogger as unknown as Logger,
+      "redis://127.0.0.1:6379",
+    );
+
     // Simulate online state
-    const connectCallback = mockRedisInstance.on.mock.calls.find(c => c[0] === "connect")?.[1];
+    const connectCallback = mockRedisInstance.on.mock.calls.find(
+      (c) => c[0] === "connect",
+    )?.[1];
     if (connectCallback) {
       connectCallback();
     }
@@ -90,7 +131,7 @@ describe("CacheService Fallback & Caching Logic Tests", () => {
           latestLedger: 54321,
           lastSyncTime: new Date().toISOString(),
           lastSuccessSyncTime: new Date().toISOString(),
-          lastError: null
+          lastError: null,
         });
       }
       return null;
@@ -104,10 +145,16 @@ describe("CacheService Fallback & Caching Logic Tests", () => {
   });
 
   it("caches pending events and handles write-through/invalidation", async () => {
-    const service = new CacheService(mockPrisma, mockLogger, "redis://127.0.0.1:6379");
-    
+    const service = new CacheService(
+      mockPrisma as unknown as PrismaClient,
+      mockLogger as unknown as Logger,
+      "redis://127.0.0.1:6379",
+    );
+
     // Simulate online state
-    const connectCallback = mockRedisInstance.on.mock.calls.find(c => c[0] === "connect")?.[1];
+    const connectCallback = mockRedisInstance.on.mock.calls.find(
+      (c) => c[0] === "connect",
+    )?.[1];
     if (connectCallback) {
       connectCallback();
     }
@@ -119,7 +166,7 @@ describe("CacheService Fallback & Caching Logic Tests", () => {
       eventPayload: { amount: 50 },
       statusHint: "confirmed",
       receivedAt: new Date(),
-      consumedAt: null
+      consumedAt: null,
     };
 
     // setPendingEvent writes-through to both database and cache
@@ -138,8 +185,14 @@ describe("CacheService Fallback & Caching Logic Tests", () => {
 
   describe("stale cache detection and repair", () => {
     it("detects a cache hit with matching source version", async () => {
-      const service = new CacheService(mockPrisma, mockLogger, "redis://127.0.0.1:6379");
-      const connectCallback = mockRedisInstance.on.mock.calls.find(c => c[0] === "connect")?.[1];
+      const service = new CacheService(
+        mockPrisma,
+        mockLogger,
+        "redis://127.0.0.1:6379",
+      );
+      const connectCallback = mockRedisInstance.on.mock.calls.find(
+        (c) => c[0] === "connect",
+      )?.[1];
       if (connectCallback) {
         connectCallback();
       }
@@ -148,19 +201,25 @@ describe("CacheService Fallback & Caching Logic Tests", () => {
         key: "vault:v1:summary",
         sourceVersion: 7,
         payload: { totalDeposits: 1000 },
-        updatedAt: new Date()
+        updatedAt: new Date(),
       });
 
       const result = await service.detectStaleEntries([
-        { key: "vault:v1:summary", sourceVersion: 7 }
+        { key: "vault:v1:summary", sourceVersion: 7 },
       ]);
 
       expect(result).toHaveLength(0);
     });
 
     it("detects a stale cache entry when source version differs", async () => {
-      const service = new CacheService(mockPrisma, mockLogger, "redis://127.0.0.1:6379");
-      const connectCallback = mockRedisInstance.on.mock.calls.find(c => c[0] === "connect")?.[1];
+      const service = new CacheService(
+        mockPrisma,
+        mockLogger,
+        "redis://127.0.0.1:6379",
+      );
+      const connectCallback = mockRedisInstance.on.mock.calls.find(
+        (c) => c[0] === "connect",
+      )?.[1];
       if (connectCallback) {
         connectCallback();
       }
@@ -169,11 +228,11 @@ describe("CacheService Fallback & Caching Logic Tests", () => {
         key: "vault:v1:summary",
         sourceVersion: 3,
         payload: { totalDeposits: 500 },
-        updatedAt: new Date()
+        updatedAt: new Date(),
       });
 
       const result = await service.detectStaleEntries([
-        { key: "vault:v1:summary", sourceVersion: 7 }
+        { key: "vault:v1:summary", sourceVersion: 7 },
       ]);
 
       expect(result).toHaveLength(1);
@@ -182,8 +241,14 @@ describe("CacheService Fallback & Caching Logic Tests", () => {
     });
 
     it("reports a missing cache entry as stale", async () => {
-      const service = new CacheService(mockPrisma, mockLogger, "redis://127.0.0.1:6379");
-      const connectCallback = mockRedisInstance.on.mock.calls.find(c => c[0] === "connect")?.[1];
+      const service = new CacheService(
+        mockPrisma,
+        mockLogger,
+        "redis://127.0.0.1:6379",
+      );
+      const connectCallback = mockRedisInstance.on.mock.calls.find(
+        (c) => c[0] === "connect",
+      )?.[1];
       if (connectCallback) {
         connectCallback();
       }
@@ -191,7 +256,7 @@ describe("CacheService Fallback & Caching Logic Tests", () => {
       mockPrisma.cacheEntry.findUnique.mockResolvedValue(null);
 
       const result = await service.detectStaleEntries([
-        { key: "vault:v1:summary", sourceVersion: 7 }
+        { key: "vault:v1:summary", sourceVersion: 7 },
       ]);
 
       expect(result).toHaveLength(1);
@@ -199,8 +264,14 @@ describe("CacheService Fallback & Caching Logic Tests", () => {
     });
 
     it("repair job is idempotent and supports dry-run", async () => {
-      const service = new CacheService(mockPrisma, mockLogger, "redis://127.0.0.1:6379");
-      const connectCallback = mockRedisInstance.on.mock.calls.find(c => c[0] === "connect")?.[1];
+      const service = new CacheService(
+        mockPrisma,
+        mockLogger,
+        "redis://127.0.0.1:6379",
+      );
+      const connectCallback = mockRedisInstance.on.mock.calls.find(
+        (c) => c[0] === "connect",
+      )?.[1];
       if (connectCallback) {
         connectCallback();
       }
@@ -209,20 +280,34 @@ describe("CacheService Fallback & Caching Logic Tests", () => {
         key: "vault:v1:summary",
         sourceVersion: 3,
         payload: { totalDeposits: 500 },
-        updatedAt: new Date()
+        updatedAt: new Date(),
       });
       mockPrisma.cacheEntry.upsert.mockResolved({});
 
-      const dryRun = await service.repairStaleEntries([
-        { key: "vault:v1:summary", sourceVersion: 7, payload: { totalDeposits: 1000 } }
-      ], { dryRun: true });
+      const dryRun = await service.repairStaleEntries(
+        [
+          {
+            key: "vault:v1:summary",
+            sourceVersion: 7,
+            payload: { totalDeposits: 1000 },
+          },
+        ],
+        { dryRun: true },
+      );
 
       expect(dryRun.repaired).toHaveLength(1);
       expect(mockPrisma.cacheEntry.upsert).not.toHaveBeenCalled();
 
-      const applied = await service.repairStaleEntries([
-        { key: "vault:v1:summary", sourceVersion: 7, payload: { totalDeposits: 1000 } }
-      ], { dryRun: false });
+      const applied = await service.repairStaleEntries(
+        [
+          {
+            key: "vault:v1:summary",
+            sourceVersion: 7,
+            payload: { totalDeposits: 1000 },
+          },
+        ],
+        { dryRun: false },
+      );
 
       expect(applied.repaired).toHaveLength(1);
       expect(mockPrisma.cacheEntry.upsert).toHaveBeenCalledTimes(1);
@@ -232,29 +317,51 @@ describe("CacheService Fallback & Caching Logic Tests", () => {
         key: "vault:v1:summary",
         sourceVersion: 7,
         payload: { totalDeposits: 1000 },
-        updatedAt: new Date()
+        updatedAt: new Date(),
       });
-      const second = await service.repairStaleEntries([
-        { key: "vault:v1:summary", sourceVersion: 7, payload: { totalDeposits: 1000 } }
-      ], { dryRun: false });
+      const second = await service.repairStaleEntries(
+        [
+          {
+            key: "vault:v1:summary",
+            sourceVersion: 7,
+            payload: { totalDeposits: 1000 },
+          },
+        ],
+        { dryRun: false },
+      );
 
       expect(second.repaired).toHaveLength(0);
       expect(mockPrisma.cacheEntry.upsert).toHaveBeenCalledTimes(1);
     });
 
     it("reports a repair failure without throwing", async () => {
-      const service = new CacheService(mockPrisma, mockLogger, "redis://127.0.0.1:6379");
-      const connectCallback = mockRedisInstance.on.mock.calls.find(c => c[0] === "connect")?.[1];
+      const service = new CacheService(
+        mockPrisma,
+        mockLogger,
+        "redis://127.0.0.1:6379",
+      );
+      const connectCallback = mockRedisInstance.on.mock.calls.find(
+        (c) => c[0] === "connect",
+      )?.[1];
       if (connectCallback) {
         connectCallback();
       }
 
       mockPrisma.cacheEntry.findUnique.mockResolvedValue(null);
-      mockPrisma.cacheEntry.upsert.mockRejectedValue(new Error("db write failed"));
+      mockPrisma.cacheEntry.upsert.mockRejectedValue(
+        new Error("db write failed"),
+      );
 
-      const result = await service.repairStaleEntries([
-        { key: "vault:v1:summary", sourceVersion: 7, payload: { totalDeposits: 1000 } }
-      ], { dryRun: false });
+      const result = await service.repairStaleEntries(
+        [
+          {
+            key: "vault:v1:summary",
+            sourceVersion: 7,
+            payload: { totalDeposits: 1000 },
+          },
+        ],
+        { dryRun: false },
+      );
 
       expect(result.repaired).toHaveLength(0);
       expect(result.failed).toHaveLength(1);
